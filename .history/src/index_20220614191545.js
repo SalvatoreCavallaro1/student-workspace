@@ -15,7 +15,20 @@ import Login from './components/Auth/Login/Login.component';
 //lo importiamo qui perchè, attraverso l'applicazione ogni volta che userò il react component
 //semantic ui non dovrò reimportare manualmente il file css dato che è già importato qui il css sarrà
 //applicato su tutta l'applicazione 
-import "semantic-ui-css/semantic.min.css";
+//import "semantic-ui-css/semantic.min.css";
+
+/*ReactDOM.render(
+  <React.StrictMode>
+    <Router>
+      <Switch>
+        <Route path="/Login" component={Login}/>
+        <Route path="/Register" component={Register}/>
+        <Route path="/" component={App}/>
+      </Switch>
+    </Router>   
+  </React.StrictMode>
+
+);*/
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

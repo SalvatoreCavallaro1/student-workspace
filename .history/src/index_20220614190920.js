@@ -17,18 +17,27 @@ import Login from './components/Auth/Login/Login.component';
 //applicato su tutta l'applicazione 
 import "semantic-ui-css/semantic.min.css";
 
+/*ReactDOM.render(
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
   <React.StrictMode>
     <Router>
       <Switch>
-        <Route path="/login" component={Login}/>
-        <Route path="/register" component={Register}/>
+        <Route path="/Login" component={Login}/>
+        <Route path="/Register" component={Register}/>
         <Route path="/" component={App}/>
-        
       </Switch>
-    </Router> 
+
+    </Router>
+
+    <App />  
+  </React.StrictMode>
+
+);*/
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    
+    <App />
   </React.StrictMode>
 );
 
