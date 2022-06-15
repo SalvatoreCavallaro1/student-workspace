@@ -6,7 +6,7 @@ import 'firebase/database';*/
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getDatabase } from "firebase/database";
 
@@ -27,6 +27,7 @@ const firebaseConfig = {
  const app = initializeApp(firebaseConfig); 
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const createUser=createUserWithEmailAndPassword();
 const database = getDatabase(app);
 const storage = getStorage(app);
 

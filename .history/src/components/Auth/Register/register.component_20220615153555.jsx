@@ -1,8 +1,7 @@
 import React, {useState} from "react"; //useState serve a manternere lo stato fra i component
 import { Grid, Form, Segment, Header, Icon, Button, Message } from "semantic-ui-react";
 import "./Register.css"
-import * as firebase from '../../../server/firebase';
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import firebase from '../../../server/firebase';
 // per creare l'ui del form utilizzo il pacchetto semantic-ui-reactù
 // npm install semantic-ui-react
 // npm install semantic-ui-css
@@ -77,12 +76,12 @@ const Register = () => {
     // check della password
     const checkPassword = () => {
         if(userState.password.length<8){
-            seterrorState((error) => error.concat({message : "La password deve contenere almeno 8 caratteri"}));
+            seterrorState((error) => error.concat({message : "La password deve contenere almeno 8 caratteri"}))
             return false;
         }
         else if(userState.password !== userState.confirmpassword )
         {
-            seterrorState((error) => error.concat({message : "La due password non coincidono"}));
+            seterrorState((error) => error.concat({message : "La due password non coincidono"}))
             return false;
         }
         return true;
@@ -95,14 +94,12 @@ const Register = () => {
         if(checkForm())
         {
             //creo l'utente su firebase usando il metodo predefinito di firebase che ritorna una promise 
-            createUserWithEmailAndPassword(firebase.auth,userState.email,userState.password).then(createdUser => {
+           /* firebase.auth().createUserWithEmailAndPassword(userState.email,userState.password).then(createdUser => {
                 console.log(createdUser);
-            }).catch((servererror) => {
-                seterrorState((error) => error.concat(servererror));
-                //console.log(servererror.code);
-                //console.log(servererror.message);
-                
-            })
+            }).catch(error => {
+                console.log(error);
+            }) */
+
         
 
         } 

@@ -24,14 +24,14 @@ const firebaseConfig = {
 // Initialize Firebase
 
 
- const app = initializeApp(firebaseConfig); 
+const app = initializeApp(firebaseConfig); 
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase(app);
 const storage = getStorage(app);
 
 
-export {auth,database,storage};
+
 
 //export della configurazione di firebase per poterla usare all'interno dell'applicazione
 //export default firebase;

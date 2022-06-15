@@ -77,12 +77,12 @@ const Register = () => {
     // check della password
     const checkPassword = () => {
         if(userState.password.length<8){
-            seterrorState((error) => error.concat({message : "La password deve contenere almeno 8 caratteri"}));
+            seterrorState((error) => error.concat({message : "La password deve contenere almeno 8 caratteri"}))
             return false;
         }
         else if(userState.password !== userState.confirmpassword )
         {
-            seterrorState((error) => error.concat({message : "La due password non coincidono"}));
+            seterrorState((error) => error.concat({message : "La due password non coincidono"}))
             return false;
         }
         return true;
@@ -97,12 +97,13 @@ const Register = () => {
             //creo l'utente su firebase usando il metodo predefinito di firebase che ritorna una promise 
             createUserWithEmailAndPassword(firebase.auth,userState.email,userState.password).then(createdUser => {
                 console.log(createdUser);
-            }).catch((servererror) => {
-                seterrorState((error) => error.concat(servererror));
-                //console.log(servererror.code);
-                //console.log(servererror.message);
-                
+            }).catch((error) => {
+                console.log(error);
+                console.log(error);
             })
+
+            //console.log(firebase.auth)
+
         
 
         } 

@@ -1,14 +1,10 @@
-//import firebase from 'firebase';
+import firebase from 'firebase';
 
-/*import 'firebase/auth';
+import 'firebase/auth';
 import 'firebase/storage';
-import 'firebase/database';*/
-
+import 'firebase/database';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
-import { getDatabase } from "firebase/database";
 
 
 const firebaseConfig = {
@@ -22,16 +18,8 @@ const firebaseConfig = {
   };
 
 // Initialize Firebase
-
-
- const app = initializeApp(firebaseConfig); 
+const app = initializeApp(firebaseConfig); 
 const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const database = getDatabase(app);
-const storage = getStorage(app);
-
-
-export {auth,database,storage};
 
 //export della configurazione di firebase per poterla usare all'interno dell'applicazione
-//export default firebase;
+export default firebase;

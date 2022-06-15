@@ -99,8 +99,8 @@ const Register = () => {
                 console.log(createdUser);
             }).catch((servererror) => {
                 seterrorState((error) => error.concat(servererror));
-                //console.log(servererror.code);
-                //console.log(servererror.message);
+                console.log(servererror.code);
+                console.log(servererror.message);
                 
             })
         
