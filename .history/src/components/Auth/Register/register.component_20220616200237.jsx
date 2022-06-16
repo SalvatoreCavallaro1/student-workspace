@@ -3,8 +3,7 @@ import { Grid, Form, Segment, Header, Icon, Button, Message } from "semantic-ui-
 import "./Register.css"
 import * as firebase from '../../../server/firebase';
 import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {ref, set} from "firebase/database";
-import { Link } from "react-router-dom";
+import {database} from "firebase/database";
 // per creare l'ui del form utilizzo il pacchetto semantic-ui-reactù
 // npm install semantic-ui-react
 // npm install semantic-ui-css
@@ -16,7 +15,7 @@ import { Link } from "react-router-dom";
 
 
 //creo il component register
-
+//console.log(database(firebase.db));
 
 const Register = () => {
 
@@ -35,13 +34,12 @@ const Register = () => {
 
     //Riferimento alla collection degli utenti sul realtime database di firebase, se non è presente sul database verrà creata automaticamente
 
-    //let userCollectionRef = ref(firebase.db, 'users/'+ createdUser.user.uid);
+    //let userCollectionRef = firebase.database().ref('users');
 
     const [userState, setuserState] = useState(user);
-    const [errorState, seterrorState] = useState(errors); 
+    const [errorState, seterrorState] = useState(errors);
     //variabile per indicare che la pagina sta facendo il loading delle informazioni sul server
     const[isLoading, setIsLoading]= useState(false);
-    const[isSuccess, setIsSuccess]= useState(false);
 
     //funzione handleInpt che riceve gli eventi degli oggetti
     const handleInput = (event) => {
@@ -101,7 +99,6 @@ const Register = () => {
     const onSubmit = (event) => {
 
         seterrorState(() => []); //svuoto l'array degli errori ad ogni submit
-        setIsSuccess(false);
         if(checkForm())
         {
             setIsLoading(true); //setto isLoading true per indicare che sta caricando e l'utente non può fare submit più volte
@@ -146,20 +143,19 @@ const Register = () => {
     //funzione per salvare effettivamente le informazioni dell'utente sul database
     //salvo sul database solo l'uid, display name e l'url della foto 
     const saveUserInDB = (createdUser) => {
-        setIsLoading(true);
-        set(ref(firebase.db, 'users/'+ createdUser.user.uid),{
+       /* setIsLoading(true);
+        userCollectionRef.child(createdUser.user.uid).set({
             displayName: createdUser.user.displayName,
             photoURL: createdUser.user.photoURL
         })
         .then(() => {
             setIsLoading(false);
-            setIsSuccess(true);
-            //console.log('utente salvato sul RT Database');
+            console.log('utente salvato sul RT Database');
         })
         .catch(serverError => {
             setIsLoading(false);
             seterrorState((error) => error.concat(serverError));
-        })
+        })*/
     }
 
 
@@ -223,18 +219,7 @@ return (<Grid verticalAlign="middle" textAlign="center" className="grid-form">
             <h3>Errors</h3>
             {formaterrors()}
         </Message>
-        
     }
-    {isSuccess &&  // se errorstate è settato verrà visualizzata la sezione relativa ai messaggi d'errrore
-        <Message success>
-            <h3>Registrato Correttamente</h3>
-        </Message>
-        
-    }
-
-    <Message>
-        Sei già iscritto? <Link to="/login">Login</Link>
-    </Message>
 </Grid.Column>
 
 </Grid>)

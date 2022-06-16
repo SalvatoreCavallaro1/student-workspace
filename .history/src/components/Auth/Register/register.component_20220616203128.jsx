@@ -4,7 +4,6 @@ import "./Register.css"
 import * as firebase from '../../../server/firebase';
 import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {ref, set} from "firebase/database";
-import { Link } from "react-router-dom";
 // per creare l'ui del form utilizzo il pacchetto semantic-ui-reactù
 // npm install semantic-ui-react
 // npm install semantic-ui-css
@@ -101,7 +100,6 @@ const Register = () => {
     const onSubmit = (event) => {
 
         seterrorState(() => []); //svuoto l'array degli errori ad ogni submit
-        setIsSuccess(false);
         if(checkForm())
         {
             setIsLoading(true); //setto isLoading true per indicare che sta caricando e l'utente non può fare submit più volte
@@ -153,8 +151,7 @@ const Register = () => {
         })
         .then(() => {
             setIsLoading(false);
-            setIsSuccess(true);
-            //console.log('utente salvato sul RT Database');
+            console.log('utente salvato sul RT Database');
         })
         .catch(serverError => {
             setIsLoading(false);
@@ -225,16 +222,12 @@ return (<Grid verticalAlign="middle" textAlign="center" className="grid-form">
         </Message>
         
     }
-    {isSuccess &&  // se errorstate è settato verrà visualizzata la sezione relativa ai messaggi d'errrore
+    {errorState.length > 0 &&  // se errorstate è settato verrà visualizzata la sezione relativa ai messaggi d'errrore
         <Message success>
             <h3>Registrato Correttamente</h3>
         </Message>
         
     }
-
-    <Message>
-        Sei già iscritto? <Link to="/login">Login</Link>
-    </Message>
 </Grid.Column>
 
 </Grid>)

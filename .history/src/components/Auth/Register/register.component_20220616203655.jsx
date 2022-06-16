@@ -233,7 +233,7 @@ return (<Grid verticalAlign="middle" textAlign="center" className="grid-form">
     }
 
     <Message>
-        Sei già iscritto? <Link to="/login">Login</Link>
+        Sei già iscritto? <Link to="/login" />
     </Message>
 </Grid.Column>
 

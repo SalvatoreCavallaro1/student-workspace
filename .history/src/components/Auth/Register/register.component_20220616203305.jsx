@@ -4,7 +4,6 @@ import "./Register.css"
 import * as firebase from '../../../server/firebase';
 import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {ref, set} from "firebase/database";
-import { Link } from "react-router-dom";
 // per creare l'ui del form utilizzo il pacchetto semantic-ui-reactù
 // npm install semantic-ui-react
 // npm install semantic-ui-css
@@ -231,10 +230,6 @@ return (<Grid verticalAlign="middle" textAlign="center" className="grid-form">
         </Message>
         
     }
-
-    <Message>
-        Sei già iscritto? <Link to="/login">Login</Link>
-    </Message>
 </Grid.Column>
 
 </Grid>)
