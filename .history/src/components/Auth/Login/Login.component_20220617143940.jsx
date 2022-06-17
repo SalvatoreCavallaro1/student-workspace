@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../Auth.css"
 import * as firebase from '../../../server/firebase';
-import {signInWithEmailAndPassword} from "firebase/auth";
+import {signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {ref, set} from "firebase/database";
 import { Link } from "react-router-dom";
 import { Grid, Form, Segment, Header, Icon, Button, Message } from "semantic-ui-react";
@@ -53,9 +53,12 @@ const Login = () => {
     }
 
     //controllo se uno dei campi del form è vuoto
-    const isFormEmpty = () => {
-        return !userState.password.length ||
-            !userState.email.length;
+    const isFormEmpty = () => 
+    {
+        return 
+        !userState.email.length ||
+        !userState.password.length;
+
     }
 
     const onSubmit = (event) => {

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../Auth.css"
 import * as firebase from '../../../server/firebase';
-import {signInWithEmailAndPassword} from "firebase/auth";
+import {signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {ref, set} from "firebase/database";
 import { Link } from "react-router-dom";
 import { Grid, Form, Segment, Header, Icon, Button, Message } from "semantic-ui-react";

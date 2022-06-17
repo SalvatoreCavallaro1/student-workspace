@@ -29,7 +29,7 @@ ReactDOM.render(
       <Route path="/" component={App} />
     </Switch>
     </Router> 
-  </React.StrictMode>,
+  </React.StrictMode>
   document.getElementById('root')
 );
 

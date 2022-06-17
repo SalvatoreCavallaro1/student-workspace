@@ -1,10 +1,5 @@
 import React, {useState} from "react";
 import "../Auth.css"
-import * as firebase from '../../../server/firebase';
-import {signInWithEmailAndPassword} from "firebase/auth";
-import {ref, set} from "firebase/database";
-import { Link } from "react-router-dom";
-import { Grid, Form, Segment, Header, Icon, Button, Message } from "semantic-ui-react";
 
 
 //creo il component login
@@ -23,9 +18,6 @@ const Login = () => {
 
     const [userState, setuserState] = useState(user);
     const [errorState, seterrorState] = useState(errors);
-    //variabile per indicare che la pagina sta facendo il loading delle informazioni sul server
-    const[isLoading, setIsLoading]= useState(false);
-    const[isSuccess, setIsSuccess]= useState(false);
 
     //funzione handleInpt che riceve gli eventi degli oggetti
     const handleInput = (event) => {
@@ -42,34 +34,18 @@ const Login = () => {
 
     }
 
-    //validazione del form
-    const checkForm = () =>
-    {
-        if(isFormEmpty()){
-            seterrorState((error) => error.concat({message : "Riempi tutti i campi del form"}))
-            return false;    
-        }
-        return true;
-    }
-
-    //controllo se uno dei campi del form è vuoto
-    const isFormEmpty = () => {
-        return !userState.password.length ||
-            !userState.email.length;
-    }
-
     const onSubmit = (event) => {
 
         seterrorState(() => []); //svuoto l'array degli errori ad ogni submit
-        //setIsSuccess(false);
+        setIsSuccess(false);
         if(checkForm())
         {
             setIsLoading(true); //setto isLoading true per indicare che sta caricando e l'utente non può fare submit più volte
             //creo l'utente su firebase usando il metodo predefinito di firebase che ritorna una promise 
-            signInWithEmailAndPassword(firebase.auth,userState.email,userState.password)
-            .then(user => {
+            createUserWithEmailAndPassword(firebase.auth,userState.email,userState.password)
+            .then(createdUser => {
                 setIsLoading(false); //setto isLoading false per indicare che è finito il caricamento
-                console.log(user);  //chiamo la funzione updateuserDetails per settare il displayName e l'url della foto prodilo utilizzando l' API gravatar
+                updateuserDetails(createdUser);  //chiamo la funzione updateuserDetails per settare il displayName e l'url della foto prodilo utilizzando l' API gravatar
             }).catch((servererror) => {
                 setIsLoading(false);
                 seterrorState((error) => error.concat(servererror));
@@ -81,17 +57,12 @@ const Login = () => {
 
         } 
     }
-     //funzione per la formattazione della visualizzazione degli errori
-     const formaterrors = () =>
-     {
-         return errorState.map((error,index) => <p key={index}>{error.message}</p>)
-     }
 
     return (<Grid verticalAlign="middle" textAlign="center" className="grid-form">
 <Grid.Column style={{maxWidth : '500px'}}>
     <Header icon as="h2">
         <Icon name="university"/>
-        Login
+        Register
     </Header>
     <Form onSubmit={onSubmit}>
         <Segment stacked>

@@ -1,6 +1,6 @@
 import React, {useState} from "react"; //useState serve a manternere lo stato fra i component
 import { Grid, Form, Segment, Header, Icon, Button, Message } from "semantic-ui-react";
-import "../Auth.css"
+import "./Register.css"
 import * as firebase from '../../../server/firebase';
 import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {ref, set} from "firebase/database";

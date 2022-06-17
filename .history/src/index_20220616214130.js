@@ -18,9 +18,8 @@ import Login from './components/Auth/Login/Login.component';
 import "semantic-ui-css/semantic.min.css";
 
 
-/*const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render*/
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
     <Router>
     <Switch>
@@ -29,8 +28,7 @@ ReactDOM.render(
       <Route path="/" component={App} />
     </Switch>
     </Router> 
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 
