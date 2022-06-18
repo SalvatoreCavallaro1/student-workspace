@@ -12,7 +12,7 @@ import Login from './components/Auth/Login/Login.component';
 import * as firebase from './server/firebase';
 import {onAuthStateChanged } from "firebase/auth";
 import { Provider, connect } from 'react-redux';
-//import store from './store/store';
+import store from './store/store';
 import { combinedReducers } from './store/reducer';
 import { setUser } from './store/actioncreator';
 import { createStore } from 'redux';
@@ -30,7 +30,7 @@ import "semantic-ui-css/semantic.min.css";
 /*const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render*/
 
-const store = createStore(combinedReducers)
+//const store= createStore(() => {})
 
 const Index = (props) => {
   //uso useEffect per eseguire il questo pezzo di codice una sola volta
@@ -53,7 +53,7 @@ const Index = (props) => {
 },[]); 
 
 // per vedere se lo store viene aggiornato
-//console.log(props.currentUser);
+console.log(props.currentUser);
 
 
   return(

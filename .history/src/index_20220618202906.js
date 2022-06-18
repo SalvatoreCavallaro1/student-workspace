@@ -12,10 +12,10 @@ import Login from './components/Auth/Login/Login.component';
 import * as firebase from './server/firebase';
 import {onAuthStateChanged } from "firebase/auth";
 import { Provider, connect } from 'react-redux';
-//import store from './store/store';
+import store from './store/store';
 import { combinedReducers } from './store/reducer';
 import { setUser } from './store/actioncreator';
-import { createStore } from 'redux';
+//import { createStore } from 'redux';
 //import { configureStore } from '@reduxjs/toolkit';
 
 
@@ -30,7 +30,7 @@ import "semantic-ui-css/semantic.min.css";
 /*const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render*/
 
-const store = createStore(combinedReducers)
+//const store= createStore(() => {})
 
 const Index = (props) => {
   //uso useEffect per eseguire il questo pezzo di codice una sola volta
@@ -38,24 +38,16 @@ const Index = (props) => {
     onAuthStateChanged(firebase.auth, (user) =>
     {
       if(user){
-        props.setUser(user); 
         //se  è già loggato faccio un ridirect sul componet App
         props.history.push("/");
-        
       }else {
         // se l'utente non è loggato lo mando alla pagina di login
-        props.setUser(null); // se user non è loggato will nullify it
         props.history.push("/login");
       }
 
     })
 
 },[]); 
-
-// per vedere se lo store viene aggiornato
-//console.log(props.currentUser);
-
-
   return(
     <Switch>
       <Route path="/login" component={Login} />
@@ -93,7 +85,6 @@ const mapDispatchToProps = (dispatch) => {
     //so as soon this get dispatch our reducer will catch it and update the state
 
     //per collegarlo al redux store devo passare mapStateProps e mapDispatchProps
-    //così currentUser e seUser saranno disponibili come una prop nel component 
 const IndexWithRouter = withRouter(connect(mapStateToProps,mapDispatchToProps)(Index));
 
 ReactDOM.render(

@@ -53,7 +53,7 @@ const Index = (props) => {
 },[]); 
 
 // per vedere se lo store viene aggiornato
-//console.log(props.currentUser);
+console.log("Debug",props.currentUser);
 
 
   return(
