@@ -1,0 +1,6 @@
+.ui.menu .item  {
+    color: rgb(166, 183, 189) !important;
+}
+.ui.menu .item:hover  {
+    cursor:pointer;
+}

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import "./UserInfo.css";
 import * as firebase from '../../../server/firebase';
 import { signOut } from 'firebase/auth';
-
+import {ref, set} from "firebase/database";
 
 
 // nelle props ho le informazioni dell'utente loggato
