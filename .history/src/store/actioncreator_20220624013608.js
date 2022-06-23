@@ -1,4 +1,4 @@
-import { SET_USER, SET_CHANNEL} from "./actiontype";
+import { SET_USER } from "./actiontype";
 
 export const setUser = (user) => {
     return {

@@ -33,7 +33,7 @@ const Channels = (props) => {
                 updatedState.push(snapshot.val());
                 //imposto selezionato il primo canale di default
                 if(updatedState.length === 1){
-                    props.selectChannel(updatedState[0])
+                    props.selectChannel(channel)
                 }
                 return updatedState;
             })

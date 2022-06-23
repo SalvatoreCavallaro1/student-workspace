@@ -31,10 +31,6 @@ const Channels = (props) => {
             setChannelsState((currentState) => {
                 let updatedState = [...currentState];
                 updatedState.push(snapshot.val());
-                //imposto selezionato il primo canale di default
-                if(updatedState.length === 1){
-                    props.selectChannel(updatedState[0])
-                }
                 return updatedState;
             })
 
@@ -65,7 +61,7 @@ const Channels = (props) => {
                     key={channel.id}
                     name={channel.name}
                     onClick={() => props.selectChannel(channel)}
-                    active={props.channel && channel.id === props.channel.id && !props.channel.isFavourite}
+                    //active={props.channel && channel.id === props.channel.id && !props.channel.isFavourite}
                 >
                 </Menu.Item>
             })
@@ -197,8 +193,7 @@ const Channels = (props) => {
 // prendo da redux store le inforazioni dell'utente loggato per inserire le informazioni di chi ha creato il canale
 const mapStateToProps = (state) => {
     return {
-        user: state.user.currentUser,
-        channel: state.channel.currentChannel
+        user: state.user.currentUser
     }
 }
 

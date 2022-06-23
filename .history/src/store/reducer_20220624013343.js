@@ -1,4 +1,4 @@
-import { SET_USER,SET_CHANNEL} from "./actiontype";
+import { SET_USER} from "./actiontype";
 
 // combineReducers mi aiuterà a combinare più di un reducer 
 import { combineReducers } from "redux";
@@ -17,7 +17,8 @@ const userReducer = (state = defaultUserState, action) => {
 }
 
 let defaultChannelState = {
-    currentChannel: null
+    currentChannel: null,
+    loading : true
 }
 
 
@@ -33,4 +34,4 @@ const channelReducer = (state = defaultChannelState, action) => {
 
 
 // ocsì ogni volta che devo accedere a questo stato uso state.user per accedere 
-export const combinedReducers = combineReducers({ user: userReducer, channel: channelReducer  })
+export const combinedReducers = combineReducers({ user: userReducer })

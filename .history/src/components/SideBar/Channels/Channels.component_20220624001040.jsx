@@ -3,49 +3,32 @@ import "./Channels.css";
 import { connect } from 'react-redux';
 import { Icon, Menu, Modal, Form, Button, Segment } from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
-import {ref, push, update, child, onChildAdded} from "firebase/database";
-import { setChannel } from '../../../store/actioncreator';
+import {ref, push, update, child} from "firebase/database";
 
 const Channels = (props) => {
 
     const [modalOpenState, setModalOpenState]= useState(false);
     const [channelAddState, setchannelAddState]= useState({name: '', description: ''});
     const [isLoading, setIsLoading]= useState(false); //stato per gestire l'icona di caricamento
-    //stato per mantenere tutti i canali presenti
-    const [ChannelsState, setChannelsState]= useState([]);
 
-
-    const channelsRef= ref(firebase.db, 'channels');
-    //console.log();
-    
-
-    // Attach an asynchronous callback to read the data at our posts reference
-    
+    //const channelsRef= ref(firebase.db, 'channels');
 
 
     //useEffect serve a eseguire questo pezzo di codice quando il codice viene renderizzato
     useEffect(() => {
-
-        onChildAdded(channelsRef, (snapshot) => {
-            //console.log(snapshot.val());
-            setChannelsState((currentState) => {
-                let updatedState = [...currentState];
-                updatedState.push(snapshot.val());
-                //imposto selezionato il primo canale di default
-                if(updatedState.length === 1){
-                    props.selectChannel(updatedState[0])
-                }
-                return updatedState;
-            })
-
-          });
-           
+        ref(firebase.db, 'channels').on('child_added',(snap) => 
+        {
+            console.log(snap.val());
+        })
          // ogni volta che un figlio alla lista dei canali viene aggiunto o questo
         //pezzo di codice viene eseguito per la prima volta, quest'evento verrà triggerato
-        //e restituisce un oggetto chiamato snapshot che sarà in grado di leggere i valori dal documento
+        //e restituisce un oggetto chiamato snap che sarà in grado di leggere i valori dal documento
 
     },[]) //la lista delle dependency la setto ome un oggetto vuoto in modo che il codice venga eseguito soltanto una volta
 
+    
+    //console.log(channelAddState);
+    //console.log(channelsRef);
    
     const openModal = () => {
         setModalOpenState(true);
@@ -57,21 +40,6 @@ const Channels = (props) => {
     const checkIfFormValid = () => {
         return channelAddState && channelAddState.name && channelAddState.description;
     }
-
-    const displayChannels = () => {
-        if(ChannelsState.length > 0 ){
-            return ChannelsState.map((channel) => {
-                return <Menu.Item
-                    key={channel.id}
-                    name={channel.name}
-                    onClick={() => props.selectChannel(channel)}
-                    active={props.channel && channel.id === props.channel.id && !props.channel.isFavourite}
-                >
-                </Menu.Item>
-            })
-        }
-    }
-
     const onSubmit = () => {
         if (!checkIfFormValid()) {
             return;
@@ -147,9 +115,8 @@ const Channels = (props) => {
                 <span>
                     <Icon name="exchange"/> Channels              
                 </span>
-                ({ChannelsState.length})
+                (0)
             </Menu.Item>
-            {displayChannels()}
             <Menu.Item>
                 <span className='clickable'   onClick={openModal}>
                     <Icon name="add"/> ADD
@@ -191,21 +158,14 @@ const Channels = (props) => {
         </Modal>
     </>
 }
-
+//({props.channels.count})  (0)
 
 
 // prendo da redux store le inforazioni dell'utente loggato per inserire le informazioni di chi ha creato il canale
 const mapStateToProps = (state) => {
     return {
-        user: state.user.currentUser,
-        channel: state.channel.currentChannel
+        user: state.user.currentUser
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        selectChannel: (channel) => dispatch(setChannel(channel))
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Channels); //metto connect per avere accesso al redux store
+export default connect(mapStateToProps)(Channels); //metto connect per avere accesso al redux store

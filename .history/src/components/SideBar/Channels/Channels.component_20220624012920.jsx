@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Icon, Menu, Modal, Form, Button, Segment } from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
 import {ref, push, update, child, onChildAdded} from "firebase/database";
-import { setChannel } from '../../../store/actioncreator';
 
 const Channels = (props) => {
 
@@ -31,10 +30,6 @@ const Channels = (props) => {
             setChannelsState((currentState) => {
                 let updatedState = [...currentState];
                 updatedState.push(snapshot.val());
-                //imposto selezionato il primo canale di default
-                if(updatedState.length === 1){
-                    props.selectChannel(updatedState[0])
-                }
                 return updatedState;
             })
 
@@ -64,8 +59,8 @@ const Channels = (props) => {
                 return <Menu.Item
                     key={channel.id}
                     name={channel.name}
-                    onClick={() => props.selectChannel(channel)}
-                    active={props.channel && channel.id === props.channel.id && !props.channel.isFavourite}
+                   // onClick={() => selectChannel(channel)}
+                    //active={props.channel && channel.id === props.channel.id && !props.channel.isFavourite}
                 >
                 </Menu.Item>
             })
@@ -147,9 +142,8 @@ const Channels = (props) => {
                 <span>
                     <Icon name="exchange"/> Channels              
                 </span>
-                ({ChannelsState.length})
+                (0)
             </Menu.Item>
-            {displayChannels()}
             <Menu.Item>
                 <span className='clickable'   onClick={openModal}>
                     <Icon name="add"/> ADD
@@ -191,21 +185,14 @@ const Channels = (props) => {
         </Modal>
     </>
 }
-
+//({props.channels.count})  (0)
 
 
 // prendo da redux store le inforazioni dell'utente loggato per inserire le informazioni di chi ha creato il canale
 const mapStateToProps = (state) => {
     return {
-        user: state.user.currentUser,
-        channel: state.channel.currentChannel
+        user: state.user.currentUser
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        selectChannel: (channel) => dispatch(setChannel(channel))
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Channels); //metto connect per avere accesso al redux store
+export default connect(mapStateToProps)(Channels); //metto connect per avere accesso al redux store
