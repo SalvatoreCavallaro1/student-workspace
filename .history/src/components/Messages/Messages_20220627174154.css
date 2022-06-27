@@ -1,0 +1,4 @@
+.messageContent{
+    height: 450px;
+    overflow-y: scroll;
+}
