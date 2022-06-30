@@ -45,9 +45,9 @@ const Messages = (props) =>{
                         updatedState.push(snapshot.val());
                         let i=updatedState.length-1;
                         console.log(i);
-                        if(updatedState[i].timestamp!=snapshot.val().timestamp)
+                        if(updatedState[i-1].timestamp!=snapshot.val().timestamp)
                             {
-                                updatedState.pop(i);
+                                updatedState.pop(i-1);
     
                                //return updatedState;
                             }
@@ -64,7 +64,7 @@ const Messages = (props) =>{
                             //console.log(newmessage);
                        
                        // })
-                     console.log(updatedState);
+                       //console.log(updatedState[i]);
                      return updatedState;
                     //updatedState.push(snapshot.val());
 

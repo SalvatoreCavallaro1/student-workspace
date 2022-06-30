@@ -43,15 +43,8 @@ const Messages = (props) =>{
                             return updatedState;
                         }*/
                         updatedState.push(snapshot.val());
-                        let i=updatedState.length-1;
-                        console.log(i);
-                        if(updatedState[i].timestamp!=snapshot.val().timestamp)
-                            {
-                                updatedState.pop(i);
-    
-                               //return updatedState;
-                            }
-                        /*updatedState.map((newmessage) => 
+                        let i=updatedState.length;
+                        updatedState.map((newmessage) => 
                         { // estraggo i messaggi e li mando al component MessageContent
                             //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
                             //let i=updatedState.length;
@@ -61,11 +54,10 @@ const Messages = (props) =>{
     
                                 return updatedState;
                             }*/
-                            //console.log(newmessage);
+                            console.log(newmessage);
                        
-                       // })
-                     console.log(updatedState);
-                     return updatedState;
+                        })
+                    return updatedState;
                     //updatedState.push(snapshot.val());
 
                     //return updatedState;

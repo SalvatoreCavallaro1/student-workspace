@@ -47,7 +47,7 @@ const Messages = (props) =>{
                         console.log(i);
                         if(updatedState[i].timestamp!=snapshot.val().timestamp)
                             {
-                                updatedState.pop(i);
+                                updatedState.pop(i-1);
     
                                //return updatedState;
                             }

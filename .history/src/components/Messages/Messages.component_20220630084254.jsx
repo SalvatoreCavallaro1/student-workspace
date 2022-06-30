@@ -29,46 +29,32 @@ const Messages = (props) =>{
             onChildAdded(ref(firebase.db, 'messages/'+props.channel.id), (snapshot) => {
                 setMessagesState((currentState) => {
                     let updatedState = [...currentState];
-                    
-                    //console.log(updatedState);
-                   // console.log(updatedState.length)
-                    
+                    console.log(updatedState);
+                    //console.log(updatedState.length)
+                    let i=updatedState.length;
                     //console.log(i);
                     //console.log(snapshot.val().timestamp);
-                    //console.log(messagesState);
+                    console.log(messagesState);
                    /* if(updatedState[i].timestamp!=snapshot.val().timestamp)
                         {
                             updatedState.push(snapshot.val());
 
                             return updatedState;
                         }*/
-                        updatedState.push(snapshot.val());
-                        let i=updatedState.length-1;
-                        console.log(i);
-                        if(updatedState[i].timestamp!=snapshot.val().timestamp)
-                            {
-                                updatedState.pop(i);
-    
-                               //return updatedState;
-                            }
-                        /*updatedState.map((newmessage) => 
-                        { // estraggo i messaggi e li mando al component MessageContent
-                            //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
-                            //let i=updatedState.length;
-                            /*if(newmessage[i-1].timestamp!=snapshot.val().timestamp)
-                            {
-                                updatedState.pop(i-1);
-    
-                                return updatedState;
-                            }*/
-                            //console.log(newmessage);
-                       
-                       // })
-                     console.log(updatedState);
-                     return updatedState;
-                    //updatedState.push(snapshot.val());
+                    /*updatedState.map((newmessage) => { // estraggo i messaggi e li mando al component MessageContent
+                        //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
+                        let i=updatedState.length;
+                        if(newmessage[i].timestamp!=snapshot.val().timestamp)
+                        {
+                            updatedState.push(snapshot.val());
 
-                    //return updatedState;
+                            return updatedState;
+                        }
+                    })*/
+
+                    updatedState.push(snapshot.val());
+
+                    return updatedState;
                 })
             });
 
