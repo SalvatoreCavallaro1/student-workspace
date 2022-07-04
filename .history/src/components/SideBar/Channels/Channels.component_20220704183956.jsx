@@ -60,7 +60,7 @@ const Channels = (props) => {
         }
     },[!props.channel ?ChannelsState : null]) // se non ho selezionato alcun canale avrò una dependency su updatedState se invece è già settato non avrò dependency
 
-    /*useEffect(()=>{
+    useEffect(()=>{
 
         if(props.user)
             {   //console.log(props.user.uid);
@@ -86,32 +86,7 @@ const Channels = (props) => {
             
 
         
-    },[])*/
-
-
-    const SetTheUser = () => {
-        if(props.user)
-            {   //console.log(props.user.uid);
-                const dbRef = ref(getDatabase());
-                get(child(dbRef, `users/${props.user.uid}`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    //console.log(snapshot.val());  
-                    setUserState((currentState) => {
-                        let updatedState = [...currentState];
-                        updatedState.push(snapshot.val());
-                       // console.log(updatedState);
-                        return updatedState;
-                    })
-                    
-                } else {
-                    console.log("No data available");
-                }
-                }).catch((error) => {
-                console.error(error);
-                });
-            } 
-
-    }
+    },[])
    
     const openModal = () => {
         setModalOpenState(true);
@@ -126,41 +101,29 @@ const Channels = (props) => {
 
     const CheckUser = () => {
 
-        SetTheUser();
         if(userState.length>0){
-            
-            return userState.map((Cuser) => { // estraggo i messaggi e li mando al component MessageContent
+            userState.map((Cuser) => { // estraggo i messaggi e li mando al component MessageContent
                //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
               // return <MessageContent ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
               //console.log(Cuser);
               //return <Channels CourseChannels={Cuser.displayName === props.user.displayName} CuserCourse={Cuser.corso} CuserYear={Cuser.years}/>
 
-              //const CuserCourse= Cuser.corso;
-              //const CuserYear=Cuser.years;
-              /*console.log(CuserCourse);
-              console.log(CuserYear);*/
-              return [Cuser.corso, Cuser.years];
+              const CuserCourse= Cuser.corso;
+              const CuserYear=Cuser.years;
+              return {CuserCourse,CuserYear};
+              
+              
+             
+               
            })
        }
 
-       
-
     }
-
-
-    const Cuser=CheckUser();
-        
-        
-    
-        
-
-    
     const displayChannels = () => {
-        //
-             
-             //console.log(Cuser);
-            // console.log(userState[0].corso);
-            // console.log(userState[0].years);
+        
+            CheckUser();
+            console.log(userState[0].corso);
+            console.log(userState[0].years);
         if(ChannelsState.length > 0){                                  
             
                        //console.log(userState);
@@ -169,22 +132,14 @@ const Channels = (props) => {
                             //console.log(CuserYear);
                             //if(channel.corso==){
                                // console.log(props.CourseChannels);
-                            //console.log(Cuser);
-                            if(Cuser)
-                            {    
-                                
-                                //console.log(Cuser[0].at(0));
-                                if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
-                                return <Menu.Item
-                                    key={channel.id}
-                                    name={channel.name}
-                                    onClick={() => props.selectChannel(channel)}
-                                    active={props.channel && channel.id === props.channel.id}
-                                >
-                                </Menu.Item>
-                                }
-                            }
-
+                            return <Menu.Item
+                                key={channel.id}
+                                name={channel.name}
+                                onClick={() => props.selectChannel(channel)}
+                                active={props.channel && channel.id === props.channel.id}
+                            >
+                            </Menu.Item>
+                            //}
                         })
         
         

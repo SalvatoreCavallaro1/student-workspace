@@ -171,10 +171,10 @@ const Channels = (props) => {
                                // console.log(props.CourseChannels);
                             //console.log(Cuser);
                             if(Cuser)
-                            {    
-                                
-                                //console.log(Cuser[0].at(0));
-                                if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
+                            {
+                                let course=Cuser.slice(0,1);
+
+                                if(channel.corso==course){
                                 return <Menu.Item
                                     key={channel.id}
                                     name={channel.name}

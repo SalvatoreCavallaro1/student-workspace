@@ -144,11 +144,13 @@ const Register = () => {
     const updateuserDetails = (createdUser) => {
         if (createdUser) {
                 setIsLoading(true);
-                console.log(createdUser.user);
                 updateProfile(createdUser.user, {
                     displayName: userState.userName,
                     photoURL: `http://gravatar.com/avatar/${createdUser.user.uid}?d=identicon`,
-                    
+                    //corso: userState.corso,
+                    //years: userState.years
+
+
                 })//l'API ritorna una promise che gestisco così 
                 .then(() => {
                     setIsLoading(false);
@@ -169,8 +171,8 @@ const Register = () => {
         set(ref(firebase.db, 'users/'+ createdUser.user.uid),{
             displayName: createdUser.user.displayName,
             photoURL: createdUser.user.photoURL,
-            corso: userState.corso,
-            years: userState.years
+           // corso: createdUser.user.corso,
+            //years: createdUser.user.years
         })
         .then(() => {
             setIsLoading(false);

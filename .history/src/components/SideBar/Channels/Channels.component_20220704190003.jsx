@@ -86,10 +86,22 @@ const Channels = (props) => {
             
 
         
-    },[])*/
+    },[])
+   */
+    const openModal = () => {
+        setModalOpenState(true);
+    }
+    const closeModal = () => {
+        setModalOpenState(false);
+    }
+
+    const checkIfFormValid = () => {
+        return channelAddState && channelAddState.name && channelAddState.description;
+    }
+
+    const CheckUser = () => {
 
 
-    const SetTheUser = () => {
         if(props.user)
             {   //console.log(props.user.uid);
                 const dbRef = ref(getDatabase());
@@ -111,24 +123,9 @@ const Channels = (props) => {
                 });
             } 
 
-    }
-   
-    const openModal = () => {
-        setModalOpenState(true);
-    }
-    const closeModal = () => {
-        setModalOpenState(false);
-    }
 
-    const checkIfFormValid = () => {
-        return channelAddState && channelAddState.name && channelAddState.description;
-    }
 
-    const CheckUser = () => {
-
-        SetTheUser();
-        if(userState.length>0){
-            
+        //if(userState.length>0){
             return userState.map((Cuser) => { // estraggo i messaggi e li mando al component MessageContent
                //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
               // return <MessageContent ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
@@ -139,26 +136,20 @@ const Channels = (props) => {
               //const CuserYear=Cuser.years;
               /*console.log(CuserCourse);
               console.log(CuserYear);*/
-              return [Cuser.corso, Cuser.years];
+              return Cuser.corso;
            })
-       }
+       //}
 
-       
+       //return CuserCourse
 
     }
 
 
-    const Cuser=CheckUser();
-        
-        
-    
-        
 
-    
     const displayChannels = () => {
-        //
-             
-             //console.log(Cuser);
+        
+             const Cuser=CheckUser();
+             console.log(Cuser);
             // console.log(userState[0].corso);
             // console.log(userState[0].years);
         if(ChannelsState.length > 0){                                  
@@ -169,22 +160,14 @@ const Channels = (props) => {
                             //console.log(CuserYear);
                             //if(channel.corso==){
                                // console.log(props.CourseChannels);
-                            //console.log(Cuser);
-                            if(Cuser)
-                            {    
-                                
-                                //console.log(Cuser[0].at(0));
-                                if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
-                                return <Menu.Item
-                                    key={channel.id}
-                                    name={channel.name}
-                                    onClick={() => props.selectChannel(channel)}
-                                    active={props.channel && channel.id === props.channel.id}
-                                >
-                                </Menu.Item>
-                                }
-                            }
-
+                            return <Menu.Item
+                                key={channel.id}
+                                name={channel.name}
+                                onClick={() => props.selectChannel(channel)}
+                                active={props.channel && channel.id === props.channel.id}
+                            >
+                            </Menu.Item>
+                            //}
                         })
         
         

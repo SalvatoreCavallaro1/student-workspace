@@ -8,8 +8,18 @@ import { setChannel } from '../../../store/actioncreator';
 
 const Channels = (props) => {
     
-    const [userState, setUserState]= useState([]);
-
+    /*const [userState, setUserState]= useState([]);
+    setUserState((currentState) => {
+        let updatedState = [...currentState];
+        updatedState.push(props.user);
+        console.log(updatedState);
+        return updatedState;
+    })*/
+   /* if(props.user)
+    {
+        const uid=props.user.uid;
+        //console.log(uid);
+    }*/
     
     const [modalOpenState, setModalOpenState]= useState(false);
     const [channelAddState, setchannelAddState]= useState({name: '', description: ''});
@@ -37,19 +47,14 @@ const Channels = (props) => {
                 return updatedState;
             })
 
-            });
-               
-            // ogni volta che un figlio alla lista dei canali viene aggiunto o questo
-            //pezzo di codice viene eseguito per la prima volta, quest'evento verrà triggerato
-            //e restituisce un oggetto chiamato snapshot che sarà in grado di leggere i valori dal documento
+          });
+           
+         // ogni volta che un figlio alla lista dei canali viene aggiunto o questo
+        //pezzo di codice viene eseguito per la prima volta, quest'evento verrà triggerato
+        //e restituisce un oggetto chiamato snapshot che sarà in grado di leggere i valori dal documento
 
-            //return() => channelsRef.off(); //rimuovo l'event listener che è in ascolto quando viene aggiunto un nuovo canale 
-            //una volta che questo component viene unmounted
-
-
-            
-
-        
+        //return() => channelsRef.off(); //rimuovo l'event listener che è in ascolto quando viene aggiunto un nuovo canale 
+        //una volta che questo component viene unmounted
 
     },[]) //la lista delle dependency la setto ome un oggetto vuoto in modo che il codice venga eseguito soltanto una volta
 
@@ -60,58 +65,6 @@ const Channels = (props) => {
         }
     },[!props.channel ?ChannelsState : null]) // se non ho selezionato alcun canale avrò una dependency su updatedState se invece è già settato non avrò dependency
 
-    /*useEffect(()=>{
-
-        if(props.user)
-            {   //console.log(props.user.uid);
-                const dbRef = ref(getDatabase());
-                get(child(dbRef, `users/${props.user.uid}`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    //console.log(snapshot.val());  
-                    setUserState((currentState) => {
-                        let updatedState = [...currentState];
-                        updatedState.push(snapshot.val());
-                       // console.log(updatedState);
-                        return updatedState;
-                    })
-                    
-                } else {
-                    console.log("No data available");
-                }
-                }).catch((error) => {
-                console.error(error);
-                });
-            } 
-
-            
-
-        
-    },[])*/
-
-
-    const SetTheUser = () => {
-        if(props.user)
-            {   //console.log(props.user.uid);
-                const dbRef = ref(getDatabase());
-                get(child(dbRef, `users/${props.user.uid}`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    //console.log(snapshot.val());  
-                    setUserState((currentState) => {
-                        let updatedState = [...currentState];
-                        updatedState.push(snapshot.val());
-                       // console.log(updatedState);
-                        return updatedState;
-                    })
-                    
-                } else {
-                    console.log("No data available");
-                }
-                }).catch((error) => {
-                console.error(error);
-                });
-            } 
-
-    }
    
     const openModal = () => {
         setModalOpenState(true);
@@ -124,73 +77,41 @@ const Channels = (props) => {
         return channelAddState && channelAddState.name && channelAddState.description;
     }
 
-    const CheckUser = () => {
-
-        SetTheUser();
-        if(userState.length>0){
-            
-            return userState.map((Cuser) => { // estraggo i messaggi e li mando al component MessageContent
-               //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
-              // return <MessageContent ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
-              //console.log(Cuser);
-              //return <Channels CourseChannels={Cuser.displayName === props.user.displayName} CuserCourse={Cuser.corso} CuserYear={Cuser.years}/>
-
-              //const CuserCourse= Cuser.corso;
-              //const CuserYear=Cuser.years;
-              /*console.log(CuserCourse);
-              console.log(CuserYear);*/
-              return [Cuser.corso, Cuser.years];
-           })
-       }
-
-       
-
-    }
-
-
-    const Cuser=CheckUser();
-        
-        
-    
-        
-
-    
     const displayChannels = () => {
-        //
-             
-             //console.log(Cuser);
-            // console.log(userState[0].corso);
-            // console.log(userState[0].years);
-        if(ChannelsState.length > 0){                                  
-            
-                       //console.log(userState);
-                        return ChannelsState.map((channel) => {
-                           // console.log(CuserCourse);
-                            //console.log(CuserYear);
-                            //if(channel.corso==){
-                               // console.log(props.CourseChannels);
-                            //console.log(Cuser);
-                            if(Cuser)
-                            {    
-                                
-                                //console.log(Cuser[0].at(0));
-                                if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
-                                return <Menu.Item
-                                    key={channel.id}
-                                    name={channel.name}
-                                    onClick={() => props.selectChannel(channel)}
-                                    active={props.channel && channel.id === props.channel.id}
-                                >
-                                </Menu.Item>
-                                }
-                            }
+        //console.log(ChannelsState);
+        //console.log(props.user);
+        /*if(props.user)
+        {
+        const uid=props.user.uid;
+        //console.log(uid);
+        }*/
+        //const dbRef = ref(getDatabase());    
+        if(props.user)
+        { 
+            console.log(props.user.uid);
+            get(child(ref(firebase.db,'users/'+props.user.uid))).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+            } else {
+                console.log("No data available");
+            }
+            }).catch((error) => {
+            console.error(error);
+            });
+        } 
 
-                        })
-        
-        
-        
+
+        if(ChannelsState.length > 0 ){
+            return ChannelsState.map((channel) => {
+                return <Menu.Item
+                    key={channel.id}
+                    name={channel.name}
+                    onClick={() => props.selectChannel(channel)}
+                    active={props.channel && channel.id === props.channel.id}
+                >
+                </Menu.Item>
+            })
         }
-        
     }
 
     const onSubmit = () => {

@@ -9,7 +9,7 @@ import { signOut } from 'firebase/auth';
 
 // nelle props ho le informazioni dell'utente loggato
 const UserInfo = (props) => {
-    //console.log(props.user.uid);
+    console.log(props.user.uid);
     const getDropDownOptions = () => {
         return [{
             key : 'signout',

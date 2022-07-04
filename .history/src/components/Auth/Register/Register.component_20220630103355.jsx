@@ -61,14 +61,14 @@ const Register = () => {
 
         //event target
         let target= event.target;
-        //console.log(target);
-        /*console.log(target.name);
-        console.log(target.value);*/
+        console.log(target);
+        console.log(target.name);
+        console.log(target.value);
         //update dello stato
         setuserState((currentState) => {
             let currentuser = { ...currentState }; //clono l'oggetto currentState
             currentuser[target.name] = target.value; //usen name o email o password
-            //console.log(currentuser);
+            console.log(currentuser);
             return currentuser; //aggiorno il valore dell'oggetto user
         })
         
@@ -144,11 +144,13 @@ const Register = () => {
     const updateuserDetails = (createdUser) => {
         if (createdUser) {
                 setIsLoading(true);
-                console.log(createdUser.user);
                 updateProfile(createdUser.user, {
                     displayName: userState.userName,
                     photoURL: `http://gravatar.com/avatar/${createdUser.user.uid}?d=identicon`,
-                    
+                    corso: userState.corso,
+                    years: userState.years
+
+
                 })//l'API ritorna una promise che gestisco così 
                 .then(() => {
                     setIsLoading(false);
@@ -169,13 +171,13 @@ const Register = () => {
         set(ref(firebase.db, 'users/'+ createdUser.user.uid),{
             displayName: createdUser.user.displayName,
             photoURL: createdUser.user.photoURL,
-            corso: userState.corso,
-            years: userState.years
+            corso: createdUser.user.corso,
+            years: createdUser.user.years
         })
         .then(() => {
             setIsLoading(false);
             setIsSuccess(true);
-            console.log('utente salvato sul RT Database');
+            //console.log('utente salvato sul RT Database');
         })
         .catch(serverError => {
             setIsLoading(false);

@@ -28,20 +28,20 @@ const Register = () => {
         password : '',
         confirmpassword : '',
         years: '',
-        corso: ''
+        CdL: ''
 
     }
 
-   /* const corsi = [
-        { name:"corso" ,key: 'I', text: 'Ingegneria Informatica', value: 'Inf' },
-        { name:"corso", key: 'E', text: 'Ingegneria Industriale', value: 'Elettr' },
-        { name:"corso", key: 'In', text: 'Ingegneria Meccanica', value: 'Indu' },
+    const corsi = [
+        { key: 'I', text: 'Ingegneria Informatica', value: 'Inf' },
+        { key: 'E', text: 'Ingegneria Industriale', value: 'Elettr' },
+        { key: 'In', text: 'Ingegneria Meccanica', value: 'Indu' },
       ]
       const anni = [
         { key: '1', text: 'Primo Anno', value: '1' },
         { key: '2', text: 'Secondo Anno', value: '2' },
         { key: '3', text: 'Terzo Anno', value: '3' },
-      ]*/
+      ]
 
     //default error object
     let errors = [];
@@ -61,14 +61,12 @@ const Register = () => {
 
         //event target
         let target= event.target;
-        //console.log(target);
-        /*console.log(target.name);
-        console.log(target.value);*/
+        console.log(target);
         //update dello stato
         setuserState((currentState) => {
             let currentuser = { ...currentState }; //clono l'oggetto currentState
             currentuser[target.name] = target.value; //usen name o email o password
-            //console.log(currentuser);
+            console.log(currentuser);
             return currentuser; //aggiorno il valore dell'oggetto user
         })
         
@@ -144,11 +142,11 @@ const Register = () => {
     const updateuserDetails = (createdUser) => {
         if (createdUser) {
                 setIsLoading(true);
-                console.log(createdUser.user);
                 updateProfile(createdUser.user, {
                     displayName: userState.userName,
-                    photoURL: `http://gravatar.com/avatar/${createdUser.user.uid}?d=identicon`,
-                    
+                    photoURL: `http://gravatar.com/avatar/${createdUser.user.uid}?d=identicon`
+                    //Cdl: userState.
+
                 })//l'API ritorna una promise che gestisco così 
                 .then(() => {
                     setIsLoading(false);
@@ -168,14 +166,12 @@ const Register = () => {
         setIsLoading(true);
         set(ref(firebase.db, 'users/'+ createdUser.user.uid),{
             displayName: createdUser.user.displayName,
-            photoURL: createdUser.user.photoURL,
-            corso: userState.corso,
-            years: userState.years
+            photoURL: createdUser.user.photoURL
         })
         .then(() => {
             setIsLoading(false);
             setIsSuccess(true);
-            console.log('utente salvato sul RT Database');
+            //console.log('utente salvato sul RT Database');
         })
         .catch(serverError => {
             setIsLoading(false);
@@ -237,23 +233,21 @@ return (
                 placeholder="Confirm Password"
             />
             <Form.Input
-                name="years"
-                value={userState.years}
-                icon=""
-                iconPosition="left"
-                onChange={handleInput}
-                type="text"
-                placeholder="Anno di corso"
+            name="Cdl"
+            control={Select}
+            label='Corso di Laurea'
+            onChange={handleInput}
+            options={corsi}
+            placeholder='Corso di Laurea'
             />
             <Form.Input
-                name="corso"
-                value={userState.corso}
-                icon=""
-                iconPosition="left"
-                onChange={handleInput}
-                type="text"
-                placeholder="Corso di Laurea"
-            />
+            name="years"
+            control={Select}
+            label='Anno di corso'
+            onChange={handleInput}
+            options={anni}
+            placeholder='Anno di corso'
+          />
         </Segment>
         <Button disabled={isLoading} loading={isLoading}>Submit</Button>
     </Form>

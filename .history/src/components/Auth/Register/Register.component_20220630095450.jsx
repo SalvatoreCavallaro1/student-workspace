@@ -1,5 +1,5 @@
 import React, {useState} from "react"; //useState serve a manternere lo stato fra i component
-import { Grid, Form, Segment, Header, Icon, Button, Message, Select } from "semantic-ui-react";
+import { Grid, Form, Segment, Header, Icon, Button, Message } from "semantic-ui-react";
 import "../Auth.css"
 import * as firebase from '../../../server/firebase';
 import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -27,21 +27,21 @@ const Register = () => {
         email : '',
         password : '',
         confirmpassword : '',
-        years: '',
-        corso: ''
+        years:'',
+        CdL: ''
 
     }
 
-   /* const corsi = [
-        { name:"corso" ,key: 'I', text: 'Ingegneria Informatica', value: 'Inf' },
-        { name:"corso", key: 'E', text: 'Ingegneria Industriale', value: 'Elettr' },
-        { name:"corso", key: 'In', text: 'Ingegneria Meccanica', value: 'Indu' },
+    const options = [
+        { key: 'I', text: 'Ingegneria Informatica', value: 'Inf' },
+        { key: 'E', text: 'Ingegneria Industriale', value: 'Elettr' },
+        { key: 'In', text: 'Ingegneria Meccanica', value: 'Indu' },
       ]
-      const anni = [
+      const options2 = [
         { key: '1', text: 'Primo Anno', value: '1' },
         { key: '2', text: 'Secondo Anno', value: '2' },
         { key: '3', text: 'Terzo Anno', value: '3' },
-      ]*/
+      ]
 
     //default error object
     let errors = [];
@@ -61,17 +61,13 @@ const Register = () => {
 
         //event target
         let target= event.target;
-        //console.log(target);
-        /*console.log(target.name);
-        console.log(target.value);*/
         //update dello stato
         setuserState((currentState) => {
             let currentuser = { ...currentState }; //clono l'oggetto currentState
             currentuser[target.name] = target.value; //usen name o email o password
-            //console.log(currentuser);
             return currentuser; //aggiorno il valore dell'oggetto user
         })
-        
+
 
     }
 
@@ -144,11 +140,9 @@ const Register = () => {
     const updateuserDetails = (createdUser) => {
         if (createdUser) {
                 setIsLoading(true);
-                console.log(createdUser.user);
                 updateProfile(createdUser.user, {
                     displayName: userState.userName,
-                    photoURL: `http://gravatar.com/avatar/${createdUser.user.uid}?d=identicon`,
-                    
+                    photoURL: `http://gravatar.com/avatar/${createdUser.user.uid}?d=identicon`
                 })//l'API ritorna una promise che gestisco così 
                 .then(() => {
                     setIsLoading(false);
@@ -168,14 +162,12 @@ const Register = () => {
         setIsLoading(true);
         set(ref(firebase.db, 'users/'+ createdUser.user.uid),{
             displayName: createdUser.user.displayName,
-            photoURL: createdUser.user.photoURL,
-            corso: userState.corso,
-            years: userState.years
+            photoURL: createdUser.user.photoURL
         })
         .then(() => {
             setIsLoading(false);
             setIsSuccess(true);
-            console.log('utente salvato sul RT Database');
+            //console.log('utente salvato sul RT Database');
         })
         .catch(serverError => {
             setIsLoading(false);
@@ -235,24 +227,6 @@ return (
                 onChange={handleInput}
                 type="password"
                 placeholder="Confirm Password"
-            />
-            <Form.Input
-                name="years"
-                value={userState.years}
-                icon=""
-                iconPosition="left"
-                onChange={handleInput}
-                type="text"
-                placeholder="Anno di corso"
-            />
-            <Form.Input
-                name="corso"
-                value={userState.corso}
-                icon=""
-                iconPosition="left"
-                onChange={handleInput}
-                type="text"
-                placeholder="Corso di Laurea"
             />
         </Segment>
         <Button disabled={isLoading} loading={isLoading}>Submit</Button>

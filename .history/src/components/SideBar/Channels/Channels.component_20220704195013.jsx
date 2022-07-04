@@ -174,7 +174,7 @@ const Channels = (props) => {
                             {    
                                 
                                 //console.log(Cuser[0].at(0));
-                                if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
+                                if(channel.corso==Cuser[0].at(0)){
                                 return <Menu.Item
                                     key={channel.id}
                                     name={channel.name}
