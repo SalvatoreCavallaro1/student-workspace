@@ -256,14 +256,7 @@ const Channels = (props) => {
         {
             SetTheUser();
         }
-        console.log(userState[0]);
-        if(userState.length>=1)
-        {
-            console.log(userState[0].corso);
-            console.log(userState[0].years);
-        }
-       
-
+        console.log(userState);
         console.log(userState.length);
         
       
@@ -318,7 +311,7 @@ const Channels = (props) => {
                                     
                                     //console.log(Cuser[0].at(0));
                                     //if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
-                                        if(userState.length>=1 && channel.corso==userState[0].corso && channel.years==userState[0].years){
+                                        //if(channel.corso==TheUser[0].corso && channel.years==TheUser[0].years){
                                     return <Menu.Item
                                         key={channel.id}
                                         name={channel.name}
@@ -326,7 +319,7 @@ const Channels = (props) => {
                                         active={props.channel && channel.id === props.channel.id}
                                     >
                                     </Menu.Item>
-                                    }
+                                    //}
                                 //}
 
                             //}

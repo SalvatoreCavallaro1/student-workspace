@@ -70,7 +70,7 @@ const Channels = (props) => {
         }
     },[!props.channel ?ChannelsState : null]) // se non ho selezionato alcun canale avrò una dependency su updatedState se invece è già settato non avrò dependency
 */
-    /*useEffect(()=>{
+    useEffect(()=>{
         if(props.user)
             {   
                 //TheUser=[];
@@ -120,13 +120,13 @@ const Channels = (props) => {
                     console.log(courseState);
                     console.log(yearState);
 
-                })
+                })*/
             } 
 
             
 
         
-    },[])*/
+    },[])
 
     //[ChannelsState, TheUser.length,props.channel]
 
@@ -161,7 +161,7 @@ const Channels = (props) => {
      }*/
 
 
-    const SetTheUser = () => {
+    /*const SetTheUser = () => {
         if(props.user)
             {   
                 //TheUser=[];
@@ -170,12 +170,12 @@ const Channels = (props) => {
                 get(child(dbRef, `users/${props.user.uid}`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     //console.log(snapshot.val());  
-                    setUserState((currentState) => {
+                   /* setUserState((currentState) => {
                         let updatedState = [...currentState];
                         updatedState.push(snapshot.val());
                         console.log(updatedState);
                         return updatedState;
-                    })
+                    })*/
                    // TheUser.push(snapshot.val());
                     //TheUser.length=TheUser.length+1;
                    // console.log(TheUser);
@@ -185,13 +185,13 @@ const Channels = (props) => {
                    /* TheUser.map((theus) => {
                         console.log(theus)
 
-                    })*/
+                    })
                     //theus=MapUser();
                     //console.log(TheUser);
                     //console.log(TheUser.length);
                     //console.log(TheUser[0].corso);
-                    //course=TheUser[0].corso;
-                    //year=TheUser[0].years;
+                    course=TheUser[0].corso;
+                    year=TheUser[0].years;
                     //console.log(course);
                     //console.log(year);
                     //console.log(TheUser[0].years);
@@ -203,7 +203,7 @@ const Channels = (props) => {
                 });
             } 
 
-    }
+    }*/
 
      
    
@@ -252,20 +252,15 @@ const Channels = (props) => {
     const displayChannels = () => {
        // SetTheUser();
        
-        if(userState.length<1)
+        if(!userState)
         {
-            SetTheUser();
+            console.log("NON DEFINITO");
         }
-        console.log(userState[0]);
-        if(userState.length>=1)
+        else
         {
-            console.log(userState[0].corso);
-            console.log(userState[0].years);
-        }
-       
-
+        console.log(userState);
         console.log(userState.length);
-        
+        }
       
         
         //console.log(year);
@@ -318,7 +313,7 @@ const Channels = (props) => {
                                     
                                     //console.log(Cuser[0].at(0));
                                     //if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
-                                        if(userState.length>=1 && channel.corso==userState[0].corso && channel.years==userState[0].years){
+                                        //if(channel.corso==TheUser[0].corso && channel.years==TheUser[0].years){
                                     return <Menu.Item
                                         key={channel.id}
                                         name={channel.name}
@@ -326,7 +321,7 @@ const Channels = (props) => {
                                         active={props.channel && channel.id === props.channel.id}
                                     >
                                     </Menu.Item>
-                                    }
+                                    //}
                                 //}
 
                             //}

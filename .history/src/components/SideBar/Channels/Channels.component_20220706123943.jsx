@@ -9,12 +9,7 @@ import { setChannel } from '../../../store/actioncreator';
 const Channels = (props) => {
     
     const [userState, setUserState]= useState([]);
-    const [courseState, setCourseState]= useState();
-    const [yearState, setYearState]= useState();
-   // var TheUser=[];
-    var course;
-    var year;
-    //var theuse={};
+    let TheUser=[];
 
     
     const [modalOpenState, setModalOpenState]= useState(false);
@@ -70,63 +65,38 @@ const Channels = (props) => {
         }
     },[!props.channel ?ChannelsState : null]) // se non ho selezionato alcun canale avrò una dependency su updatedState se invece è già settato non avrò dependency
 */
-    /*useEffect(()=>{
+    useEffect(()=>{
         if(props.user)
             {   
-                //TheUser=[];
+                TheUser=[];
                 //console.log(props.user.uid);
                 const dbRef = ref(getDatabase());
                 get(child(dbRef, `users/${props.user.uid}`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     //console.log(snapshot.val());  
-                    setUserState((currentState) => {
+                   /* setUserState((currentState) => {
                         let updatedState = [...currentState];
                         updatedState.push(snapshot.val());
-                        //console.log(updatedState);
+                        console.log(updatedState);
                         return updatedState;
-                    })
-                    //TheUser.push(snapshot.val());
-                   
-                   // console.log(TheUser);
-                  //  console.log(TheUser[0].corso);
-                    //console.log(TheUser[0].years);
+                    })*/
+                    TheUser.push(snapshot.val());
+                    console.log(TheUser);
+                    console.log(TheUser[12].corso);
+                    console.log(TheUser[12].years);
                     //console.log(userState[0].years);
                 } else {
-                    console.log("No data availble");
+                    console.log("No data available");
                 }
                 }).catch((error) => {
                 console.error(error);
                 });
-
-                //console.log(userState);
-                /*return userState.map((theus) => {
-                    console.log(theus);
-                    console.log(theus.corso);
-                    course=theus.corso;
-                    console.log(theus.years);
-                    year=theus.years;
-                    //console.log(course);
-                    //console.log(year);
-                    setCourseState((currentState1)=>{
-                        let updatedState=[...currentState1];
-                        updatedState=course;
-                        return updatedState;
-                    })
-                    setCourseState((currentState2)=> {
-                        let updatedState=[...currentState2];
-                        updatedState=year;
-                        return updatedState;
-                    })
-                    console.log(courseState);
-                    console.log(yearState);
-
-                })
             } 
 
             
 
         
-    },[])*/
+    },[TheUser.length])
 
     //[ChannelsState, TheUser.length,props.channel]
 
@@ -144,7 +114,6 @@ const Channels = (props) => {
                         return updatedState;
                     })
                     
-                    
                 } else {
                     console.log("No data available");
                 }
@@ -154,58 +123,6 @@ const Channels = (props) => {
             } 
 
     }*/
-
-    /*const MapUser = () => {
-        TheUser.map((theus) => {
-        })
-     }*/
-
-
-    const SetTheUser = () => {
-        if(props.user)
-            {   
-                //TheUser=[];
-                //console.log(props.user.uid);
-                const dbRef = ref(getDatabase());
-                get(child(dbRef, `users/${props.user.uid}`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    //console.log(snapshot.val());  
-                    setUserState((currentState) => {
-                        let updatedState = [...currentState];
-                        updatedState.push(snapshot.val());
-                        console.log(updatedState);
-                        return updatedState;
-                    })
-                   // TheUser.push(snapshot.val());
-                    //TheUser.length=TheUser.length+1;
-                   // console.log(TheUser);
-                  //  console.log(TheUser[0].corso);
-                    //console.log(TheUser[0].years);
-                    //console.log(userState[0].years);
-                   /* TheUser.map((theus) => {
-                        console.log(theus)
-
-                    })*/
-                    //theus=MapUser();
-                    //console.log(TheUser);
-                    //console.log(TheUser.length);
-                    //console.log(TheUser[0].corso);
-                    //course=TheUser[0].corso;
-                    //year=TheUser[0].years;
-                    //console.log(course);
-                    //console.log(year);
-                    //console.log(TheUser[0].years);
-                } else {
-                    console.log("No data available");
-                }
-                }).catch((error) => {
-                console.error(error);
-                });
-            } 
-
-    }
-
-     
    
     const openModal = () => {
         setModalOpenState(true);
@@ -250,75 +167,24 @@ const Channels = (props) => {
 
     
     const displayChannels = () => {
-       // SetTheUser();
-       
-        if(userState.length<1)
-        {
-            SetTheUser();
-        }
-        console.log(userState[0]);
-        if(userState.length>=1)
-        {
-            console.log(userState[0].corso);
-            console.log(userState[0].years);
-        }
-       
-
-        console.log(userState.length);
-        
-      
-        
-        //console.log(year);
              //console.log(Cuser);
             // console.log(userState[0].corso);
             // console.log(userState[0].years);
         if(ChannelsState.length > 0){                                  
             
-            
-            //return TheUser.map((theus) => {
                        //console.log(userState);
                         return ChannelsState.map((channel) => {
-                        
                           
                             //while(!TheUser[0])
                             //{
                                // if(TheUser[0])
                                // {    
-                                //TheUser.length=TheUser.length+1;
-                                //console.log(TheUser.length);
-                                //console.log(TheUser);
-                                //var theus=MapUser();
-
-                                //console.log(theus);
-                               //SetTheUser();
-                              
-                               //console.log(TheUser);
-                              // console.log(TheUser);
-                                /*let updatedUser = [];
-                                updatedUser=TheUser;
-                                //updatedUser.push(TheUser);
-                                console.log(updatedUser);
-                                console.log(updatedUser[0]);*/
-                                //console.log(updatedUser.Array[0]);
-                                //console.log(updatedUser[0]);
-                               // console.log(updatedUser[0].[0]);
-                               
-                               //console.log(TheUser.slice());
-                                
-                                
-                               /* let i=0;
-                                while(!TheUser[i])
-                                {
-                                    console.log(TheUser[i]);
-                                    i++;
-                                }*/
-                               // console.log(TheUser[0]);
-                                //console.log(TheUser[0]);
-                                
+                                TheUser.length=TheUser.length+1;
+                                    console.log(TheUser.length);
                                     
                                     //console.log(Cuser[0].at(0));
                                     //if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
-                                        if(userState.length>=1 && channel.corso==userState[0].corso && channel.years==userState[0].years){
+                                       // if(channel.corso==TheUser[0].corso && channel.years==TheUser[0].years){
                                     return <Menu.Item
                                         key={channel.id}
                                         name={channel.name}
@@ -326,17 +192,16 @@ const Channels = (props) => {
                                         active={props.channel && channel.id === props.channel.id}
                                     >
                                     </Menu.Item>
-                                    }
+                                    //}
                                 //}
 
                             //}
 
                         })
-                   // })
+        
         
         
         }
-    
         
     }
 
@@ -399,8 +264,6 @@ const Channels = (props) => {
     }
 
 
-    //{SetTheUser()}
-
     return <><Menu.Menu>
             <Menu.Item>
                 <span>
@@ -408,7 +271,6 @@ const Channels = (props) => {
                 </span>
                 ({ChannelsState.length})
             </Menu.Item>
-            
             {displayChannels()}
             <Menu.Item>
                 <span className='clickable'   onClick={openModal}>
