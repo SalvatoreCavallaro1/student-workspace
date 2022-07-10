@@ -60,7 +60,7 @@ const Channels = (props) => {
 
     },[]) //la lista delle dependency la setto ome un oggetto vuoto in modo che il codice venga eseguito soltanto una volta
 
-/*
+
     // SELEZIONE PRIMO CANALE
     useEffect(() => {
         //imposto selezionato il primo canale di default
@@ -69,14 +69,7 @@ const Channels = (props) => {
             props.selectChannel(ChannelsState[0])
         }
     },[!props.channel ?ChannelsState : null]) // se non ho selezionato alcun canale avrò una dependency su updatedState se invece è già settato non avrò dependency
-*/
-useEffect(() => {
-    //imposto selezionato il primo canale di default
-    if(newArray.length > 0){
-        console.log(newArray);
-        props.selectChannel(newArray[0])
-    }
-},[!props.channel ?newArray : null])
+
     /*useEffect(()=>{
         if(props.user)
             {   

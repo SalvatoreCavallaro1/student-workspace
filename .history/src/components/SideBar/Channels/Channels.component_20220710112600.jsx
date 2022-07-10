@@ -8,7 +8,6 @@ import { setChannel } from '../../../store/actioncreator';
 
 const Channels = (props) => {
     
-    var newArray=[];
     const [userState, setUserState]= useState([]);
    // const [courseState, setCourseState]= useState();
    // const [yearState, setYearState]= useState();
@@ -60,7 +59,7 @@ const Channels = (props) => {
 
     },[]) //la lista delle dependency la setto ome un oggetto vuoto in modo che il codice venga eseguito soltanto una volta
 
-/*
+
     // SELEZIONE PRIMO CANALE
     useEffect(() => {
         //imposto selezionato il primo canale di default
@@ -69,14 +68,7 @@ const Channels = (props) => {
             props.selectChannel(ChannelsState[0])
         }
     },[!props.channel ?ChannelsState : null]) // se non ho selezionato alcun canale avrò una dependency su updatedState se invece è già settato non avrò dependency
-*/
-useEffect(() => {
-    //imposto selezionato il primo canale di default
-    if(newArray.length > 0){
-        console.log(newArray);
-        props.selectChannel(newArray[0])
-    }
-},[!props.channel ?newArray : null])
+
     /*useEffect(()=>{
         if(props.user)
             {   
@@ -289,27 +281,9 @@ useEffect(() => {
         if(ChannelsState.length > 0){                                  
             
             console.log(ChannelsState);
-            if(userState.length>=1 )
-            {
-                newArray = ChannelsState.filter((item) => item.corso === userState[0].corso && item.years === userState[0].years);
-                console.log(newArray);
-                /*setChannelsStateFilt((currentState) => {
-                    let updatedState = [...currentState];
-                    updatedState=newArray;
-                    //updatedState.push(snapshot.val());  
-                    return updatedState;
-                })*/
-                /*const filteredArray = newArray.filter(function(ele , pos){
-                    return newArray.indexOf(ele) == pos;
-                }) 
-                console.log(filteredArray);*/
-            }
             //return TheUser.map((theus) => {
                        //console.log(userState);
-
-
-                      //  return ChannelsState.map((channel) => {
-                        return newArray.map((channel) => {
+                        return ChannelsState.map((channel) => {
                         
                           
                             //while(!TheUser[0])
@@ -350,7 +324,21 @@ useEffect(() => {
                                     
                                     //console.log(Cuser[0].at(0));
                                     //if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
-                                        
+                                        if(userState.length>=1 )
+                                        {
+                                            var newArray = ChannelsState.filter((item) => item.corso === userState[0].corso && item.years === userState[0].years);
+                                            console.log(newArray);
+                                            /*setChannelsStateFilt((currentState) => {
+                                                let updatedState = [...currentState];
+                                                updatedState=newArray;
+                                                //updatedState.push(snapshot.val());  
+                                                return updatedState;
+                                            })*/
+                                            /*const filteredArray = newArray.filter(function(ele , pos){
+                                                return newArray.indexOf(ele) == pos;
+                                            }) 
+                                            console.log(filteredArray);*/
+                                        }
 
 //
 

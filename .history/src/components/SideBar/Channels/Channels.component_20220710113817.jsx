@@ -76,7 +76,7 @@ useEffect(() => {
         console.log(newArray);
         props.selectChannel(newArray[0])
     }
-},[!props.channel ?newArray : null])
+},[!props.channel ?ChannelsState : null])
     /*useEffect(()=>{
         if(props.user)
             {   

@@ -72,11 +72,11 @@ const Channels = (props) => {
 */
 useEffect(() => {
     //imposto selezionato il primo canale di default
-    if(newArray.length > 0){
+    if(newArray.length >= 0){
         console.log(newArray);
         props.selectChannel(newArray[0])
     }
-},[!props.channel ?newArray : null])
+},[!props.channel ?ChannelsState : null])
     /*useEffect(()=>{
         if(props.user)
             {   

@@ -8,13 +8,12 @@ import { setChannel } from '../../../store/actioncreator';
 
 const Channels = (props) => {
     
-    var newArray=[];
     const [userState, setUserState]= useState([]);
-   // const [courseState, setCourseState]= useState();
-   // const [yearState, setYearState]= useState();
+    const [courseState, setCourseState]= useState();
+    const [yearState, setYearState]= useState();
    // var TheUser=[];
-   // var course;
-   // var year;
+    var course;
+    var year;
     //var theuse={};
 
     
@@ -23,7 +22,7 @@ const Channels = (props) => {
     const [isLoading, setIsLoading]= useState(false); //stato per gestire l'icona di caricamento
     //stato per mantenere tutti i canali presenti
     const [ChannelsState, setChannelsState]= useState([]);
-    const [ChannelsStateFilt, setChannelsStateFilt]= useState([]);
+
 
     const channelsRef= ref(firebase.db, 'channels');
     //console.log();
@@ -60,8 +59,9 @@ const Channels = (props) => {
 
     },[]) //la lista delle dependency la setto ome un oggetto vuoto in modo che il codice venga eseguito soltanto una volta
 
-/*
+
     // SELEZIONE PRIMO CANALE
+    /*
     useEffect(() => {
         //imposto selezionato il primo canale di default
         if(ChannelsState.length > 0){
@@ -70,13 +70,6 @@ const Channels = (props) => {
         }
     },[!props.channel ?ChannelsState : null]) // se non ho selezionato alcun canale avrò una dependency su updatedState se invece è già settato non avrò dependency
 */
-useEffect(() => {
-    //imposto selezionato il primo canale di default
-    if(newArray.length > 0){
-        console.log(newArray);
-        props.selectChannel(newArray[0])
-    }
-},[!props.channel ?newArray : null])
     /*useEffect(()=>{
         if(props.user)
             {   
@@ -180,7 +173,7 @@ useEffect(() => {
                     setUserState((currentState) => {
                         let updatedState = [...currentState];
                         updatedState.push(snapshot.val());
-                       // console.log(updatedState);
+                        console.log(updatedState);
                         return updatedState;
                     })
                    // TheUser.push(snapshot.val());
@@ -263,22 +256,23 @@ useEffect(() => {
         {
             SetTheUser();
         }
-        //console.log(userState[0]);
-       /* if(userState.length>=1)
+        console.log(userState[0]);
+        if(userState.length>=1)
         {
-            //console.log(userState[0].corso);
-           //console.log(userState[0].years);
-        }*/
-        if (userState.length>1)
-        {
-            
-         userState.pop();
-            
+            console.log(userState[0].corso);
+            console.log(userState[0].years);
         }
+       /* if (userState.length>1)
+        {
+            let i=userState.length;
+            while(i>1)
+            {
+                userState.pop();
+            }
+        }*/
        
 
-        //console.log(userState.length);
-       // console.log(userState);
+        console.log(userState.length);
         
       
         
@@ -288,28 +282,10 @@ useEffect(() => {
             // console.log(userState[0].years);
         if(ChannelsState.length > 0){                                  
             
-            console.log(ChannelsState);
-            if(userState.length>=1 )
-            {
-                newArray = ChannelsState.filter((item) => item.corso === userState[0].corso && item.years === userState[0].years);
-                console.log(newArray);
-                /*setChannelsStateFilt((currentState) => {
-                    let updatedState = [...currentState];
-                    updatedState=newArray;
-                    //updatedState.push(snapshot.val());  
-                    return updatedState;
-                })*/
-                /*const filteredArray = newArray.filter(function(ele , pos){
-                    return newArray.indexOf(ele) == pos;
-                }) 
-                console.log(filteredArray);*/
-            }
+            
             //return TheUser.map((theus) => {
                        //console.log(userState);
-
-
-                      //  return ChannelsState.map((channel) => {
-                        return newArray.map((channel) => {
+                        return ChannelsState.map((channel) => {
                         
                           
                             //while(!TheUser[0])
@@ -350,10 +326,6 @@ useEffect(() => {
                                     
                                     //console.log(Cuser[0].at(0));
                                     //if(channel.corso==Cuser[0].at(0) && channel.years==Cuser[0].at(1)){
-                                        
-
-//
-
                                         if(userState.length>=1 && channel.corso==userState[0].corso && channel.years==userState[0].years){
                                     return <Menu.Item
                                         key={channel.id}
