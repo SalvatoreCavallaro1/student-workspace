@@ -43,14 +43,14 @@ const Messages = (props) =>{
                             return updatedState;
                         }*/
                         updatedState.push(snapshot.val());
-                       /* let i=updatedState.length-1;
+                        let i=updatedState.length-1;
                        // console.log(i);
                         if(updatedState[i].timestamp!=snapshot.val().timestamp)
                             {
                                 updatedState.pop(i);
     
                                //return updatedState;
-                            }*/
+                            }
                         /*updatedState.map((newmessage) => 
                         { // estraggo i messaggi e li mando al component MessageContent
                             //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
@@ -83,45 +83,11 @@ const Messages = (props) =>{
 
     const displayMessages = () => {
         if(messagesState.length>0){
-           
-           /*
-            const filteredArray = messagesState.filter(function(ele , pos){
-                //console.log(ele); //content
-                //console.log(ele.timestamp);
-                //console.log(messagesState.indexOf(ele));
-                
-               // console.log(pos); //index
-               // return messagesState.indexOf(ele) == pos;
-               return messagesState[messagesState.indexOf(ele)].timestamp == messagesState[pos].timestamp;
-            }) 
-            console.log(filteredArray);
-            console.log(messagesState);*/
-
-
-            function filterArray(inputArr){
-                var found ={};
-                var out = inputArr.filter(function(element){
-                    console.log(element);
-                    return found.hasOwnProperty(element.timestamp)? false : (found[element.timestamp]=true);
-                });
-               console.log(found);
-                return out;
-            }
-            
-            const outputArray = filterArray(messagesState);
-            console.log("Original Array",messagesState);
-            console.log("Filtered Array",outputArray);
-
-
-            return outputArray.map((message) => { // estraggo i messaggi e li mando al component MessageContent
+            console.log(messagesState);
+            return messagesState.map((message) => { // estraggo i messaggi e li mando al component MessageContent
                 //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
                 return <MessageContent ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
             })
-
-            /*return messagesState.map((message) => { // estraggo i messaggi e li mando al component MessageContent
-                //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
-                return <MessageContent ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
-            })*/
         }
     }
 

@@ -288,7 +288,7 @@ useEffect(() => {
             // console.log(userState[0].years);
         if(ChannelsState.length > 0){                                  
             
-            //console.log(ChannelsState);
+            console.log(ChannelsState);
             if(userState.length>=1 )
             {
                 newArray = ChannelsState.filter((item) => item.corso === userState[0].corso && item.years === userState[0].years);

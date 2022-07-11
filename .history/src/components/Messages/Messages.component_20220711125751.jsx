@@ -102,9 +102,9 @@ const Messages = (props) =>{
                 var found ={};
                 var out = inputArr.filter(function(element){
                     console.log(element);
-                    return found.hasOwnProperty(element.timestamp)? false : (found[element.timestamp]=true);
+                    return found.hasOwnProperty(element.timestamp)? false : (found[element]=true);
                 });
-               console.log(found);
+                console.log(found);
                 return out;
             }
             
@@ -113,15 +113,11 @@ const Messages = (props) =>{
             console.log("Filtered Array",outputArray);
 
 
-            return outputArray.map((message) => { // estraggo i messaggi e li mando al component MessageContent
+
+            return messagesState.map((message) => { // estraggo i messaggi e li mando al component MessageContent
                 //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
                 return <MessageContent ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
             })
-
-            /*return messagesState.map((message) => { // estraggo i messaggi e li mando al component MessageContent
-                //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
-                return <MessageContent ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
-            })*/
         }
     }
 
