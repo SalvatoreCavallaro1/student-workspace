@@ -3,14 +3,13 @@ import { Segment, Input, Button } from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
 import {ref,push,set,child,serverTimestamp} from "firebase/database";
 import { connect } from 'react-redux';
-import {AttachmentsUpload} from "../AttachmentsUploads/AttachmentsUpload.component"
+import {AttachmentsUploads} from "../AttachmentsUploads/AttachmentsUpload.component"
 
 const MessageInput = (props) =>{
 
 
     //const messageRef = ref(firebase.db, 'messages/');
     const [messageState, setMessageState]= useState("");
-    const [fileDialogState, setFileDialogState]= useState(false);
 
     //creo una funzione per creare il messaggio in formato json
     const createMessageInfo = () => {
@@ -45,12 +44,8 @@ const MessageInput = (props) =>{
     const createActionButtons = () => {
         return <>
             <Button icon="send" onClick={onSubmit}/>
-            <Button icon="upload" onClick={()=> setFileDialogState(true)}/>
+            <Button icon="upload" />
         </>
-    }
-
-    const uploadAttachments = (file,contentType) => {
-
     }
 
     return <Segment>
@@ -62,7 +57,7 @@ const MessageInput = (props) =>{
         label= {createActionButtons()}
         labelPosition="right"
         />
-        <AttachmentsUpload uploadAttachments={uploadAttachments} open={fileDialogState} onClose={() => setFileDialogState(false)}/>
+        <AttachmentsUpload></AttachmentsUpload>
     </Segment>
 }
 
