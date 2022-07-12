@@ -34,12 +34,12 @@ const MessageInput = (props) =>{
         }
     }
 
-    const sendMessage = (downloadURL) => {
-        if(messageState || downloadURL) //controllo se l'utente ha inserito dei dati
+    const sendMessage = () => {
+        if(messageState) //controllo se l'utente ha inserito dei dati
         {
             const newkey=push(child(ref(firebase.db, 'messages/'),props.channel.id)).key;
             console.log(newkey);
-            set(ref(firebase.db, 'messages/'+props.channel.id+'/'+newkey),createMessageInfo(downloadURL)).then(()=> setMessageState("")).catch((error) => console.log(error))
+            set(ref(firebase.db, 'messages/'+props.channel.id+'/'+newkey),createMessageInfo()).then(()=> setMessageState("")).catch((error) => console.log(error))
         }
 
     }
@@ -50,7 +50,7 @@ const MessageInput = (props) =>{
     }
     const createActionButtons = () => {
         return <>
-            <Button icon="send" onClick={()=>{sendMessage()}}/>
+            <Button icon="send" onClick={sendMessage}/>
             <Button icon="upload" onClick={()=> setFileDialogState(true)}/>
         </>
     }
@@ -103,7 +103,6 @@ const MessageInput = (props) =>{
             () => {
             // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                sendMessage(downloadURL);
                 console.log('File available at', downloadURL);
             });
             }

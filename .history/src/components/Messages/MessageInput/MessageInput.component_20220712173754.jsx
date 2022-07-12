@@ -18,7 +18,7 @@ const MessageInput = (props) =>{
     const [fileDialogState, setFileDialogState]= useState(false);
 
     //creo una funzione per creare il messaggio in formato json
-    const createMessageInfo = (downloadURL) => {
+    const createMessageInfo = () => {
         return {
             user : {
                 avatar : props.user.photoURL,
@@ -26,7 +26,6 @@ const MessageInput = (props) =>{
                 id : props.user.uid
             },
             content : messageState,
-            attachment: downloadURL || "",
             //timestamp : firebase.db.ServerValue.TIMESTAMP
             timestamp : serverTimestamp(firebase.db)
 
@@ -34,12 +33,12 @@ const MessageInput = (props) =>{
         }
     }
 
-    const sendMessage = (downloadURL) => {
-        if(messageState || downloadURL) //controllo se l'utente ha inserito dei dati
+    const onSubmit = () => {
+        if(messageState) //controllo se l'utente ha inserito dei dati
         {
             const newkey=push(child(ref(firebase.db, 'messages/'),props.channel.id)).key;
             console.log(newkey);
-            set(ref(firebase.db, 'messages/'+props.channel.id+'/'+newkey),createMessageInfo(downloadURL)).then(()=> setMessageState("")).catch((error) => console.log(error))
+            set(ref(firebase.db, 'messages/'+props.channel.id+'/'+newkey),createMessageInfo()).then(()=> setMessageState("")).catch((error) => console.log(error))
         }
 
     }
@@ -50,7 +49,7 @@ const MessageInput = (props) =>{
     }
     const createActionButtons = () => {
         return <>
-            <Button icon="send" onClick={()=>{sendMessage()}}/>
+            <Button icon="send" onClick={onSubmit}/>
             <Button icon="upload" onClick={()=> setFileDialogState(true)}/>
         </>
     }
@@ -103,7 +102,6 @@ const MessageInput = (props) =>{
             () => {
             // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                sendMessage(downloadURL);
                 console.log('File available at', downloadURL);
             });
             }

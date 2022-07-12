@@ -20,8 +20,7 @@ const MessageContent = (props) =>{
         <Comment.Author>{props.message.user.name}</Comment.Author>
         <Comment.Metadata>{timeAgo.format(props.message.timestamp)}</Comment.Metadata>
         {props.message.attachment ? <Image src={props.message.attachment}/> :
-            <Comment.Text>{props.message.content}</Comment.Text>
-        }
+        <Comment.Text>{props.message.content}</Comment.Text>}
     </Comment.Content>
     </Comment>
 }

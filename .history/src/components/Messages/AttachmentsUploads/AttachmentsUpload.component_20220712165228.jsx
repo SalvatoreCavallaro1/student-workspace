@@ -18,7 +18,7 @@ export const AttachmentsUpload =(props) => {
 
     const submit =()=> {
         // per validare i file uso npm install mime-type 
-        if(fileState && acceptedTypes.includes(mime.lookup(fileState.name)))  
+        if(fileState && acceptedTypes(mime.lookup(fileState.name)))  
         //passando il nome del file alla funzione lookup di mime mi verrà restutita l'estensione del file, 
         //posso così controllare se l'etensione + inclusa all'interno del vettore delle estensioni supportate
         {
@@ -32,12 +32,11 @@ export const AttachmentsUpload =(props) => {
     //dal parent componet ricevo le props per la chiusura e l'apertura se props.open è true la modal viene aperta
 
     //label="File type (png, jpeg)"
-    return( <Modal basic open={props.open} onClose={props.onClose}>
+    return( <Modal open={props.open} onClose={props.onClose}>
         <Modal.Header>
             <Input
             type="file"
             name="file"
-            fluid
             onChange={onFileAdded}           
             />
         </Modal.Header>

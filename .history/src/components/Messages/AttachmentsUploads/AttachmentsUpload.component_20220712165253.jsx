@@ -18,7 +18,7 @@ export const AttachmentsUpload =(props) => {
 
     const submit =()=> {
         // per validare i file uso npm install mime-type 
-        if(fileState && acceptedTypes.includes(mime.lookup(fileState.name)))  
+        if(fileState && acceptedTypes(mime.lookup(fileState.name)))  
         //passando il nome del file alla funzione lookup di mime mi verrà restutita l'estensione del file, 
         //posso così controllare se l'etensione + inclusa all'interno del vettore delle estensioni supportate
         {
@@ -37,7 +37,6 @@ export const AttachmentsUpload =(props) => {
             <Input
             type="file"
             name="file"
-            fluid
             onChange={onFileAdded}           
             />
         </Modal.Header>
