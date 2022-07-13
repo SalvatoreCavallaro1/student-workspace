@@ -31,7 +31,7 @@ import "semantic-ui-css/semantic.min.css";
 root.render*/
 
 const store = createStore(combinedReducers)
-
+const adminMail="admin@gmail.com"
 
 const Index = (props) => {
   //useEffect serve a eseguire questo pezzo di codice quando il codice viene renderizzato
@@ -63,6 +63,7 @@ const Index = (props) => {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/" component={App} />
+      <Route path="/admin" component={AppAdmin} />
     </Switch>
 
   )

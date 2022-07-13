@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route, withRouter} from "react-router-
 //importo i components
 import Register from './components/Auth/Register/Register.component';
 import Login from './components/Auth/Login/Login.component';
+import AppAdmin from './AppAdmin';
 import * as firebase from './server/firebase';
 import {onAuthStateChanged } from "firebase/auth";
 import { Provider, connect } from 'react-redux';
@@ -31,7 +32,7 @@ import "semantic-ui-css/semantic.min.css";
 root.render*/
 
 const store = createStore(combinedReducers)
-
+const adminMail="admin@gmail.com"
 
 const Index = (props) => {
   //useEffect serve a eseguire questo pezzo di codice quando il codice viene renderizzato
@@ -40,11 +41,15 @@ const Index = (props) => {
     {
       if(user){
         props.setUser(user); 
-        //console.log(user.email);
+        console.log(user.email);
         //se  è già loggato faccio un ridirect sul componet App
         props.history.push("/");
         
-      } else {
+      }else if(user.email===adminMail){
+        props.history.push("/admin");
+      }
+      
+      else {
         // se l'utente non è loggato lo mando alla pagina di login
         props.setUser(null); // se user non è loggato will nullify it
         props.history.push("/login");
@@ -63,6 +68,7 @@ const Index = (props) => {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/" component={App} />
+      <Route path="/admin" component={AppAdmin} />
     </Switch>
 
   )

@@ -445,11 +445,6 @@ useEffect(() => {
         {
             return <><Menu.Menu>
                 <Menu.Item>
-                    <span className='clickable'   onClick={openModal}>
-                        <Icon name="add"/> ADD
-                    </span>
-                </Menu.Item>
-                <Menu.Item>
                     <span>
                         <Icon name="exchange"/> Channels              
                     </span>
@@ -457,7 +452,11 @@ useEffect(() => {
                 </Menu.Item>
                 
                 {displayChannels()}
-                
+                <Menu.Item>
+                    <span className='clickable'   onClick={openModal}>
+                        <Icon name="add"/> ADD
+                    </span>
+                </Menu.Item>
             </Menu.Menu>
             <Modal open={modalOpenState} onClose={closeModal}>
                 <Modal.Header>

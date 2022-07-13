@@ -223,7 +223,7 @@ useEffect(() => {
     }
 
     const checkIfFormValid = () => {
-        return channelAddState && channelAddState.name && channelAddState.description && channelAddState.years && channelAddState.corso;
+        return channelAddState && channelAddState.name && channelAddState.description;
     }
 
     /*const CheckUser = () => {
@@ -445,11 +445,6 @@ useEffect(() => {
         {
             return <><Menu.Menu>
                 <Menu.Item>
-                    <span className='clickable'   onClick={openModal}>
-                        <Icon name="add"/> ADD
-                    </span>
-                </Menu.Item>
-                <Menu.Item>
                     <span>
                         <Icon name="exchange"/> Channels              
                     </span>
@@ -457,7 +452,11 @@ useEffect(() => {
                 </Menu.Item>
                 
                 {displayChannels()}
-                
+                <Menu.Item>
+                    <span className='clickable'   onClick={openModal}>
+                        <Icon name="add"/> ADD
+                    </span>
+                </Menu.Item>
             </Menu.Menu>
             <Modal open={modalOpenState} onClose={closeModal}>
                 <Modal.Header>
@@ -482,14 +481,14 @@ useEffect(() => {
                             />
                             <Form.Input
                                 name="years"
-                                value={channelAddState.years}
+                                value={channelAddState.description}
                                 onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci l'anno di corso del canale'"
                             />
                             <Form.Input
                                 name="corso"
-                                value={channelAddState.corso}
+                                value={channelAddState.description}
                                 onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci il CdL del Canale"

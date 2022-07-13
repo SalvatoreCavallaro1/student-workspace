@@ -32,7 +32,6 @@ root.render*/
 
 const store = createStore(combinedReducers)
 
-
 const Index = (props) => {
   //useEffect serve a eseguire questo pezzo di codice quando il codice viene renderizzato
   useEffect (() => {
@@ -40,11 +39,11 @@ const Index = (props) => {
     {
       if(user){
         props.setUser(user); 
-        //console.log(user.email);
+        console.log(user);
         //se  è già loggato faccio un ridirect sul componet App
         props.history.push("/");
         
-      } else {
+      }else {
         // se l'utente non è loggato lo mando alla pagina di login
         props.setUser(null); // se user non è loggato will nullify it
         props.history.push("/login");

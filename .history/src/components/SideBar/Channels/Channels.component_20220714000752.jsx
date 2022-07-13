@@ -223,7 +223,7 @@ useEffect(() => {
     }
 
     const checkIfFormValid = () => {
-        return channelAddState && channelAddState.name && channelAddState.description && channelAddState.years && channelAddState.corso;
+        return channelAddState && channelAddState.name && channelAddState.description;
     }
 
     /*const CheckUser = () => {
@@ -400,8 +400,6 @@ useEffect(() => {
             id:newChannelKey,
             name : channelAddState.name,
             description : channelAddState.description,
-            years : channelAddState.years,
-            corso : channelAddState.corso,
             created_by : {
                 name: props.user.displayName,
                 avatar: props.user.photoURL
@@ -439,100 +437,10 @@ useEffect(() => {
 
 
     //{SetTheUser()}
-    if(props.user)
+
+   /* if(props.user.currentUser.email===adminMail)
     {
-        if (props.user.email===adminMail)
-        {
-            return <><Menu.Menu>
-                <Menu.Item>
-                    <span className='clickable'   onClick={openModal}>
-                        <Icon name="add"/> ADD
-                    </span>
-                </Menu.Item>
-                <Menu.Item>
-                    <span>
-                        <Icon name="exchange"/> Channels              
-                    </span>
-                    ({ChannelsState.length})
-                </Menu.Item>
-                
-                {displayChannels()}
-                
-            </Menu.Menu>
-            <Modal open={modalOpenState} onClose={closeModal}>
-                <Modal.Header>
-                    Create Channel
-                </Modal.Header>
-                <Modal.Content>
-                    <Form onSubmit={onSubmit}>
-                        <Segment stacked>
-                            <Form.Input
-                                name="name"
-                                value={channelAddState.name}
-                                onChange={handleInput}
-                                type="text"
-                                placeholder="Inserisci il nome del canale"
-                            />
-                            <Form.Input
-                                name="description"
-                                value={channelAddState.description}
-                                onChange={handleInput}
-                                type="text"
-                                placeholder="Inserisci la descrizione del canale"
-                            />
-                            <Form.Input
-                                name="years"
-                                value={channelAddState.years}
-                                onChange={handleInput}
-                                type="text"
-                                placeholder="Inserisci l'anno di corso del canale'"
-                            />
-                            <Form.Input
-                                name="corso"
-                                value={channelAddState.corso}
-                                onChange={handleInput}
-                                type="text"
-                                placeholder="Inserisci il CdL del Canale"
-                            />
-                        </Segment>
-                    </Form>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button loading={isLoading} onClick={onSubmit}>
-                        <Icon name="checkmark"/> Save
-                    </Button>
-                    <Button onClick={closeModal}>
-                        <Icon name="remove"/> Cancel
-                    </Button>
-                </Modal.Actions>
-            </Modal>
-        </>
-
-
-        }
-        else 
-        {
-
-            return <><Menu.Menu>
-                <Menu.Item>
-                    <span>
-                        <Icon name="exchange"/> Channels              
-                    </span>
-                    ({ChannelsState.length})
-                </Menu.Item>
-                
-                {displayChannels()}
-                
-            </Menu.Menu>
-        </>
-
-        }
-    }
-
-   /* if(props.user)
-     {console.log(props.user.email);}*/
-    
-   /* return <><Menu.Menu>
+        return <><Menu.Menu>
             <Menu.Item>
                 <span>
                     <Icon name="exchange"/> Channels              
@@ -581,7 +489,79 @@ useEffect(() => {
             </Modal.Actions>
         </Modal>
     </>
-*/
+
+
+    }
+    else 
+    {
+
+        return <><Menu.Menu>
+            <Menu.Item>
+                <span>
+                    <Icon name="exchange"/> Channels              
+                </span>
+                ({ChannelsState.length})
+            </Menu.Item>
+            
+            {displayChannels()}
+            
+        </Menu.Menu>
+    </>
+
+    }*/
+
+
+    console.log(props);
+    return <><Menu.Menu>
+            <Menu.Item>
+                <span>
+                    <Icon name="exchange"/> Channels              
+                </span>
+                ({ChannelsState.length})
+            </Menu.Item>
+            
+            {displayChannels()}
+            <Menu.Item>
+                <span className='clickable'   onClick={openModal}>
+                    <Icon name="add"/> ADD
+                </span>
+            </Menu.Item>
+        </Menu.Menu>
+        <Modal open={modalOpenState} onClose={closeModal}>
+            <Modal.Header>
+                Create Channel
+            </Modal.Header>
+            <Modal.Content>
+                <Form onSubmit={onSubmit}>
+                    <Segment stacked>
+                        <Form.Input
+                            name="name"
+                            value={channelAddState.name}
+                            onChange={handleInput}
+                            type="text"
+                            placeholder="Inserisci il nome del canale"
+                        />
+                        <Form.Input
+                            name="description"
+                            value={channelAddState.description}
+                            onChange={handleInput}
+                            type="text"
+                            placeholder="Inserisci la descrizione del canale"
+                        />
+                    </Segment>
+                </Form>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button loading={isLoading} onClick={onSubmit}>
+                    <Icon name="checkmark"/> Save
+                </Button>
+                <Button onClick={closeModal}>
+                    <Icon name="remove"/> Cancel
+                </Button>
+            </Modal.Actions>
+        </Modal>
+    </>
+
 
 
 }

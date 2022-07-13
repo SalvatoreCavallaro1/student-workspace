@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route, withRouter} from "react-router-
 //importo i components
 import Register from './components/Auth/Register/Register.component';
 import Login from './components/Auth/Login/Login.component';
+import AppAdmin from './AppAdmin';
 import * as firebase from './server/firebase';
 import {onAuthStateChanged } from "firebase/auth";
 import { Provider, connect } from 'react-redux';
@@ -31,7 +32,7 @@ import "semantic-ui-css/semantic.min.css";
 root.render*/
 
 const store = createStore(combinedReducers)
-
+const adminMail="admin@gmail.com"
 
 const Index = (props) => {
   //useEffect serve a eseguire questo pezzo di codice quando il codice viene renderizzato
@@ -63,6 +64,7 @@ const Index = (props) => {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/" component={App} />
+      <Route path="/admin" component={AppAdmin} />
     </Switch>
 
   )
