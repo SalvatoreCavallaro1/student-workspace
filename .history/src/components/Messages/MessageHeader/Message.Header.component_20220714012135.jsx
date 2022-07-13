@@ -12,7 +12,7 @@ const MessageHeader = (props) =>{
 
                 
             </span>
-            <Header.Subheader> {props.uniqueUsers} {props.uniqueUsers === 1 ? "Utente" :"Utenti"}</Header.Subheader>
+            <Header.Subheader> {props.uniqueUsers} Utenti</Header.Subheader>
         </Header>
 
         <Header floated='right'>

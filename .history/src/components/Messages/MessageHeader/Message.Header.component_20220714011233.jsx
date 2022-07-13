@@ -8,11 +8,11 @@ const MessageHeader = (props) =>{
         <Header floated='left' fluid="true" as="h2">
             <span>
                 {props.channelName}
-               
+                <Icon name='star outline'/>
 
                 
             </span>
-            <Header.Subheader> {props.uniqueUsers} {props.uniqueUsers === 1 ? "Utente" :"Utenti"}</Header.Subheader>
+            <Header.Subheader> {props.uniqueUsers}</Header.Subheader>
         </Header>
 
         <Header floated='right'>

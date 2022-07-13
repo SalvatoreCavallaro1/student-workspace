@@ -143,7 +143,7 @@ const Messages = (props) =>{
 
     //props.channel?.name aggiungo il null check con il punto inteorrogativo così prima che il component venga caricato non da errore
 
-    return <div className='messages'><MessageHeader channelName={props.channel?.name} uniqueUsers={uniqueUsersCount()}/>  
+    return <div className='messages'><MessageHeader channelName={props.channel?.name} uniqueUsers={}/>  
     <Segment className='messageContent'>
         <Comment.Group>
           {displayMessages()}  

@@ -128,22 +128,10 @@ const Messages = (props) =>{
         }
     }
 
-    const uniqueUsersCount = () => {
-
-        // scorro tutti i messaggi del canale 
-        const uniqueUsers = messagesState.reduce((accumulatore,message) =>{
-            if(!accumulatore.includes(message.user.name)){
-                accumulatore.push(message.user.name);
-            }
-            return accumulatore;
-        },[]) // de default l'accumulatore è un array vuoto
-
-        return uniqueUsers.length; // dal numero di uniqueUsers ricavo il numero di utenti attivi nel canale
-    }
 
     //props.channel?.name aggiungo il null check con il punto inteorrogativo così prima che il component venga caricato non da errore
 
-    return <div className='messages'><MessageHeader channelName={props.channel?.name} uniqueUsers={uniqueUsersCount()}/>  
+    return <div className='messages'><MessageHeader channelName={props.channel?.name} uniqueUsers={}/>  
     <Segment className='messageContent'>
         <Comment.Group>
           {displayMessages()}  
