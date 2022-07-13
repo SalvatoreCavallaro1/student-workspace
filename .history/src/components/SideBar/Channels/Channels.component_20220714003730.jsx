@@ -72,21 +72,7 @@ const Channels = (props) => {
     },[!props.channel ?ChannelsState : null]) // se non ho selezionato alcun canale avrò una dependency su updatedState se invece è già settato non avrò dependency
 */
 useEffect(() => {
-    //imposto selezionato il primo canale di default per admin
-    if(props.user)
-    {
-        if(props.user.email===adminMail)
-        {
-            if(ChannelsState.length > 0){
-                //console.log(newArray);
-                props.selectChannel(ChannelsState[0])
-            }
-        }
-    }
-},[!props.channel ?ChannelsState : null])
-
-useEffect(() => {
-    //imposto selezionato il primo canale di default per utente normale
+    //imposto selezionato il primo canale di default
     if(newArray.length > 0){
         //console.log(newArray);
         props.selectChannel(newArray[0])
@@ -266,49 +252,7 @@ useEffect(() => {
 
     //const Cuser=CheckUser();
         
-    const newArraylenght = () => {
-         
-         if(userState.length<1)
-         {
-             SetTheUser();
-         }
         
-         if (userState.length>1)
-         {
-             
-          userState.pop();
-             
-         }
-        
-         if(ChannelsState.length > 0){                                  
- 
-                     if(userState.length>=1 )
-                     {
-                         
-                         
-                         newArray = ChannelsState.filter((item) => item.corso === userState[0].corso && item.years === userState[0].years);
-                        
-                     }
-                    
-                                 return newArray.map((channel) => {
-                                             
-                                                 if(userState.length>=1 && channel.corso==userState[0].corso && channel.years==userState[0].years)
-                                                 {
-                                                //console.log(channel);
-                                                 }
-                                        
- 
-                                    
- 
-                                 })
-                     
-                            
-                 }
-                              
-         
-         
-     
-    }
     
         
 
@@ -370,7 +314,6 @@ useEffect(() => {
                     if(userState.length>=1 )
                     {
                         
-                        //newArray=[];
                         newArray = ChannelsState.filter((item) => item.corso === userState[0].corso && item.years === userState[0].years);
                         //console.log(newArray);
                         /*setChannelsStateFilt((currentState) => {
@@ -519,9 +462,6 @@ useEffect(() => {
         })
     }
 
-    
-
-
 
     //{SetTheUser()}
     if(props.user)
@@ -531,12 +471,12 @@ useEffect(() => {
             return <><Menu.Menu>
                 <Menu.Item>
                     <span className='clickable'   onClick={openModal}>
-                        <Icon name="add"/> Aggiungi Canale
+                        <Icon name="add"/> ADD
                     </span>
                 </Menu.Item>
                 <Menu.Item>
                     <span>
-                        <Icon name="exchange"/> Canali esistenti              
+                        <Icon name="exchange"/> Channels              
                     </span>
                     ({ChannelsState.length})
                 </Menu.Item>
@@ -546,7 +486,7 @@ useEffect(() => {
             </Menu.Menu>
             <Modal open={modalOpenState} onClose={closeModal}>
                 <Modal.Header>
-                    Crea Canale
+                    Create Channel
                 </Modal.Header>
                 <Modal.Content>
                     <Form onSubmit={onSubmit}>
@@ -584,10 +524,10 @@ useEffect(() => {
                 </Modal.Content>
                 <Modal.Actions>
                     <Button loading={isLoading} onClick={onSubmit}>
-                        <Icon name="checkmark"/> Salva
+                        <Icon name="checkmark"/> Save
                     </Button>
                     <Button onClick={closeModal}>
-                        <Icon name="remove"/> Annulla
+                        <Icon name="remove"/> Cancel
                     </Button>
                 </Modal.Actions>
             </Modal>
@@ -598,16 +538,17 @@ useEffect(() => {
         else 
         {
 
-            newArraylenght();
-            return <><Menu.Menu>    
+            return <><Menu.Menu>
                 <Menu.Item>
                     <span>
-                        <Icon name="exchange"/> Canali              
+                        <Icon name="exchange"/> Channels              
                     </span>
-                    ({newArray.length})
-                </Menu.Item>    
-                {displayChannels()}   
-                </Menu.Menu>
+                    ({ChannelsState.length})
+                </Menu.Item>
+                
+                {displayChannels()}
+                
+            </Menu.Menu>
         </>
 
         }

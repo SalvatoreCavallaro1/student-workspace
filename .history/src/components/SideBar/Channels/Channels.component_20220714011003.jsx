@@ -531,12 +531,12 @@ useEffect(() => {
             return <><Menu.Menu>
                 <Menu.Item>
                     <span className='clickable'   onClick={openModal}>
-                        <Icon name="add"/> Aggiungi Canale
+                        <Icon name="add"/> ADD
                     </span>
                 </Menu.Item>
                 <Menu.Item>
                     <span>
-                        <Icon name="exchange"/> Canali esistenti              
+                        <Icon name="exchange"/> Channels              
                     </span>
                     ({ChannelsState.length})
                 </Menu.Item>

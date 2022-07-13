@@ -531,12 +531,12 @@ useEffect(() => {
             return <><Menu.Menu>
                 <Menu.Item>
                     <span className='clickable'   onClick={openModal}>
-                        <Icon name="add"/> Aggiungi Canale
+                        <Icon name="add"/> ADD
                     </span>
                 </Menu.Item>
                 <Menu.Item>
                     <span>
-                        <Icon name="exchange"/> Canali esistenti              
+                        <Icon name="exchange"/> Channels              
                     </span>
                     ({ChannelsState.length})
                 </Menu.Item>
@@ -584,10 +584,10 @@ useEffect(() => {
                 </Modal.Content>
                 <Modal.Actions>
                     <Button loading={isLoading} onClick={onSubmit}>
-                        <Icon name="checkmark"/> Salva
+                        <Icon name="checkmark"/> Save
                     </Button>
                     <Button onClick={closeModal}>
-                        <Icon name="remove"/> Annulla
+                        <Icon name="remove"/> Cancel
                     </Button>
                 </Modal.Actions>
             </Modal>
@@ -602,7 +602,7 @@ useEffect(() => {
             return <><Menu.Menu>    
                 <Menu.Item>
                     <span>
-                        <Icon name="exchange"/> Canali              
+                        <Icon name="exchange"/> Channels              
                     </span>
                     ({newArray.length})
                 </Menu.Item>    
