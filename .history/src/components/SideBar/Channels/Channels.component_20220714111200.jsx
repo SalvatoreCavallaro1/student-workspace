@@ -219,6 +219,9 @@ useEffect(() => {
                 }
                 else
                 {
+
+                
+
                     //console.log(ChannelsState);
                     if(userState.length>=1 )
                     {
@@ -234,18 +237,24 @@ useEffect(() => {
 
                             //  return ChannelsState.map((channel) => {
                                 return newArray.map((channel) => {
-                                       
-                                    //if(userState.length>=1 && channel.corso==userState[0].corso && channel.years==userState[0].years)
-                                    //{
-                                    return <Menu.Item
-                                    key={channel.id}
-                                    name={channel.name}
-                                    onClick={() => props.selectChannel(channel)}
-                                    active={props.channel && channel.id === props.channel.id}
-                                    >
-                                    </Menu.Item>
-                                    //}
-                            
+                                
+                                
+                                    
+                                            
+                                                if(userState.length>=1 && channel.corso==userState[0].corso && channel.years==userState[0].years)
+                                                {
+                                                return <Menu.Item
+                                                key={channel.id}
+                                                name={channel.name}
+                                                onClick={() => props.selectChannel(channel)}
+                                                active={props.channel && channel.id === props.channel.id}
+                                                >
+                                                </Menu.Item>
+                                                }
+                                        
+
+                                   
+
                                 })
                     
                             // })
