@@ -23,7 +23,7 @@ const MessageContent = (props) =>{
         {props.message.attachment && props.message.extension!="pdf"  ? <a href={props.message.attachment}><Image src={props.message.attachment} /></a> :
             <Comment.Text></Comment.Text>
         }
-        {props.message.attachment && props.message.extension==="pdf"  ? <a href={props.message.attachment}><Icon name="huge file pdf" /></a> :
+        {props.message.attachment && props.message.extension==="pdf"  ? <Icon name="file pdf" /> :
             <Comment.Text></Comment.Text>
         }
         <Comment.Text>{props.message.content}</Comment.Text>

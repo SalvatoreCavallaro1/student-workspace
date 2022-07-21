@@ -19,8 +19,7 @@ const MessageInput = (props) =>{
     const [fileDialogState, setFileDialogState]= useState(false);
 
     //creo una funzione per creare il messaggio in formato json
-    const createMessageInfo = (downloadURL,exten) => {
-        //console.log(ext[1]);
+    const createMessageInfo = (downloadURL,ext) => {
         return {
             user : {
                 avatar : props.user.photoURL,
@@ -29,7 +28,7 @@ const MessageInput = (props) =>{
             },
             content : messageState,
             attachment: downloadURL || "",
-            extension : ext[1] || "",
+            ext : ext || "",
             //timestamp : firebase.db.ServerValue.TIMESTAMP
             timestamp : serverTimestamp(firebase.db)
 
@@ -121,7 +120,6 @@ const MessageInput = (props) =>{
                 () => {
                 // Il caricamento è stato completato con successo, oro posso ottenere l'URL di download
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log(ext[1]);
                     sendMessage(downloadURL,ext[1]);
                     console.log('File available at', downloadURL);
                 });

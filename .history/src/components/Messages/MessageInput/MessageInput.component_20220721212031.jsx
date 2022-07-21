@@ -20,7 +20,7 @@ const MessageInput = (props) =>{
 
     //creo una funzione per creare il messaggio in formato json
     const createMessageInfo = (downloadURL,exten) => {
-        //console.log(ext[1]);
+        console.log(ext[1]);
         return {
             user : {
                 avatar : props.user.photoURL,

@@ -9,18 +9,16 @@ import { v4 as uuidv4 } from 'uuid'; //serve a generare un uuid random
 
 const MessageInput = (props) =>{
 
-    var ext="";
+
     //const messageRef = ref(firebase.db, 'messages/');
     //const storage = getStorage();
     //const StorageRef = refStorage(storage);
     const StorageRef = refStorage(firebase.storage);
     const [messageState, setMessageState]= useState("");
-    //const [extensionState, setExtState]= useState("");
     const [fileDialogState, setFileDialogState]= useState(false);
 
     //creo una funzione per creare il messaggio in formato json
-    const createMessageInfo = (downloadURL,exten) => {
-        //console.log(ext[1]);
+    const createMessageInfo = (downloadURL) => {
         return {
             user : {
                 avatar : props.user.photoURL,
@@ -29,7 +27,6 @@ const MessageInput = (props) =>{
             },
             content : messageState,
             attachment: downloadURL || "",
-            extension : ext[1] || "",
             //timestamp : firebase.db.ServerValue.TIMESTAMP
             timestamp : serverTimestamp(firebase.db)
 
@@ -64,10 +61,8 @@ const MessageInput = (props) =>{
     }*/
     const uploadAttachments = (file,contentType) => {
 
-         ext = /^.+\.([^.]+)$/.exec(file.name); //prendo l'estensione del file che ho caricato 
-        //setExtState(ext[1]);
-        console.log(ext[1]);
-        //console.log(extensionState);
+        var ext = /^.+\.([^.]+)$/.exec(file.name); //prendo l'estensione del file che ho caricato 
+         
         //console.log(ext[1]);
         
 
@@ -82,7 +77,7 @@ const MessageInput = (props) =>{
             };
             
             // Carico il file e i metadati nell'oggetto 'images/mountains.jpg'.
-            const storageRef = refStorage(firebase.storage, 'pdf/' + file.name);
+            const storageRef = refStorage(firebase.storage, 'images/' + file.name);
             const uploadTask = uploadBytesResumable(storageRef, file, metadata);
             
             // event listener per i cambiamenti di stato, gli errori e il completamento del caricamento.
@@ -121,8 +116,7 @@ const MessageInput = (props) =>{
                 () => {
                 // Il caricamento è stato completato con successo, oro posso ottenere l'URL di download
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log(ext[1]);
-                    sendMessage(downloadURL,ext[1]);
+                    sendMessage(downloadURL);
                     console.log('File available at', downloadURL);
                 });
                 }
@@ -176,7 +170,7 @@ const MessageInput = (props) =>{
                 () => {
                 // Il caricamento è stato completato con successo, oro posso ottenere l'URL di download
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    sendMessage(downloadURL,ext[1]);
+                    sendMessage(downloadURL);
                     console.log('File available at', downloadURL);
                 });
                 }
@@ -230,7 +224,7 @@ const MessageInput = (props) =>{
                 () => {
                 // Il caricamento è stato completato con successo, oro posso ottenere l'URL di download
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    sendMessage(downloadURL,ext[1]);
+                    sendMessage(downloadURL);
                     console.log('File available at', downloadURL);
                 });
                 }

@@ -20,13 +20,9 @@ const MessageContent = (props) =>{
     <Comment.Content className={props.ownMessages ? "ownMessages": null}>
         <Comment.Author>{props.message.user.name}</Comment.Author>
         <Comment.Metadata>{timeAgo.format(props.message.timestamp)}</Comment.Metadata>
-        {props.message.attachment && props.message.extension!="pdf"  ? <a href={props.message.attachment}><Image src={props.message.attachment} /></a> :
-            <Comment.Text></Comment.Text>
+        {props.message.attachment && props.message.extension!="pdf"  ? <Image src={props.message.attachment}/> :
+            <Comment.Text>{props.message.content}</Comment.Text>
         }
-        {props.message.attachment && props.message.extension==="pdf"  ? <a href={props.message.attachment}><Icon name="huge file pdf" /></a> :
-            <Comment.Text></Comment.Text>
-        }
-        <Comment.Text>{props.message.content}</Comment.Text>
        
     </Comment.Content>
     </Comment>
