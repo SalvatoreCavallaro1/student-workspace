@@ -44,8 +44,8 @@ const Messages = (props) =>{
         if(props.user)
         {
             let messagesToDisplay = searchTermState ? filterMessagebySearchTerm() : messagesState;
-
-            if(messagesToDisplay.length>0){
+            
+            if(messagesState.length>0){
             
             
 
@@ -60,7 +60,7 @@ const Messages = (props) =>{
                     return out;
                 }
                 
-                const outputArray = filterArray(messagesToDisplay);
+                const outputArray = filterArray(messagesState);
                 //console.log("Array Originale",messagesState);
                 //console.log("Arrai filtrato",outputArray);
 

@@ -40,12 +40,9 @@ const Messages = (props) =>{
 
 
     const displayMessages = () => {
-        
         if(props.user)
         {
-            let messagesToDisplay = searchTermState ? filterMessagebySearchTerm() : messagesState;
-
-            if(messagesToDisplay.length>0){
+            if(messagesState.length>0){
             
             
 
@@ -60,7 +57,7 @@ const Messages = (props) =>{
                     return out;
                 }
                 
-                const outputArray = filterArray(messagesToDisplay);
+                const outputArray = filterArray(messagesState);
                 //console.log("Array Originale",messagesState);
                 //console.log("Arrai filtrato",outputArray);
 
@@ -96,16 +93,12 @@ const Messages = (props) =>{
     }
 
     const filterMessagebySearchTerm = () => {
-        const regex=new RegExp(searchTermState,"gi") // g--> global, i--> ignore case //cioè cercare l'intera stringa seza considerare maiuscole e minuscole
-        const messages = messagesState.reduce((accumulatore,message) =>{
-            if((message.content && message.content.match(regex)) || message.user.name.match(regex) ) // effettuo la ricerca sia per il contentuto dei messaggi sia per il nome utente
-            {
-                accumulatore.push(message);
+        const uniqueUsers = messagesState.reduce((accumulatore,message) =>{
+            if(!accumulatore.includes(message.user.name)){
+                accumulatore.push(message.user.name);
             }
             return accumulatore;
         },[]);
-
-        return messages;
     }
 
 
