@@ -1,12 +1,11 @@
 import {React, useState, useEffect} from 'react';
-import "./Channels.css";
 import { connect } from 'react-redux';
 import { Icon, Menu, Modal, Form, Button, Segment } from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
 import {ref, push, update, child, onChildAdded,getDatabase,get} from "firebase/database";
 import { setChannel } from '../../../store/actioncreator';
 
-const Channels = (props) => {
+const PrivateChat = (props) => {
     
     const adminMail="admin@gmail.com";
     var newArray=[];
@@ -14,14 +13,14 @@ const Channels = (props) => {
    
 
     
-    const [modalOpenState, setModalOpenState]= useState(false);
-    const [channelAddState, setchannelAddState]= useState({name: '', description: ''});
-    const [isLoading, setIsLoading]= useState(false); //stato per gestire l'icona di caricamento
+   // const [modalOpenState, setModalOpenState]= useState(false);
+   // const [channelAddState, setchannelAddState]= useState({name: '', description: ''});
+    //const [isLoading, setIsLoading]= useState(false); //stato per gestire l'icona di caricamento
     //stato per mantenere tutti i canali presenti
-    const [ChannelsState, setChannelsState]= useState([]);
-    const [ChannelsStateFilt, setChannelsStateFilt]= useState([]);
+    const [usersState, setUsersState]= useState([]);
+   // const [ChannelsStateFilt, setChannelsStateFilt]= useState([]);
 
-    const channelsRef= ref(firebase.db, 'channels');
+    const usersRef= ref(firebase.db, 'users');
     //console.log();
     
 
@@ -32,9 +31,9 @@ const Channels = (props) => {
     //useEffect serve a eseguire questo pezzo di codice quando il codice viene renderizzato
     useEffect(() => {
 
-        onChildAdded(channelsRef, (snapshot) => {
+        onChildAdded(usersRef, (snapshot) => {
             //console.log(snapshot.val());
-            setChannelsState((currentState) => {
+            setUserState((currentState) => {
                 let updatedState = [...currentState];
                 updatedState.push(snapshot.val());  
                 return updatedState;
@@ -67,7 +66,7 @@ const Channels = (props) => {
         }
     },[!props.channel ?ChannelsState : null]) 
 */
-useEffect(() => {
+/*useEffect(() => {
     //imposto selezionato il primo canale di default per admin
     if(props.user)
     {
@@ -80,17 +79,19 @@ useEffect(() => {
         }
     }
 },[!props.channel ?ChannelsState : null]) // se non ho selezionato alcun canale avrò una dependency su updatedState se invece è già settato non avrò dependency
+*/
 
+/*
 useEffect(() => {
     //imposto selezionato il primo canale di default per utente normale
     if(newArray.length > 0){
         //console.log(newArray);
         props.selectChannel(newArray[0])
     }
-},[!props.channel ?newArray : null])
+},[!props.channel ?newArray : null])*/
     
 
-    const SetTheUser = () => {
+    /*const SetTheUser = () => {
         if(props.user)
             {   
                 
@@ -114,23 +115,23 @@ useEffect(() => {
                 });
             } 
 
-    }
+    }*/
 
      
    
-    const openModal = () => {
+    /*const openModal = () => {
         setModalOpenState(true);
     }
     const closeModal = () => {
         setModalOpenState(false);
-    }
+    }*/
 
-    const checkIfFormValid = () => {
+    /*const checkIfFormValid = () => {
         return channelAddState && channelAddState.name && channelAddState.description && channelAddState.years && channelAddState.corso;
-    }
+    }*/
 
         
-    const newArraylenght = () => {
+    /*const newArraylenght = () => {
          
          if(userState.length<1)
          {
@@ -164,7 +165,7 @@ useEffect(() => {
                                     
         }       
      
-    }
+    }*/
     
         
 
@@ -172,7 +173,7 @@ useEffect(() => {
     const displayChannels = () => {
        // SetTheUser();
        
-        if(userState.length<1)
+     /*   if(userState.length<1)
         {
             SetTheUser();
         }
@@ -182,12 +183,12 @@ useEffect(() => {
             //console.log(userState[0].corso);
            //console.log(userState[0].years);
         }*/
-        if (userState.length>1)
+      /*  if (userState.length>1)
         {
             
          userState.pop();
             
-        }
+        }*/
        
 
         //console.log(userState.length);
@@ -199,67 +200,24 @@ useEffect(() => {
              //console.log(Cuser);
             // console.log(userState[0].corso);
             // console.log(userState[0].years);
-        if(ChannelsState.length > 0){                                  
+        if(userState.length > 0){                               
 
-            if(props.user)
-            {   
-                if(props.user.email===adminMail)
-                {
-
-
-                    return ChannelsState.map((channel) => {
+                    return userState.map((user) => {
                         return <Menu.Item
-                                key={channel.id}
-                                name={channel.name}
+                                key={user.id}
+                                name={user.name}
                                 onClick={() => props.selectChannel(channel)}
                                 active={props.channel && channel.id === props.channel.id}
                                 >
-                                {"#" + channel.name}
                                 </Menu.Item>
-                    })
-                }
-                else
-                {
-                    //console.log(ChannelsState);
-                    if(userState.length>=1 )
-                    {
-                        
-                        //newArray=[];
-                        newArray = ChannelsState.filter((item) => item.corso === userState[0].corso && item.years === userState[0].years);
-                        //console.log(newArray);
-                        
-                    }
-                   
-                            //console.log(userState);
-
-
-                            //  return ChannelsState.map((channel) => {
-                                return newArray.map((channel) => {
-                                       
-                                    //if(userState.length>=1 && channel.corso==userState[0].corso && channel.years==userState[0].years)
-                                    //{
-                                    return <Menu.Item
-                                    key={channel.id}
-                                    name={channel.name}
-                                    onClick={() => props.selectChannel(channel)}
-                                    active={props.channel && channel.id === props.channel.id}
-                                    >
-                                    {"#" + channel.name}
-                                    </Menu.Item>
-                                    //}
-                            
-                                })
-                    
-                            // })
-                }
-            }                 
+                    })                        
         
         }
     
         
     }
 
-    const onSubmit = () => {
+    /*const onSubmit = () => {
         if (!checkIfFormValid()) {
             return;
             //da settare gli errori come fatto per i form di login e registrazione
@@ -319,7 +277,7 @@ useEffect(() => {
         })
     }
 
-    
+    */
 
 
 
@@ -327,70 +285,20 @@ useEffect(() => {
     if(props.user)
     {
         if (props.user.email===adminMail)
-        {
+        { //({ChannelsState.length})
             return <><Menu.Menu>
-                <Menu.Item style={{fontSize: '17px'}}>
-                    <span className='clickable'   onClick={openModal}>
-                        <Icon name="add"/> Aggiungi Canale
-                    </span>
-                </Menu.Item>
+               
                 <Menu.Item>
                     <span>
                         <Icon name="exchange"/> Canali esistenti              
                     </span>
-                    ({ChannelsState.length})
+                    
                 </Menu.Item>
                 
                 {displayChannels()}
                 
             </Menu.Menu>
-            <Modal open={modalOpenState} onClose={closeModal}>
-                <Modal.Header>
-                    Crea Canale
-                </Modal.Header>
-                <Modal.Content>
-                    <Form onSubmit={onSubmit}>
-                        <Segment stacked>
-                            <Form.Input
-                                name="name"
-                                value={channelAddState.name}
-                                onChange={handleInput}
-                                type="text"
-                                placeholder="Inserisci il nome del canale"
-                            />
-                            <Form.Input
-                                name="description"
-                                value={channelAddState.description}
-                                onChange={handleInput}
-                                type="text"
-                                placeholder="Inserisci la descrizione del canale"
-                            />
-                            <Form.Input
-                                name="years"
-                                value={channelAddState.years}
-                                onChange={handleInput}
-                                type="text"
-                                placeholder="Inserisci l'anno di corso del canale'"
-                            />
-                            <Form.Input
-                                name="corso"
-                                value={channelAddState.corso}
-                                onChange={handleInput}
-                                type="text"
-                                placeholder="Inserisci il CdL del Canale"
-                            />
-                        </Segment>
-                    </Form>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button loading={isLoading} onClick={onSubmit}>
-                        <Icon name="checkmark"/> Salva
-                    </Button>
-                    <Button onClick={closeModal}>
-                        <Icon name="remove"/> Annulla
-                    </Button>
-                </Modal.Actions>
-            </Modal>
+            
         </>
 
 
@@ -398,13 +306,13 @@ useEffect(() => {
         else 
         {
 
-            newArraylenght();
+           // newArraylenght(); ({newArray.length})
             return <><Menu.Menu>    
-                <Menu.Item style={{fontSize: '17px'}}>
+                <Menu.Item>
                     <span>
                         <Icon name="exchange"/> Canali              
                     </span>
-                    ({newArray.length})
+                    
                 </Menu.Item>    
                 {displayChannels()}   
                 </Menu.Menu>
@@ -413,59 +321,7 @@ useEffect(() => {
         }
     }
 
-   /* if(props.user)
-     {console.log(props.user.email);}*/
-    
-   /* return <><Menu.Menu>
-            <Menu.Item>
-                <span>
-                    <Icon name="exchange"/> Channels              
-                </span>
-                ({ChannelsState.length})
-            </Menu.Item>
-            
-            {displayChannels()}
-            <Menu.Item>
-                <span className='clickable'   onClick={openModal}>
-                    <Icon name="add"/> ADD
-                </span>
-            </Menu.Item>
-        </Menu.Menu>
-        <Modal open={modalOpenState} onClose={closeModal}>
-            <Modal.Header>
-                Create Channel
-            </Modal.Header>
-            <Modal.Content>
-                <Form onSubmit={onSubmit}>
-                    <Segment stacked>
-                        <Form.Input
-                            name="name"
-                            value={channelAddState.name}
-                            onChange={handleInput}
-                            type="text"
-                            placeholder="Inserisci il nome del canale"
-                        />
-                        <Form.Input
-                            name="description"
-                            value={channelAddState.description}
-                            onChange={handleInput}
-                            type="text"
-                            placeholder="Inserisci la descrizione del canale"
-                        />
-                    </Segment>
-                </Form>
-            </Modal.Content>
-            <Modal.Actions>
-                <Button loading={isLoading} onClick={onSubmit}>
-                    <Icon name="checkmark"/> Save
-                </Button>
-                <Button onClick={closeModal}>
-                    <Icon name="remove"/> Cancel
-                </Button>
-            </Modal.Actions>
-        </Modal>
-    </>
-*/
+   
 
 
 }
@@ -486,4 +342,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Channels); //metto connect per avere accesso al redux store
+export default connect(mapStateToProps,mapDispatchToProps)(PrivateChat); //metto connect per avere accesso al redux store

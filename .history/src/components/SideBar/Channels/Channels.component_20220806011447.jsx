@@ -214,7 +214,6 @@ useEffect(() => {
                                 onClick={() => props.selectChannel(channel)}
                                 active={props.channel && channel.id === props.channel.id}
                                 >
-                                {"#" + channel.name}
                                 </Menu.Item>
                     })
                 }
@@ -244,7 +243,6 @@ useEffect(() => {
                                     onClick={() => props.selectChannel(channel)}
                                     active={props.channel && channel.id === props.channel.id}
                                     >
-                                    {"#" + channel.name}
                                     </Menu.Item>
                                     //}
                             

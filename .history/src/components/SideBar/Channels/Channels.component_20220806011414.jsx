@@ -214,7 +214,6 @@ useEffect(() => {
                                 onClick={() => props.selectChannel(channel)}
                                 active={props.channel && channel.id === props.channel.id}
                                 >
-                                {"#" + channel.name}
                                 </Menu.Item>
                     })
                 }
@@ -244,7 +243,6 @@ useEffect(() => {
                                     onClick={() => props.selectChannel(channel)}
                                     active={props.channel && channel.id === props.channel.id}
                                     >
-                                    {"#" + channel.name}
                                     </Menu.Item>
                                     //}
                             
@@ -329,7 +327,7 @@ useEffect(() => {
         if (props.user.email===adminMail)
         {
             return <><Menu.Menu>
-                <Menu.Item style={{fontSize: '17px'}}>
+                <Menu.Item style={{marginTop: '17px'}}>
                     <span className='clickable'   onClick={openModal}>
                         <Icon name="add"/> Aggiungi Canale
                     </span>
@@ -400,7 +398,7 @@ useEffect(() => {
 
             newArraylenght();
             return <><Menu.Menu>    
-                <Menu.Item style={{fontSize: '17px'}}>
+                <Menu.Item style={{marginTop: '17px'}}>
                     <span>
                         <Icon name="exchange"/> Canali              
                     </span>
