@@ -7,7 +7,6 @@ import { setChannel } from '../../../store/actioncreator';
 
 const PrivateChat = (props) => {
     
-    
    
     const [userState, setUserState]= useState([]);
 
@@ -51,13 +50,11 @@ const PrivateChat = (props) => {
     useEffect(() => {
         onValue(connectedRef, (snap) => {
             if(props.user && snap.val()){
-                //console.log(snap.val());
                 // se l'utente è loggato e quindi è online, uso lo status ref per salvare le informazioni dell'utente
                 const dbRef = ref(getDatabase());
                 const userStatusRef=child(dbRef, `status/${props.user.uid}`);
-                
                 //const userStatusRef = child(statusRef,props.user.uid );
-                //console.log(userStatusRef._path.pieces_[1]);
+                console.log(userStatusRef);
                 
                 //const userStatusRef = push(child(ref(firebase.db), 'channels')).key;
 
@@ -66,23 +63,21 @@ const PrivateChat = (props) => {
 
 
                 set(userStatusRef,true);
-                //console.log(userStatusRef);
+                console.log(userStatusRef);
                 //userStatusRef.set(true); ORIGINAL
                 // ogni volta che  l'utente viene loggato le informazioni vengono aggiunte allo userstatus ref e ogni volta che l'utente si disconnette
                 //rimuovo le informazioni relative all'utente che si è disconnesso
                 
-                //userStatusRef.onDisconnect().remove(); //ORIGINAL
+                //userStatusRef.onDisconnect().remove(); ORIGINAL
 
-                
-                onDisconnect(userStatusRef).remove();  //NON FUNZIONA
-                
-                }
-                
-                
-                 
+                //if(userStatusRef){}
+                //onDisconnect(userStatusRef).then(remove());
+                remove(onDisconnect(userStatusRef));
+               
+                console.log(userStatusRef);
+            }
 
         })
-        
 
 
           /* connectedRef.on("value",snap => {

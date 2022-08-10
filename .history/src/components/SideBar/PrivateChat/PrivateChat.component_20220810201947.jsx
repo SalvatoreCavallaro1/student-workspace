@@ -7,7 +7,7 @@ import { setChannel } from '../../../store/actioncreator';
 
 const PrivateChat = (props) => {
     
-    
+    const userr=props.user.uid;
    
     const [userState, setUserState]= useState([]);
 
@@ -55,7 +55,6 @@ const PrivateChat = (props) => {
                 // se l'utente è loggato e quindi è online, uso lo status ref per salvare le informazioni dell'utente
                 const dbRef = ref(getDatabase());
                 const userStatusRef=child(dbRef, `status/${props.user.uid}`);
-                
                 //const userStatusRef = child(statusRef,props.user.uid );
                 //console.log(userStatusRef._path.pieces_[1]);
                 
@@ -74,11 +73,19 @@ const PrivateChat = (props) => {
                 //userStatusRef.onDisconnect().remove(); //ORIGINAL
 
                 
-                onDisconnect(userStatusRef).remove();  //NON FUNZIONA
-                
+                //onDisconnect(userStatusRef).remove(userStatusRef).then(console.log("deleted"));
+                //onDisconnect(userStatusRef).set(userStatusRef,false);
+
                 }
-                
-                
+                else{
+                    const dbRef = ref(getDatabase());
+                    const userStatusRef=child(dbRef, `status/${props.user.uid}`);
+                    remove(userStatusRef);
+                }
+                /*onDisconnect(userStatusRef).
+                remove(userStatusRef._path.pieces_[1]);*/
+               
+                //console.log(userStatusRef);
                  
 
         })

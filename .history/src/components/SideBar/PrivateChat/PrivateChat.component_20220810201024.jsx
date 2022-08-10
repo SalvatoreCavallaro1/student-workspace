@@ -7,7 +7,6 @@ import { setChannel } from '../../../store/actioncreator';
 
 const PrivateChat = (props) => {
     
-    
    
     const [userState, setUserState]= useState([]);
 
@@ -51,11 +50,10 @@ const PrivateChat = (props) => {
     useEffect(() => {
         onValue(connectedRef, (snap) => {
             if(props.user && snap.val()){
-                //console.log(snap.val());
+                console.log(snap.val());
                 // se l'utente è loggato e quindi è online, uso lo status ref per salvare le informazioni dell'utente
                 const dbRef = ref(getDatabase());
                 const userStatusRef=child(dbRef, `status/${props.user.uid}`);
-                
                 //const userStatusRef = child(statusRef,props.user.uid );
                 //console.log(userStatusRef._path.pieces_[1]);
                 
@@ -73,13 +71,19 @@ const PrivateChat = (props) => {
                 
                 //userStatusRef.onDisconnect().remove(); //ORIGINAL
 
-                
-                onDisconnect(userStatusRef).remove();  //NON FUNZIONA
-                
+                //if(userStatusRef){}
+                onDisconnect(userStatusRef => {remove(userStatusRef);})
+
                 }
-                
-                
-                 
+                /*onDisconnect(userStatusRef).
+                remove(userStatusRef._path.pieces_[1]);*/
+               
+                //console.log(userStatusRef);
+            }
+           
+            
+            
+            
 
         })
         

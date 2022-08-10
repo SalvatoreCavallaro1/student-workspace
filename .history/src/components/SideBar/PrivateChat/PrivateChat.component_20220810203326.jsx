@@ -54,8 +54,8 @@ const PrivateChat = (props) => {
                 //console.log(snap.val());
                 // se l'utente è loggato e quindi è online, uso lo status ref per salvare le informazioni dell'utente
                 const dbRef = ref(getDatabase());
-                const userStatusRef=child(dbRef, `status/${props.user.uid}`);
-                
+                //const userStatusRef=child(dbRef, `status/${props.user.uid}`);
+                const userStatusRef=(dbRef, `status/${props.user.uid}`);
                 //const userStatusRef = child(statusRef,props.user.uid );
                 //console.log(userStatusRef._path.pieces_[1]);
                 
@@ -74,7 +74,7 @@ const PrivateChat = (props) => {
                 //userStatusRef.onDisconnect().remove(); //ORIGINAL
 
                 
-                onDisconnect(userStatusRef).remove();  //NON FUNZIONA
+                onDisconnect(userStatusRef).remove();
                 
                 }
                 

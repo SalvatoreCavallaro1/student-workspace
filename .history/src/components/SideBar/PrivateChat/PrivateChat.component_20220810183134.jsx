@@ -2,11 +2,10 @@ import {React, useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Icon, Menu} from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
-import {ref, onChildAdded,onValue, onChildRemoved,child,set,onDisconnect,remove,getDatabase} from "firebase/database";
+import {ref, onChildAdded,onValue, onChildRemoved,child,set,onDisconnect,remove} from "firebase/database";
 import { setChannel } from '../../../store/actioncreator';
 
 const PrivateChat = (props) => {
-    
     
    
     const [userState, setUserState]= useState([]);
@@ -51,13 +50,9 @@ const PrivateChat = (props) => {
     useEffect(() => {
         onValue(connectedRef, (snap) => {
             if(props.user && snap.val()){
-                //console.log(snap.val());
                 // se l'utente è loggato e quindi è online, uso lo status ref per salvare le informazioni dell'utente
-                const dbRef = ref(getDatabase());
-                const userStatusRef=child(dbRef, `status/${props.user.uid}`);
-                
-                //const userStatusRef = child(statusRef,props.user.uid );
-                //console.log(userStatusRef._path.pieces_[1]);
+                const userStatusRef = child(statusRef, props.user.uid);
+                console.log(userStatusRef);
                 
                 //const userStatusRef = push(child(ref(firebase.db), 'channels')).key;
 
@@ -66,23 +61,19 @@ const PrivateChat = (props) => {
 
 
                 set(userStatusRef,true);
-                //console.log(userStatusRef);
+                console.log(userStatusRef);
                 //userStatusRef.set(true); ORIGINAL
                 // ogni volta che  l'utente viene loggato le informazioni vengono aggiunte allo userstatus ref e ogni volta che l'utente si disconnette
                 //rimuovo le informazioni relative all'utente che si è disconnesso
                 
-                //userStatusRef.onDisconnect().remove(); //ORIGINAL
+                //userStatusRef.onDisconnect().remove(); ORIGINAL
 
-                
-                onDisconnect(userStatusRef).remove();  //NON FUNZIONA
-                
-                }
-                
-                
-                 
+                //if(userStatusRef){}
+                remove(onDisconnect(userStatusRef));
+                console.log(userStatusRef);
+            }
 
         })
-        
 
 
           /* connectedRef.on("value",snap => {
@@ -130,9 +121,8 @@ const PrivateChat = (props) => {
     
     const displayUsers = () => {
       
-        if(userState.length > 0 && props.user)
-        {                               
-          
+        if(userState.length > 0){                               
+          // console.log(connectedRef);
                     return userState.filter((user)=> user.id !== props.user.uid).map((user) => {  //filtro fra tutti gli utenti solo quelli loggati
                         return <Menu.Item
                                 key={user.id}

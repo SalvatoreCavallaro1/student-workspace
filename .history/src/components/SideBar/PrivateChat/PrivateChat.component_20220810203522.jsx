@@ -74,7 +74,7 @@ const PrivateChat = (props) => {
                 //userStatusRef.onDisconnect().remove(); //ORIGINAL
 
                 
-                onDisconnect(userStatusRef).remove();  //NON FUNZIONA
+                onDisconnect(userStatusRef).remove();
                 
                 }
                 

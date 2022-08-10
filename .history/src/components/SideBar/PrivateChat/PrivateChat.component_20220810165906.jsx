@@ -2,25 +2,31 @@ import {React, useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Icon, Menu} from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
-import {ref, onChildAdded,onValue, onChildRemoved,child,set,onDisconnect,remove,getDatabase} from "firebase/database";
+import {ref, onChildAdded,} from "firebase/database";
 import { setChannel } from '../../../store/actioncreator';
 
 const PrivateChat = (props) => {
     
-    
    
     const [userState, setUserState]= useState([]);
+   
 
-    const [connectedUserState, setConnectedUsersState]=useState([]);
-
+    
+   
     //stato per mantenere tutti i canali presenti
     const [usersState, setUsersState]= useState([]);
   
+
     const usersRef= ref(firebase.db, 'users');
     const connectedRef= ref (firebase.db, '.info/connected') //riferimento all'utente connesso, in questo percroso firebase conserva i dati relativi agli utenti online
     //se l'utente è connesso sarà settato il valore su true
     
+
     const statusRef = ref(firebase.db, 'status');
+
+    
+    
+
 
     //useEffect serve a eseguire questo pezzo di codice quando il codice viene renderizzato
     useEffect(() => {
@@ -39,53 +45,9 @@ const PrivateChat = (props) => {
             })
 
             });
+               
             
-
-         
-
-    },[]) //la lista delle dependency la lascio vuota così il codice viene eseguito soltanto una volta 
-
-
-
-
-    useEffect(() => {
-        onValue(connectedRef, (snap) => {
-            if(props.user && snap.val()){
-                //console.log(snap.val());
-                // se l'utente è loggato e quindi è online, uso lo status ref per salvare le informazioni dell'utente
-                const dbRef = ref(getDatabase());
-                const userStatusRef=child(dbRef, `status/${props.user.uid}`);
-                
-                //const userStatusRef = child(statusRef,props.user.uid );
-                //console.log(userStatusRef._path.pieces_[1]);
-                
-                //const userStatusRef = push(child(ref(firebase.db), 'channels')).key;
-
-
-                //const userStatusRef= statusRef.child(props.user.uid); //ORIGINAL
-
-
-                set(userStatusRef,true);
-                //console.log(userStatusRef);
-                //userStatusRef.set(true); ORIGINAL
-                // ogni volta che  l'utente viene loggato le informazioni vengono aggiunte allo userstatus ref e ogni volta che l'utente si disconnette
-                //rimuovo le informazioni relative all'utente che si è disconnesso
-                
-                //userStatusRef.onDisconnect().remove(); //ORIGINAL
-
-                
-                onDisconnect(userStatusRef).remove();  //NON FUNZIONA
-                
-                }
-                
-                
-                 
-
-        })
-        
-
-
-          /* connectedRef.on("value",snap => {
+            connectedRef.on("value",snap => {
                 if(props.user && snap.val()){
                     // se l'utente è loggato e quindi è online, uso lo status ref per salvare le informazioni dell'utente
                     const userStatusRef= statusRef.child(props.user.uid);
@@ -96,43 +58,17 @@ const PrivateChat = (props) => {
                 }
             })
 
-            return ()=> {connectedRef.off();}*/
-    },[props.user]) //la lista delle su user così ogni volta che l'utente cambia questo codice viene eseguito
+            
 
+        
 
-    // ogni volta che un particolare client si connette a firebase i dati vengono scrtti in statusRef 
-    //quindi ogni volta che un child viene aggiunto a statusRef significa che un utente si è collegato 
-    useEffect(() => {
+    },[props.user]) //la lista delle dependency la setto ome un oggetto vuoto in modo che il codice venga eseguito soltanto una volta
 
-        onChildAdded(statusRef, (snap) => {
-            setConnectedUsersState((currentState) => {
-                let updatedState =[...currentState];
-                updatedState.push(snap.key);
-                return updatedState;
-            })
-        })
-
-        //dobbiamo anche controllare quando l'utente si disconnette
-
-        onChildRemoved(statusRef, (snap) => {
-            setConnectedUsersState((currentState) => {
-                let updatedState =[...currentState];
-                //trovo l'indice dell'utente che si è disconnesso
-                let index= updatedState.indexOf(snap.key);
-                updatedState.splice(index,1); //rimuovo con la funzione splice l'utente disconnesso di cui ho trovato l'indice
-                return updatedState;
-            })
-        })
-
-
-
-    },[userState]); // ogni volta che userState cambia questo pezzo di codice viene eseguito
     
     const displayUsers = () => {
       
-        if(userState.length > 0 && props.user)
-        {                               
-          
+        if(userState.length > 0){                               
+          // console.log(connectedRef);
                     return userState.filter((user)=> user.id !== props.user.uid).map((user) => {  //filtro fra tutti gli utenti solo quelli loggati
                         return <Menu.Item
                                 key={user.id}
@@ -140,7 +76,6 @@ const PrivateChat = (props) => {
                                 onClick={() => selectUser(user)}
                                 active={props.channel && generateChannelId(user.id) === props.channel.id}
                                 >
-                                <Icon name="circle" color={`${connectedUserState.indexOf(user.id) !== -1 ? "green" : "red"}`} />
                                 {"@" + user.name}
                                 </Menu.Item>
                     })                        

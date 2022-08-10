@@ -7,7 +7,6 @@ import { setChannel } from '../../../store/actioncreator';
 
 const PrivateChat = (props) => {
     
-    
    
     const [userState, setUserState]= useState([]);
 
@@ -51,11 +50,14 @@ const PrivateChat = (props) => {
     useEffect(() => {
         onValue(connectedRef, (snap) => {
             if(props.user && snap.val()){
-                //console.log(snap.val());
                 // se l'utente è loggato e quindi è online, uso lo status ref per salvare le informazioni dell'utente
                 const dbRef = ref(getDatabase());
-                const userStatusRef=child(dbRef, `status/${props.user.uid}`);
-                
+                const ThestatusRef = dbRef.ref("status");
+                const userStatusRef = ThestatusRef.child(props.user.uid);
+                userStatusRef.set(true);
+                userStatusRef.onDisconnect().remove();
+
+                //const userStatusRef=child(dbRef, `status/${props.user.uid}`);
                 //const userStatusRef = child(statusRef,props.user.uid );
                 //console.log(userStatusRef._path.pieces_[1]);
                 
@@ -65,7 +67,7 @@ const PrivateChat = (props) => {
                 //const userStatusRef= statusRef.child(props.user.uid); //ORIGINAL
 
 
-                set(userStatusRef,true);
+                //set(userStatusRef,true);
                 //console.log(userStatusRef);
                 //userStatusRef.set(true); ORIGINAL
                 // ogni volta che  l'utente viene loggato le informazioni vengono aggiunte allo userstatus ref e ogni volta che l'utente si disconnette
@@ -73,16 +75,14 @@ const PrivateChat = (props) => {
                 
                 //userStatusRef.onDisconnect().remove(); //ORIGINAL
 
-                
-                onDisconnect(userStatusRef).remove();  //NON FUNZIONA
-                
-                }
-                
-                
-                 
+                //if(userStatusRef){}
+                //onDisconnect(userStatusRef).then(remove());
+                //onDisconnect(userStatusRef).remove(userStatusRef._path.pieces_[1]);
+               
+                //console.log(userStatusRef);
+            }
 
         })
-        
 
 
           /* connectedRef.on("value",snap => {
