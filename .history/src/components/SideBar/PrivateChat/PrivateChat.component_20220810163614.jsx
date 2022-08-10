@@ -2,12 +2,13 @@ import {React, useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Icon, Menu} from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
-import {ref, onChildAdded,} from "firebase/database";
+import {ref, push, update, child, onChildAdded,getDatabase,get} from "firebase/database";
 import { setChannel } from '../../../store/actioncreator';
 
 const PrivateChat = (props) => {
     
-   
+    const adminMail="admin@gmail.com";
+    var newArray=[];
     const [userState, setUserState]= useState([]);
    
 
