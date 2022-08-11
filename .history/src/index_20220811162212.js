@@ -59,16 +59,13 @@ const Index = (props) => {
 //console.log(props.currentUser);
 
 
-//{props.loading && props.location.pathname==="/"} controllo sia se loading è settato su true sia se si è nella home perchè nel login e nel register component non serve il loader
-  return(<>
-    
-    <AppLoader loading={props.loading && props.location.pathname==="/"}/>
+  return(
     <Switch>
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/" component={App} />
     </Switch>
-    </>
+
   )
 }
 

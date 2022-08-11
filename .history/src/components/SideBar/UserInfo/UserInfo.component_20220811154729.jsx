@@ -10,7 +10,7 @@ import {ref, onChildAdded,onValue, onChildRemoved,child,set,onDisconnect,remove,
 
 // nelle props ho le informazioni dell'utente loggato
 const UserInfo = (props) => {
-    
+    const statusRef = ref(firebase.db, 'status');
     const adminMail="admin@gmail.com"
     //console.log(props.user.uid);
     const getDropDownOptions = () => {
@@ -21,7 +21,6 @@ const UserInfo = (props) => {
     }
 
     const logout = () => {
-       
         signOut(firebase.auth).then(() => console.log("user signed out"));
     }
 

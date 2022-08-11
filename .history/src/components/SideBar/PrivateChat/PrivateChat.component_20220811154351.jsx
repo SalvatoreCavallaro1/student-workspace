@@ -36,7 +36,10 @@ const PrivateChat = (props) => {
                 return updatedState;
             })
 
-            });       
+            });
+            
+
+         
 
     },[]) //la lista delle dependency la lascio vuota così il codice viene eseguito soltanto una volta 
 
@@ -145,6 +148,10 @@ const PrivateChat = (props) => {
         {displayUsers()}
 
         </Menu.Menu>
+
+
+   
+
 
 }
 
