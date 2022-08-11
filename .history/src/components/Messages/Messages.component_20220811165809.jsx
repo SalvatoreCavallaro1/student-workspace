@@ -76,7 +76,7 @@ const Messages = (props) =>{
 
                 return outputArray.map((message) => { // estraggo i messaggi e li mando al component MessageContent
                     //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
-                    return <MessageContent imageLoaded={imageLoaded} ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
+                    return <MessageContent ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
                 })
 
                 
@@ -88,7 +88,6 @@ const Messages = (props) =>{
     const imageLoaded = () => {
 
         //con questa funzione faccio in modo che l'immagine sia anche nella user view
-        //cioè così facendo rifaccio lo scroll all'ultimo messaggio dopo il caricamento della immagini
         divRef.scrollIntoView({behavior : 'smooth'});
 
     }

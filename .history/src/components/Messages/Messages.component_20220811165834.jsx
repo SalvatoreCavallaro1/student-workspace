@@ -88,7 +88,6 @@ const Messages = (props) =>{
     const imageLoaded = () => {
 
         //con questa funzione faccio in modo che l'immagine sia anche nella user view
-        //cioè così facendo rifaccio lo scroll all'ultimo messaggio dopo il caricamento della immagini
         divRef.scrollIntoView({behavior : 'smooth'});
 
     }

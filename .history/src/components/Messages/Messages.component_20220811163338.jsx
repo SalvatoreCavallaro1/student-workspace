@@ -40,14 +40,6 @@ const Messages = (props) =>{
     }, [props.channel])
 
 
-    useEffect (()=> {
-
-
-        //uso la funzione scrollIntoView cioè se l'elemento in particolare non è nella view dell'utente scrolerà in automatico all'elemento i questione
-        divRef.scrollIntoView({behavior : 'smooth'}); // imnposto il behavior smooth dello scroll per avere una transizione più smooth
-
-    }, [messagesState])
-
     const displayMessages = () => {
         
         if(props.user)
@@ -76,7 +68,7 @@ const Messages = (props) =>{
 
                 return outputArray.map((message) => { // estraggo i messaggi e li mando al component MessageContent
                     //controllo anche se i messaggi appertongono all'utente logggato per impostare il giusto css
-                    return <MessageContent imageLoaded={imageLoaded} ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
+                    return <MessageContent ownMessages={message.user.id === props.user.uid} key={message.timestamp} message={message}/>
                 })
 
                 
@@ -84,14 +76,6 @@ const Messages = (props) =>{
         }
     }
 
-
-    const imageLoaded = () => {
-
-        //con questa funzione faccio in modo che l'immagine sia anche nella user view
-        //cioè così facendo rifaccio lo scroll all'ultimo messaggio dopo il caricamento della immagini
-        divRef.scrollIntoView({behavior : 'smooth'});
-
-    }
     const uniqueUsersCount = () => {
 
         // scorro tutti i messaggi del canale 
@@ -126,13 +110,10 @@ const Messages = (props) =>{
     }
 
 
-    // <div ref={currentElement => divRef = currentElement }></div> così facendo il divRef avrà accesso  a al con current element
-
     return <div className='messages'><MessageHeader isPrivateChat={props.channel?.isPrivateChat}  searchTermChange={searchTermChange} channelName={props.channel?.name} uniqueUsers={uniqueUsersCount()}/>  
     <Segment className='messageContent'>
         <Comment.Group>
           {displayMessages()}  
-          <div ref={currentElement => divRef = currentElement }></div> 
         </Comment.Group>
     </Segment>
     <MessageInput/></div>
