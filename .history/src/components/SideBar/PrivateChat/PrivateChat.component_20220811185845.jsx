@@ -118,14 +118,11 @@ const PrivateChat = (props) => {
         let userTemp = {...user};
         userTemp.id=generateChannelId(user.id);
         setLastVisited(props.user,props.channel);
-        setLastVisited(props.user,userTemp);
         props.selectChannel(userTemp)
     }
 
     const setLastVisited = (user,channel) => {
-       // const lastVisited = child(usersRef,user.id).child("lastvisited").child(channel.id);
-        const dbRef = ref(getDatabase());
-        const lastVisited =  child(child(child(dbRef, `users/${props.user.uid}`),"lastvisited"),channel.id);  
+        const lastVisited = child(usersRef,user.id).child("lastvisited").child(channel.id);
         set(lastVisited,serverTimestamp(firebase.db));
         onDisconnect(lastVisited).set(serverTimestamp(firebase.db)).catch((err) => {
             if (err) {

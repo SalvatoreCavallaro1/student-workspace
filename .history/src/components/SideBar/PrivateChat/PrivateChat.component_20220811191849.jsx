@@ -124,7 +124,14 @@ const PrivateChat = (props) => {
 
     const setLastVisited = (user,channel) => {
        // const lastVisited = child(usersRef,user.id).child("lastvisited").child(channel.id);
+
         const dbRef = ref(getDatabase());
+        //const userStatusRef=child(dbRef, `status/${props.user.uid}`);*/
+        //const userspec=child(usersRef,user.id);
+        /*const userspec=child(dbRef,`users/${user.uid}`);
+        const lastVisited=child(userspec,"lastvisited");
+        const channelspec=child(lastVisited,channel.id);*/
+        //child(child(child(usersRef,user.id),"lastvisited"),channel.id); 
         const lastVisited =  child(child(child(dbRef, `users/${props.user.uid}`),"lastvisited"),channel.id);  
         set(lastVisited,serverTimestamp(firebase.db));
         onDisconnect(lastVisited).set(serverTimestamp(firebase.db)).catch((err) => {
