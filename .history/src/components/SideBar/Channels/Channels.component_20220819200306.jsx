@@ -3,7 +3,7 @@ import "./Channels.css";
 import { connect } from 'react-redux';
 import { Icon, Menu, Modal, Form, Button, Segment } from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
-import {ref, push, update, child, onChildAdded,getDatabase,get,set, serverTimestamp,onDisconnect} from "firebase/database";
+import {ref, push, update, child, onChildAdded,getDatabase,get} from "firebase/database";
 import { setChannel } from '../../../store/actioncreator';
 import { Notification } from '../Notification/Notification.component';
 const Channels = (props) => {
@@ -245,7 +245,7 @@ useEffect(() => {
                                     active={props.channel && channel.id === props.channel.id}
                                     >
                                     
-                                    <Notification user={props.user} channel={props.channel} notificationChannelId={channel.id}
+                                    <Notification user={props.user} channel={props.channel} notificationChannelId={user.id}
                                      displayName= {"#" + channel.name} />
                                     </Menu.Item>
                                     //}

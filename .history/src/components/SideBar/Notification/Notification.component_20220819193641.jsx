@@ -1,14 +1,13 @@
 import {React, useEffect,useState} from "react";
 import * as firebase from '../../../server/firebase';
 import {ref, onChildAdded,onValue, onChildRemoved,child,set,onDisconnect,remove,getDatabase,serverTimestamp} from "firebase/database";
-import Label from "semantic-ui-react/dist/commonjs/elements/Label";
 
 export const Notification = (props) => {
 
     const messagesRef = ref(firebase.db,"messages");
     const usersRef = ref(firebase.db,"users");
     const [channelsVisitedState, setChannelsVisitedState] = useState({}); //avrò qui le informazioni su tutti i canali e su l'ultima volta he ho visitato il canale
-    const [messagesTimeStampState, setMessagesTimeStampState] = useState({});
+    const [messagesTimeStampState, setmessagesTimeStampState] = useState({});
     useEffect(()=> {
 
         if(props.user){
@@ -53,14 +52,12 @@ export const Notification = (props) => {
 
             let channelMessagesTimeStamp = messagesTimeStampState[channelId]; // lista dei timestamp dei messaggi per il canale identificato da channelId
 
-            if (channelMessagesTimeStamp) { //se il timestamp  è presente vado a filtrare tutti i messaggi arrivati dopo che l'utente ha visitato per l'ultima volta il canale
-                // se lastVisited è undefined significa che l'utente non ha mai visitato quel particolare canale
+            if (channelMessagesTimeStamp) {
                 let notificationCount = channelMessagesTimeStamp.filter(timestamp => !lastVisited || lastVisited < timestamp).length;
-                // se il count delle notifiche è 0 ritorno null altrimenti mostro la otifica tramite il component label di semantic ui 
                 return notificationCount === 0 ? null : <Label color="red">{notificationCount}</Label>
             }
         }
-        // se il timestamp non è presente ritorno null in ogni caso
+
         return null;
     }
     return <> {props.displayName}{calculateNotificationCount(props.notificationChannelId)} </>;

@@ -3,7 +3,7 @@ import "./Channels.css";
 import { connect } from 'react-redux';
 import { Icon, Menu, Modal, Form, Button, Segment } from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
-import {ref, push, update, child, onChildAdded,getDatabase,get,set, serverTimestamp,onDisconnect} from "firebase/database";
+import {ref, push, update, child, onChildAdded,getDatabase,get} from "firebase/database";
 import { setChannel } from '../../../store/actioncreator';
 import { Notification } from '../Notification/Notification.component';
 const Channels = (props) => {
@@ -241,11 +241,11 @@ useEffect(() => {
                                     return <Menu.Item
                                     key={channel.id}
                                     name={channel.name}
-                                    onClick={() => selectChannel(channel)}
+                                    onClick={() => props.selectChannel(channel)}
                                     active={props.channel && channel.id === props.channel.id}
                                     >
                                     
-                                    <Notification user={props.user} channel={props.channel} notificationChannelId={channel.id}
+                                    <Notification user={props.user} channel={props.channel} notificationChannelId={generateChannelId(user.id)}
                                      displayName= {"#" + channel.name} />
                                     </Menu.Item>
                                     //}
@@ -260,26 +260,6 @@ useEffect(() => {
     
         
     }
-
-
-    const selectChannel = (channel) => {
-        //setto il last visited per il canale selezionato
-        setLastVisited(props.user,props.channel);
-        setLastVisited(props.user,channel); // lo setto anche per i nuovi canali
-        props.selectChannel(channel);
-    }
-    const setLastVisited = (user,channel) => {
-        // const lastVisited = child(usersRef,user.id).child("lastvisited").child(channel.id);
-         const dbRef = ref(getDatabase());
-         const lastVisited =  child(child(child(dbRef, `users/${props.user.uid}`),"lastvisited"),channel.id);  
-         set(lastVisited,serverTimestamp(firebase.db));
-         onDisconnect(lastVisited).set(serverTimestamp(firebase.db)).catch((err) => {
-             if (err) {
-               console.error("could not establish onDisconnect event", err);
-             }
-           });
-         
-     }
 
     const onSubmit = () => {
         if (!checkIfFormValid()) {
