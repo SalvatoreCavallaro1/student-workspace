@@ -541,14 +541,14 @@ useEffect(() => {
                             <Form.Input
                                 name="name"
                                 value={CourseAddState.name}
-                                onChange={handleInput2}
+                                onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci corso di laurea"
                             />
                             <Form.Input
                                 name="years"
                                 value={CourseAddState.years}
-                                onChange={handleInput2}
+                                onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci l'anno di corso"
                             />

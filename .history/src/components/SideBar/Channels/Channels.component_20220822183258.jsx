@@ -160,10 +160,6 @@ useEffect(() => {
         return channelAddState && channelAddState.name && channelAddState.description && channelAddState.years && channelAddState.corso;
     }
 
-    const checkIfFormValid3 = () => {
-        return CourseAddState && CourseAddState.name &&  CourseAddState.years;
-    }
-
         
     const newArraylenght = () => {
          
@@ -321,10 +317,19 @@ useEffect(() => {
             return;
             //da settare gli errori come fatto per i form di login e registrazione
         }
+
+
+
+        
+
         //const key = channelsRef.push().key; 
 
+       
         //generò un riferimento alla location,aggiungo i dati con la funzione push() e generò e ottengo una key unica
         const newChannelKey = push(child(ref(firebase.db), 'channels')).key;
+
+        
+
 
         const channel = {
             id:newChannelKey,
@@ -356,56 +361,11 @@ useEffect(() => {
 
     }
 
-    const onSubmit3 = () => {
-        if (!checkIfFormValid3()) {
-            return;
-            //da settare gli errori come fatto per i form di login e registrazione
-        }
-    
-        //generò un riferimento alla location,aggiungo i dati con la funzione push() e generò e ottengo una key unica
-        const newCourseKey = push(child(ref(firebase.db), 'courses')).key;
-
-        const course = {
-            id:newCourseKey,
-            name : CourseAddState.name,
-            years : CourseAddState.years
-        }
-
-        setIsLoading(true);
-        // Scrivo i dati del nuovo canale sul realtime database.
-        const updates = {};
-        updates['courses/' + newCourseKey] = course;
-        update(ref(firebase.db), updates)
-        .then(() =>
-        {
-            setCourseAddState({name: '', description: ''}) // pulizia dei dati
-            //console.log('saved');
-            setIsLoading(false);
-            closeModal3();
-        })
-        .catch ((error) => {
-            console.log(error);
-        })
-
-    }
-
-
-
-
 
     
     const handleInput = (event) => {
         let target =event.target //cioè l'elemento con cui l'utente sta interagendo
         setchannelAddState((currentState) => {
-            let updatedState ={...currentState}  //usando questo thread operator vado a creare un clone di currentState 
-            updatedState[target.name] = target.value;
-            return updatedState;
-        })
-    }
-
-    const handleInput2 = (event) => {
-        let target =event.target //cioè l'elemento con cui l'utente sta interagendo
-        setCourseAddState((currentState) => {
             let updatedState ={...currentState}  //usando questo thread operator vado a creare un clone di currentState 
             updatedState[target.name] = target.value;
             return updatedState;
@@ -536,19 +496,19 @@ useEffect(() => {
                     Aggiungi Corso di Laurea
                 </Modal.Header>
                 <Modal.Content>
-                    <Form onSubmit={onSubmit3}>
+                    <Form onSubmit={onSubmit}>
                         <Segment stacked>
                             <Form.Input
                                 name="name"
-                                value={CourseAddState.name}
-                                onChange={handleInput2}
+                                value={channelAddState.name}
+                                onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci corso di laurea"
                             />
                             <Form.Input
                                 name="years"
-                                value={CourseAddState.years}
-                                onChange={handleInput2}
+                                value={channelAddState.name}
+                                onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci l'anno di corso"
                             />
@@ -556,7 +516,7 @@ useEffect(() => {
                     </Form>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button loading={isLoading} onClick={onSubmit3}>
+                    <Button loading={isLoading} onClick={onSubmit}>
                         <Icon name="checkmark"/> Salva
                     </Button>
                     <Button onClick={closeModal3}>

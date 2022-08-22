@@ -374,7 +374,7 @@ useEffect(() => {
         setIsLoading(true);
         // Scrivo i dati del nuovo canale sul realtime database.
         const updates = {};
-        updates['courses/' + newCourseKey] = course;
+        updates['courses/' + newChannelKey] = course;
         update(ref(firebase.db), updates)
         .then(() =>
         {
@@ -397,15 +397,6 @@ useEffect(() => {
     const handleInput = (event) => {
         let target =event.target //cioè l'elemento con cui l'utente sta interagendo
         setchannelAddState((currentState) => {
-            let updatedState ={...currentState}  //usando questo thread operator vado a creare un clone di currentState 
-            updatedState[target.name] = target.value;
-            return updatedState;
-        })
-    }
-
-    const handleInput2 = (event) => {
-        let target =event.target //cioè l'elemento con cui l'utente sta interagendo
-        setCourseAddState((currentState) => {
             let updatedState ={...currentState}  //usando questo thread operator vado a creare un clone di currentState 
             updatedState[target.name] = target.value;
             return updatedState;
@@ -536,19 +527,19 @@ useEffect(() => {
                     Aggiungi Corso di Laurea
                 </Modal.Header>
                 <Modal.Content>
-                    <Form onSubmit={onSubmit3}>
+                    <Form onSubmit={onSubmit}>
                         <Segment stacked>
                             <Form.Input
                                 name="name"
                                 value={CourseAddState.name}
-                                onChange={handleInput2}
+                                onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci corso di laurea"
                             />
                             <Form.Input
                                 name="years"
-                                value={CourseAddState.years}
-                                onChange={handleInput2}
+                                value={CourseAddState.name}
+                                onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci l'anno di corso"
                             />

@@ -18,8 +18,8 @@ const Channels = (props) => {
     const [modalOpenState2, setModalOpenState2]= useState(false);
     const [modalOpenState3, setModalOpenState3]= useState(false);
     const [modalOpenState4, setModalOpenState4]= useState(false);
+    const [modalOpenState5, setModalOpenState5]= useState(false);
     const [channelAddState, setchannelAddState]= useState({name: '', description: ''});
-    const [CourseAddState, setCourseAddState]= useState({name: '', years: ''});
     const [isLoading, setIsLoading]= useState(false); //stato per gestire l'icona di caricamento
     //stato per mantenere tutti i canali presenti
     const [ChannelsState, setChannelsState]= useState([]);
@@ -154,14 +154,16 @@ useEffect(() => {
         setModalOpenState4(false);
     }
 
-    
+    const openModal5 = () => {
+        setModalOpenState5(true);
+    }
+
+    const closeModal5 = () => {
+        setModalOpenState5(false);
+    }
 
     const checkIfFormValid = () => {
         return channelAddState && channelAddState.name && channelAddState.description && channelAddState.years && channelAddState.corso;
-    }
-
-    const checkIfFormValid3 = () => {
-        return CourseAddState && CourseAddState.name &&  CourseAddState.years;
     }
 
         
@@ -321,10 +323,19 @@ useEffect(() => {
             return;
             //da settare gli errori come fatto per i form di login e registrazione
         }
+
+
+
+        
+
         //const key = channelsRef.push().key; 
 
+       
         //generò un riferimento alla location,aggiungo i dati con la funzione push() e generò e ottengo una key unica
         const newChannelKey = push(child(ref(firebase.db), 'channels')).key;
+
+        
+
 
         const channel = {
             id:newChannelKey,
@@ -356,56 +367,11 @@ useEffect(() => {
 
     }
 
-    const onSubmit3 = () => {
-        if (!checkIfFormValid3()) {
-            return;
-            //da settare gli errori come fatto per i form di login e registrazione
-        }
-    
-        //generò un riferimento alla location,aggiungo i dati con la funzione push() e generò e ottengo una key unica
-        const newCourseKey = push(child(ref(firebase.db), 'courses')).key;
-
-        const course = {
-            id:newCourseKey,
-            name : CourseAddState.name,
-            years : CourseAddState.years
-        }
-
-        setIsLoading(true);
-        // Scrivo i dati del nuovo canale sul realtime database.
-        const updates = {};
-        updates['courses/' + newCourseKey] = course;
-        update(ref(firebase.db), updates)
-        .then(() =>
-        {
-            setCourseAddState({name: '', description: ''}) // pulizia dei dati
-            //console.log('saved');
-            setIsLoading(false);
-            closeModal3();
-        })
-        .catch ((error) => {
-            console.log(error);
-        })
-
-    }
-
-
-
-
 
     
     const handleInput = (event) => {
         let target =event.target //cioè l'elemento con cui l'utente sta interagendo
         setchannelAddState((currentState) => {
-            let updatedState ={...currentState}  //usando questo thread operator vado a creare un clone di currentState 
-            updatedState[target.name] = target.value;
-            return updatedState;
-        })
-    }
-
-    const handleInput2 = (event) => {
-        let target =event.target //cioè l'elemento con cui l'utente sta interagendo
-        setCourseAddState((currentState) => {
             let updatedState ={...currentState}  //usando questo thread operator vado a creare un clone di currentState 
             updatedState[target.name] = target.value;
             return updatedState;
@@ -429,20 +395,24 @@ useEffect(() => {
                 </Menu.Item>
                 <Menu.Item style={{fontSize: '17px'}}>
                     <span className='clickable'   onClick={openModal2}>
-                        <Icon name="delete"/> Rimuovi Canale
-                    </span>
-                </Menu.Item>
-                <Menu.Item style={{fontSize: '17px'}}>
-                    <span className='clickable'   onClick={openModal3}>
                         <Icon name="add"/> Aggiungi Corso di Studi
                     </span>
                 </Menu.Item>
                 <Menu.Item style={{fontSize: '17px'}}>
-                    <span className='clickable'   onClick={openModal4}>
+                    <span className='clickable'   onClick={openModal}>
                         <Icon name="delete"/> Rimuovi Corso di Studi
                     </span>
                 </Menu.Item>
-                
+                <Menu.Item style={{fontSize: '17px'}}>
+                    <span className='clickable'   onClick={openModal4}>
+                        <Icon name="add"/> Aggiungi Anno di corso
+                    </span>
+                </Menu.Item>
+                <Menu.Item style={{fontSize: '17px'}}>
+                    <span className='clickable'   onClick={openModal}>
+                        <Icon name="delete"/> Rimuovi Anno di corso
+                    </span>
+                </Menu.Item>
                 <Menu.Item>
                     <span>
                         <Icon name="exchange"/> Canali esistenti              
@@ -501,11 +471,9 @@ useEffect(() => {
                 </Modal.Actions>
             </Modal>
 
-
-
             <Modal open={modalOpenState2} onClose={closeModal2}>
                 <Modal.Header>
-                    Rimuovi Canale
+                    Aggiungi Corso di Laurea
                 </Modal.Header>
                 <Modal.Content>
                     <Form onSubmit={onSubmit}>
@@ -515,9 +483,8 @@ useEffect(() => {
                                 value={channelAddState.name}
                                 onChange={handleInput}
                                 type="text"
-                                placeholder="canale"
+                                placeholder="Inserisci il nome del canale"
                             />
-                            
                         </Segment>
                     </Form>
                 </Modal.Content>
@@ -531,43 +498,9 @@ useEffect(() => {
                 </Modal.Actions>
             </Modal>
 
-            <Modal open={modalOpenState3} onClose={closeModal3}>
-                <Modal.Header>
-                    Aggiungi Corso di Laurea
-                </Modal.Header>
-                <Modal.Content>
-                    <Form onSubmit={onSubmit3}>
-                        <Segment stacked>
-                            <Form.Input
-                                name="name"
-                                value={CourseAddState.name}
-                                onChange={handleInput2}
-                                type="text"
-                                placeholder="Inserisci corso di laurea"
-                            />
-                            <Form.Input
-                                name="years"
-                                value={CourseAddState.years}
-                                onChange={handleInput2}
-                                type="text"
-                                placeholder="Inserisci l'anno di corso"
-                            />
-                        </Segment>
-                    </Form>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button loading={isLoading} onClick={onSubmit3}>
-                        <Icon name="checkmark"/> Salva
-                    </Button>
-                    <Button onClick={closeModal3}>
-                        <Icon name="remove"/> Annulla
-                    </Button>
-                </Modal.Actions>
-            </Modal>
-
             <Modal open={modalOpenState4} onClose={closeModal4}>
                 <Modal.Header>
-                    Rimuovi Corso di Laurea
+                    Aggiungi Anno di corso
                 </Modal.Header>
                 <Modal.Content>
                     <Form onSubmit={onSubmit}>
@@ -577,7 +510,7 @@ useEffect(() => {
                                 value={channelAddState.name}
                                 onChange={handleInput}
                                 type="text"
-                                placeholder="rimuovi corso"
+                                placeholder="Inserisci il nome del canale"
                             />
                         </Segment>
                     </Form>
@@ -591,9 +524,6 @@ useEffect(() => {
                     </Button>
                 </Modal.Actions>
             </Modal>
-
-
-           
         </>
 
 

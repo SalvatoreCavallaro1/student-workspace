@@ -403,15 +403,6 @@ useEffect(() => {
         })
     }
 
-    const handleInput2 = (event) => {
-        let target =event.target //cioè l'elemento con cui l'utente sta interagendo
-        setCourseAddState((currentState) => {
-            let updatedState ={...currentState}  //usando questo thread operator vado a creare un clone di currentState 
-            updatedState[target.name] = target.value;
-            return updatedState;
-        })
-    }
-
     
 
 
@@ -541,14 +532,14 @@ useEffect(() => {
                             <Form.Input
                                 name="name"
                                 value={CourseAddState.name}
-                                onChange={handleInput2}
+                                onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci corso di laurea"
                             />
                             <Form.Input
                                 name="years"
                                 value={CourseAddState.years}
-                                onChange={handleInput2}
+                                onChange={handleInput}
                                 type="text"
                                 placeholder="Inserisci l'anno di corso"
                             />
