@@ -10,15 +10,15 @@ const Channels = (props) => {
     
     const adminMail="admin@gmail.com";
     var newArray=[];
-    //const coursesobj=[];
-    const courses=[];
-    //const orderedcourses=[];
+    const coursesobj=[];
+    const courses=[{id:'fdfds',key: 'prov', text: 'prov', value: 'prov', years: '1' }];
+    const orderedcourses=[];
     const [userState, setUserState]= useState([]);
-   /* const languageOptions = [
+    const languageOptions = [
         { id:'fhfgrer',key: 'Ingegneria Informatica primo anno', text: 'Ingegneria Informatica primo anno', value: 'Ingegneria Informatica primo anno', years: '1' },
         { key: 'Chinese', text: 'Chinese', value: 'Chinese' },
         { key: 'Danish', text: 'Danish', value: 'Danish' },
-    ]*/
+    ]
 
     
     const [modalOpenState, setModalOpenState]= useState(false);
@@ -31,7 +31,7 @@ const Channels = (props) => {
     //stato per mantenere tutti i canali presenti
     const [ChannelsState, setChannelsState]= useState([]);
     const [ChannelsStateFilt, setChannelsStateFilt]= useState([]);
-   // const [CoursesState,setCoursesState]=useState([]);
+    const [CoursesState,setCoursesState]=useState([]);
 
     const channelsRef= ref(firebase.db, 'channels');
     //console.log();
@@ -105,7 +105,8 @@ useEffect ( () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `courses`)).then((snapshot) => {
     if (snapshot.exists()) {
-        //console.log(snapshot.val());
+        console.log(snapshot.val());
+
         /*setCoursesState((currentState) => {
             let updatedState = [...currentState];
             updatedState.push(snapshot.val());  
@@ -115,35 +116,51 @@ useEffect ( () => {
         CoursesState.map((course) => {
             console.log(course);
         })*/
-          Object.keys(snapshot.val()).forEach(key => courses.push(snapshot.val()[key]));
-          //Object.entries(coursesobj).forEach(([key,value])=>courses.push(value));
+
+
+
+       
+          Object.keys(snapshot.val()).forEach(key => coursesobj.push(snapshot.val()[key]));
+          Object.keys(coursesobj).forEach(key => courses.id=coursesobj.id,courses.key=coursesobj.key,courses.text=coursesobj.text,courses.value=coursesobj.value,courses.years=coursesobj.years);
+
           //Object.keys(courses).forEach(key => {delete courses[key].id});
-          //Object.keys(courses).forEach(key => {delete courses[key].years});   
+          //Object.keys(courses).forEach(key => {delete courses[key].years});
+          
         //courses.push(snapshot.val());
-         //console.log(coursesobj);
-        // console.log(courses);   
-       // console.log(languageOptions);
+         console.log(coursesobj);
+         console
+
+      
+       
+
+        
+        console.log(languageOptions);
         //let provaarray=[];
         //languageOptions=[...courses];
         //Object.keys(courses).forEach(key => languageOptions.push(courses[key]));
        // languageOptions.
        // languageOptions.concat({ key: 'prov', text: 'prov', value: 'prov' });
-      //  console.log(languageOptions); 
+      //  console.log(languageOptions);
+        
+
+        
         //Object.keys(courses).forEach(key => console.log(key, ':', courses[key]));
+
+
         /*
         let newcourses = words.map(filterFn(i));
         orderedcourses.push(newcourses);
-        console.log(orderedcourses);*/         
+        console.log(orderedcourses);*/
+
+       
+        
     } else {
         console.log("No data available");
     }
     }).catch((error) => {
     console.error(error);
     });
-},[courses])
-
-
-
+},[])
 
     const filterFn = (value, index, obj,i) => {
         let result = value.replace(/-$/g, i);

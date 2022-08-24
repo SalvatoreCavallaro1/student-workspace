@@ -10,15 +10,14 @@ const Channels = (props) => {
     
     const adminMail="admin@gmail.com";
     var newArray=[];
-    //const coursesobj=[];
     const courses=[];
-    //const orderedcourses=[];
+    const orderedcourses=[];
     const [userState, setUserState]= useState([]);
-   /* const languageOptions = [
-        { id:'fhfgrer',key: 'Ingegneria Informatica primo anno', text: 'Ingegneria Informatica primo anno', value: 'Ingegneria Informatica primo anno', years: '1' },
+    const languageOptions = [
+        { key: 'Ingegneria Informatica primo anno', text: 'Ingegneria Informatica primo anno', value: 'Ingegneria Informatica primo anno' },
         { key: 'Chinese', text: 'Chinese', value: 'Chinese' },
         { key: 'Danish', text: 'Danish', value: 'Danish' },
-    ]*/
+    ]
 
     
     const [modalOpenState, setModalOpenState]= useState(false);
@@ -31,7 +30,7 @@ const Channels = (props) => {
     //stato per mantenere tutti i canali presenti
     const [ChannelsState, setChannelsState]= useState([]);
     const [ChannelsStateFilt, setChannelsStateFilt]= useState([]);
-   // const [CoursesState,setCoursesState]=useState([]);
+    //const [CoursesState,setCoursesState]=useState([]);
 
     const channelsRef= ref(firebase.db, 'channels');
     //console.log();
@@ -105,45 +104,49 @@ useEffect ( () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `courses`)).then((snapshot) => {
     if (snapshot.exists()) {
-        //console.log(snapshot.val());
+        console.log(snapshot.val());
+
+       
+        Object.keys(snapshot.val()).forEach(key => courses.push(snapshot.val()[key]));
+        Object.keys(courses).forEach(key => {delete courses[key].id});
+        Object.keys(courses).forEach(key => {delete courses[key].years});
+
+
+        //courses.push(snapshot.val());
+        console.log(courses);
+        
+        console.log(languageOptions);
+        languageOptions=[...courses];
+        //Object.keys(courses).forEach(key => languageOptions.push(courses[key]));
+        console.log(languageOptions);
+        
+
+        
+        //Object.keys(courses).forEach(key => console.log(key, ':', courses[key]));
+
+
+        /*
+        let newcourses = words.map(filterFn(i));
+        orderedcourses.push(newcourses);
+        console.log(orderedcourses);*/
+
         /*setCoursesState((currentState) => {
             let updatedState = [...currentState];
             updatedState.push(snapshot.val());  
             return updatedState;
         })
 
-        CoursesState.map((course) => {
+        ChannelsState.map((course) => {
             console.log(course);
         })*/
-          Object.keys(snapshot.val()).forEach(key => courses.push(snapshot.val()[key]));
-          //Object.entries(coursesobj).forEach(([key,value])=>courses.push(value));
-          //Object.keys(courses).forEach(key => {delete courses[key].id});
-          //Object.keys(courses).forEach(key => {delete courses[key].years});   
-        //courses.push(snapshot.val());
-         //console.log(coursesobj);
-        // console.log(courses);   
-       // console.log(languageOptions);
-        //let provaarray=[];
-        //languageOptions=[...courses];
-        //Object.keys(courses).forEach(key => languageOptions.push(courses[key]));
-       // languageOptions.
-       // languageOptions.concat({ key: 'prov', text: 'prov', value: 'prov' });
-      //  console.log(languageOptions); 
-        //Object.keys(courses).forEach(key => console.log(key, ':', courses[key]));
-        /*
-        let newcourses = words.map(filterFn(i));
-        orderedcourses.push(newcourses);
-        console.log(orderedcourses);*/         
+        
     } else {
         console.log("No data available");
     }
     }).catch((error) => {
     console.error(error);
     });
-},[courses])
-
-
-
+},[])
 
     const filterFn = (value, index, obj,i) => {
         let result = value.replace(/-$/g, i);
@@ -639,7 +642,7 @@ useEffect ( () => {
                             fluid
                             search
                             selection
-                            options={courses}     
+                            options={languageOptions}     
                             />      
                         </Segment>
                     </Form>

@@ -12,13 +12,13 @@ const Channels = (props) => {
     var newArray=[];
     //const coursesobj=[];
     const courses=[];
-    //const orderedcourses=[];
+    const orderedcourses=[];
     const [userState, setUserState]= useState([]);
-   /* const languageOptions = [
+    const languageOptions = [
         { id:'fhfgrer',key: 'Ingegneria Informatica primo anno', text: 'Ingegneria Informatica primo anno', value: 'Ingegneria Informatica primo anno', years: '1' },
         { key: 'Chinese', text: 'Chinese', value: 'Chinese' },
         { key: 'Danish', text: 'Danish', value: 'Danish' },
-    ]*/
+    ]
 
     
     const [modalOpenState, setModalOpenState]= useState(false);
@@ -105,7 +105,8 @@ useEffect ( () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `courses`)).then((snapshot) => {
     if (snapshot.exists()) {
-        //console.log(snapshot.val());
+        console.log(snapshot.val());
+
         /*setCoursesState((currentState) => {
             let updatedState = [...currentState];
             updatedState.push(snapshot.val());  
@@ -115,25 +116,44 @@ useEffect ( () => {
         CoursesState.map((course) => {
             console.log(course);
         })*/
+
+
+
+       
           Object.keys(snapshot.val()).forEach(key => courses.push(snapshot.val()[key]));
           //Object.entries(coursesobj).forEach(([key,value])=>courses.push(value));
+
           //Object.keys(courses).forEach(key => {delete courses[key].id});
-          //Object.keys(courses).forEach(key => {delete courses[key].years});   
+          //Object.keys(courses).forEach(key => {delete courses[key].years});
+          
         //courses.push(snapshot.val());
          //console.log(coursesobj);
-        // console.log(courses);   
-       // console.log(languageOptions);
+         console.log(courses);
+
+      
+       
+
+        
+        console.log(languageOptions);
         //let provaarray=[];
         //languageOptions=[...courses];
         //Object.keys(courses).forEach(key => languageOptions.push(courses[key]));
        // languageOptions.
        // languageOptions.concat({ key: 'prov', text: 'prov', value: 'prov' });
-      //  console.log(languageOptions); 
+      //  console.log(languageOptions);
+        
+
+        
         //Object.keys(courses).forEach(key => console.log(key, ':', courses[key]));
+
+
         /*
         let newcourses = words.map(filterFn(i));
         orderedcourses.push(newcourses);
-        console.log(orderedcourses);*/         
+        console.log(orderedcourses);*/
+
+       
+        
     } else {
         console.log("No data available");
     }

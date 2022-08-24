@@ -105,7 +105,7 @@ useEffect ( () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `courses`)).then((snapshot) => {
     if (snapshot.exists()) {
-        //console.log(snapshot.val());
+        console.log(snapshot.val());
         /*setCoursesState((currentState) => {
             let updatedState = [...currentState];
             updatedState.push(snapshot.val());  
