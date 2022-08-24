@@ -27,7 +27,7 @@ const Channels = (props) => {
     const [modalOpenState4, setModalOpenState4]= useState(false);
     const [channelAddState, setchannelAddState]= useState({name: '', description: ''});
     const [CourseAddState, setCourseAddState]= useState({name: '', years: ''});
-    const [CourseRemoveState, setCourseRemoveState]= useState({name: 'Seleziona Corso'});
+    const [CourseRemoveState, setCourseRemoveState]= useState({name: ''});
     const [isLoading, setIsLoading]= useState(false); //stato per gestire l'icona di caricamento
     //stato per mantenere tutti i canali presenti
     const [ChannelsState, setChannelsState]= useState([]);
@@ -511,8 +511,7 @@ useEffect ( () => {
         setCourseRemoveState((currentState) => {
             let updatedState ={...currentState}  //usando lo spread operator vado a creare un clone di currentState 
             console.log(updatedState);
-            updatedState.name = vettTarget[0].innerText;
-            console.log(updatedState);
+            updatedState[target.name] = target.value;
             return updatedState;
         })
     }
@@ -679,13 +678,12 @@ useEffect ( () => {
                         <Segment stacked>    
                             <Dropdown
                             name="courseRemove"
-                            
+                            placeholder='Seleziona Corso'
                             fluid
                             search
                             selection
                             options={courses}
                             onChange={handleInput3}
-                            placeholder={CourseRemoveState.name}
                              />      
                         </Segment>
                     </Form>

@@ -27,7 +27,7 @@ const Channels = (props) => {
     const [modalOpenState4, setModalOpenState4]= useState(false);
     const [channelAddState, setchannelAddState]= useState({name: '', description: ''});
     const [CourseAddState, setCourseAddState]= useState({name: '', years: ''});
-    const [CourseRemoveState, setCourseRemoveState]= useState({name: 'Seleziona Corso'});
+    const [CourseRemoveState, setCourseRemoveState]= useState({name: ''});
     const [isLoading, setIsLoading]= useState(false); //stato per gestire l'icona di caricamento
     //stato per mantenere tutti i canali presenti
     const [ChannelsState, setChannelsState]= useState([]);
@@ -457,7 +457,7 @@ useEffect ( () => {
     }
 
 
-    const onSubmit4 = (event) => {
+    const onSubmit4 = (place) => {
        /* if (!checkIfFormValid4()) {
             return;
             //da settare gli errori come fatto per i form di login e registrazione
@@ -465,12 +465,12 @@ useEffect ( () => {
     
         //console.log(CourseRemoveState);
 
-        event.preventDefault();
-        const {target} = event;
-        console.log(target);
+        //event.preventDefault();
+        //const {target} = event;
         //console.log('FormData', Object.fromEntries(new FormData(target)));
-        //console.log('target.courseRemove.value', target.courseRemove.value);
-        //console.log('target.courseRemove.value', target.Dropdown.value);
+       // console.log('target.courseRemove.value', target.courseRemove.value);
+       // console.log('target.courseRemove.value', target.Dropdown.value);
+       console.log(place);
 
       
 
@@ -499,20 +499,13 @@ useEffect ( () => {
         })
     }
 
-    const handleInput3 = (event) => {
-        let target =event.target //cioè l'elemento con cui l'utente sta interagendo
-        console.log(target);
+    const handleInput3 = (place) => {
+        //let target =event.target //cioè l'elemento con cui l'utente sta interagendo
+        console.log(place);
         //console.log(target.id);
-        //console.log(event.view);
-        let vettTarget=[];
-        vettTarget.push(target);
-        console.log(vettTarget);
-        console.log(vettTarget[0].innerText);
         setCourseRemoveState((currentState) => {
             let updatedState ={...currentState}  //usando lo spread operator vado a creare un clone di currentState 
-            console.log(updatedState);
-            updatedState.name = vettTarget[0].innerText;
-            console.log(updatedState);
+            updatedState[target.name] = target.value;
             return updatedState;
         })
     }
@@ -679,19 +672,18 @@ useEffect ( () => {
                         <Segment stacked>    
                             <Dropdown
                             name="courseRemove"
-                            
+                            placeholder='Seleziona Corso'
                             fluid
                             search
                             selection
                             options={courses}
-                            onChange={handleInput3}
-                            placeholder={CourseRemoveState.name}
+                           onChange={handleInput3}
                              />      
                         </Segment>
                     </Form>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button loading={isLoading} onClick={onSubmit4}>
+                    <Button loading={isLoading} onClick={onSubmit(Dropdown.placeholder)}>
                         <Icon name="checkmark"/> Salva
                     </Button>
                     <Button onClick={closeModal4}>
