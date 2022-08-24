@@ -3,7 +3,7 @@ import "./Channels.css";
 import { connect } from 'react-redux';
 import { Icon, Menu, Modal, Form, Button, Segment, Dropdown } from 'semantic-ui-react';
 import * as firebase from '../../../server/firebase';
-import {ref, push, update, child, onChildAdded,getDatabase,get,set, serverTimestamp,onDisconnect,remove} from "firebase/database";
+import {ref, push, update, child, onChildAdded,getDatabase,get,set, serverTimestamp,onDisconnect} from "firebase/database";
 import { setChannel } from '../../../store/actioncreator';
 import { Notification } from '../Notification/Notification.component';
 const Channels = (props) => {
@@ -457,7 +457,7 @@ useEffect ( () => {
     }
 
 
-    const onSubmit4 = () => {
+    const onSubmit4 = (name) => {
        /* if (!checkIfFormValid4()) {
             return;
             //da settare gli errori come fatto per i form di login e registrazione
@@ -465,25 +465,20 @@ useEffect ( () => {
     
                 let Clength=courses.length;
                 //console.log(length);
-                
-                let courseIDToRemove;
+                console.log(name);
+                let courseRemove;
                 for(let i=0;i<Clength;i++)
                 {
-                    console.log(courses[i].value);
-                    console.log(CourseRemoveState.name);
-                   if(courses[i].value==CourseRemoveState.name)
-                   courseIDToRemove=courses[i].id;
+                   // if()
                 }
-                console.log(courseIDToRemove);
-                const dbRef = ref(getDatabase());
-                const coursesRef=child(dbRef, `courses/${courseIDToRemove}`);
-                //set(userStatusRef,true); 
+               /* const dbRef = ref(getDatabase());
+                const userStatusRef=child(dbRef, `status/${props.user.uid}`);
+                set(userStatusRef,true); 
                 // ogni volta che  l'utente viene loggato le informazioni vengono aggiunte allo userstatus ref e ogni volta che l'utente si disconnette
                 //rimuovo le informazioni relative all'utente che si è disconnesso
-                remove(coursesRef);
-                /*coursesRef.remove().catch((err) => {
+                onDisconnect(userStatusRef).remove().catch((err) => {
                     if (err) {
-                      console.error("could not establish connection", err);
+                      console.error("could not establish onDisconnect event", err);
                     }
                   });*/
 
@@ -690,7 +685,7 @@ useEffect ( () => {
                     Rimuovi Corso di Laurea
                 </Modal.Header>
                 <Modal.Content>
-                    <Form onSubmit={onSubmit4}>
+                    <Form onSubmit={onSubmit4(CourseRemoveState.name)}>
                         <Segment stacked>    
                             <Dropdown
                             name="courseRemove"
@@ -706,7 +701,7 @@ useEffect ( () => {
                     </Form>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button loading={isLoading} onClick={onSubmit4}>
+                    <Button loading={isLoading} onClick={onSubmit4(CourseRemoveState.name)}>
                         <Icon name="checkmark"/> Salva
                     </Button>
                     <Button onClick={closeModal4}>
