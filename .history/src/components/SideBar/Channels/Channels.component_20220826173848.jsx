@@ -120,14 +120,7 @@ useEffect ( () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `channels`)).then((snapshot) => {
     if (snapshot.exists()) {
-
-          Object.keys(snapshot.val()).forEach(key =>
-            {
-                if(snapshot.val()[key].forSelectBox){
-                    channels.push(snapshot.val()[key].forSelectBox)
-                }
-            }
-             ); 
+          Object.keys(snapshot.val()).forEach(key => channels.push(snapshot.val()[key].forSelectBox)); 
           console.log(channels);     
     } else {
         console.log("No data available");
@@ -210,7 +203,7 @@ useEffect ( () => {
     
 
     const checkIfFormValid = () => {
-        return channelAddState && channelAddState.name && channelAddState.description && CourseState && CourseState.name!="Seleziona Corso";
+        return channelAddState && channelAddState.name && channelAddState.description;
     }
 
     const checkIfFormValid3 = () => {
@@ -218,11 +211,7 @@ useEffect ( () => {
     }
 
     const checkIfFormValid4 = () => {
-        return CourseState && CourseState.name!="Seleziona Corso";
-    }
-
-    const checkIfFormValid5 = () => {
-        return ChannelsRemoveState && ChannelsRemoveState.name!="Seleziona Canale";
+        return CourseState && CourseAddState.name;
     }
 
         
@@ -463,10 +452,10 @@ useEffect ( () => {
 
 
     const onSubmit4 = () => {
-        if (!checkIfFormValid4()) {
+       /* if (!checkIfFormValid4()) {
             return;
-        //da settare gli errori come fatto per i form di login e registrazione
-        }
+            //da settare gli errori come fatto per i form di login e registrazione
+        }*/
     
                 let Clength=courses.length;
                
@@ -489,36 +478,6 @@ useEffect ( () => {
       
 
     }
-
-
-    const onSubmit5 = () => {
-         if (!checkIfFormValid5()) {
-             return;
-             //da settare gli errori come fatto per i form di login e registrazione
-         }
-     
-                 let Clength=channels.length;
-                
-                 
-                 let channelIDToRemove;
-                 for(let i=0;i<Clength;i++)
-                 {
-                     console.log(channels[i].value);
-                     console.log(ChannelsRemoveState.name);
-                    if(channels[i].value==ChannelsRemoveState.name)
-                    channelIDToRemove=channels[i].id;
-                 }
-                 //console.log(courseIDToRemove);
-                 const dbRef = ref(getDatabase());
-                 const channelRef=child(dbRef, `channels/${channelIDToRemove}`);
-                 
-                 remove(channelRef);
-                
- 
-       
- 
-     }
- 
 
 
 
@@ -666,10 +625,10 @@ useEffect ( () => {
                     Rimuovi Canale
                 </Modal.Header>
                 <Modal.Content>
-                    <Form onSubmit={onSubmit5}>
+                    <Form onSubmit={onSubmit}>
                         <Segment stacked>
                         <Dropdown
-                            name="channelRemove" 
+                            name="courseRemove" 
                             fluid
                             search
                             selection
@@ -681,7 +640,7 @@ useEffect ( () => {
                     </Form>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button loading={isLoading} onClick={onSubmit5}>
+                    <Button loading={isLoading} onClick={onSubmit}>
                         <Icon name="checkmark"/> Salva
                     </Button>
                     <Button onClick={closeModal2}>

@@ -221,10 +221,6 @@ useEffect ( () => {
         return CourseState && CourseState.name!="Seleziona Corso";
     }
 
-    const checkIfFormValid5 = () => {
-        return ChannelsRemoveState && ChannelsRemoveState.name!="Seleziona Canale";
-    }
-
         
     const newArraylenght = () => {
          
@@ -492,10 +488,10 @@ useEffect ( () => {
 
 
     const onSubmit5 = () => {
-         if (!checkIfFormValid5()) {
+        /* if (!checkIfFormValid4()) {
              return;
              //da settare gli errori come fatto per i form di login e registrazione
-         }
+         }*/
      
                  let Clength=channels.length;
                 

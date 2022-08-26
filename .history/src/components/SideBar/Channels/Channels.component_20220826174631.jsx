@@ -210,7 +210,7 @@ useEffect ( () => {
     
 
     const checkIfFormValid = () => {
-        return channelAddState && channelAddState.name && channelAddState.description && CourseState && CourseState.name!="Seleziona Corso";
+        return channelAddState && channelAddState.name && channelAddState.description;
     }
 
     const checkIfFormValid3 = () => {
@@ -218,11 +218,7 @@ useEffect ( () => {
     }
 
     const checkIfFormValid4 = () => {
-        return CourseState && CourseState.name!="Seleziona Corso";
-    }
-
-    const checkIfFormValid5 = () => {
-        return ChannelsRemoveState && ChannelsRemoveState.name!="Seleziona Canale";
+        return CourseState && CourseAddState.name;
     }
 
         
@@ -463,10 +459,10 @@ useEffect ( () => {
 
 
     const onSubmit4 = () => {
-        if (!checkIfFormValid4()) {
+       /* if (!checkIfFormValid4()) {
             return;
-        //da settare gli errori come fatto per i form di login e registrazione
-        }
+            //da settare gli errori come fatto per i form di login e registrazione
+        }*/
     
                 let Clength=courses.length;
                
@@ -492,10 +488,10 @@ useEffect ( () => {
 
 
     const onSubmit5 = () => {
-         if (!checkIfFormValid5()) {
+        /* if (!checkIfFormValid4()) {
              return;
              //da settare gli errori come fatto per i form di login e registrazione
-         }
+         }*/
      
                  let Clength=channels.length;
                 
