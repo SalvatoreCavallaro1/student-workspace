@@ -837,18 +837,10 @@ useEffect ( () => {
 
 // prendo da redux store le inforazioni dell'utente loggato per inserire le informazioni di chi ha creato il canale
 const mapStateToProps = (state) => {
-
-   
-
     return {
         user: state.user.currentUser,
-    
         channel: state.channel.currentChannel
-        
     }
-
-      
-
 }
 
 const mapDispatchToProps = (dispatch) => {

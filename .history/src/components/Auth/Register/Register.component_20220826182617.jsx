@@ -198,24 +198,11 @@ const Register = () => {
     //salvo sul database solo l'uid, display name e l'url della foto 
     const saveUserInDB = (createdUser) => {
         setIsLoading(true);
-
-        let Clength=courses.length;
-               
-                
-        let courseYear;
-        for(let i=0;i<Clength;i++)
-        {
-            console.log(courses[i].value);
-            console.log(CourseState.name);
-            if(courses[i].value==CourseState.name)
-            courseYear=courses[i].years;
-        }
-
         set(ref(firebase.db, 'users/'+ createdUser.user.uid),{
             displayName: createdUser.user.displayName,
             photoURL: createdUser.user.photoURL,
-            corso: CourseState.name,
-            years: courseYear
+            corso: userState.corso,
+            years: userState.years
         })
         .then(() => {
             setIsLoading(false);

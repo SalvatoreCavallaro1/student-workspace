@@ -63,7 +63,7 @@ const Index = (props) => {
  //props.loading && props.location.pathname==="/"
  return(<>
     
-    <AppLoader loading={props.loading && props.location.pathname==="/"}/>
+    <AppLoader loading={false}/>
     <Switch>
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />

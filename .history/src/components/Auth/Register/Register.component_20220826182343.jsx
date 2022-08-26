@@ -1,9 +1,9 @@
-import React, {useState,useEffect} from "react"; //useState serve a manternere lo stato fra i component
-import { Grid, Form, Segment, Header, Icon, Button, Message, Dropdown } from "semantic-ui-react";
+import React, {useState} from "react"; //useState serve a manternere lo stato fra i component
+import { Grid, Form, Segment, Header, Icon, Button, Message, Select } from "semantic-ui-react";
 import "../Auth.css"
 import * as firebase from '../../../server/firebase';
 import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {ref, set, getDatabase, get, child} from "firebase/database";
+import {ref, set} from "firebase/database";
 import { Link } from "react-router-dom";
 // per creare l'ui del form utilizzo il pacchetto semantic-ui-reactù
 // npm install semantic-ui-react
@@ -59,19 +59,6 @@ const Register = () => {
     const[isLoading, setIsLoading]= useState(false);
     const[isSuccess, setIsSuccess]= useState(false);
 
-    useEffect ( () => {
-        const dbRef = ref(getDatabase());
-        get(child(dbRef, `courses`)).then((snapshot) => {
-        if (snapshot.exists()) {
-              Object.keys(snapshot.val()).forEach(key => courses.push(snapshot.val()[key]));      
-        } else {
-            console.log("No data available");
-        }
-        }).catch((error) => {
-        console.error(error);
-        });
-    },[courses])
-
     //funzione handleInpt che riceve gli eventi degli oggetti
     const handleInput = (event) => {
 
@@ -89,22 +76,6 @@ const Register = () => {
         })
         
 
-    }
-
-    const handleInput2 = (event) => {
-        let target =event.target //cioè l'elemento con cui l'utente sta interagendo
-       
-        
-        let vettTarget=[];
-        vettTarget.push(target);
-       
-        setCourseState((currentState) => {
-            let updatedState ={...currentState}  //usando lo spread operator vado a creare un clone di currentState 
-           
-            updatedState.name = vettTarget[0].innerText;
-            
-            return updatedState;
-        })
     }
 
     //validazione del form
@@ -198,24 +169,11 @@ const Register = () => {
     //salvo sul database solo l'uid, display name e l'url della foto 
     const saveUserInDB = (createdUser) => {
         setIsLoading(true);
-
-        let Clength=courses.length;
-               
-                
-        let courseYear;
-        for(let i=0;i<Clength;i++)
-        {
-            console.log(courses[i].value);
-            console.log(CourseState.name);
-            if(courses[i].value==CourseState.name)
-            courseYear=courses[i].years;
-        }
-
         set(ref(firebase.db, 'users/'+ createdUser.user.uid),{
             displayName: createdUser.user.displayName,
             photoURL: createdUser.user.photoURL,
-            corso: CourseState.name,
-            years: courseYear
+            corso: userState.corso,
+            years: userState.years
         })
         .then(() => {
             setIsLoading(false);
@@ -287,7 +245,7 @@ return (
             search
             selection
             options={courses}
-            onChange={handleInput2}
+            onChange={handleInput3}
             placeholder={CourseState.name}
                 />  
         </Segment>

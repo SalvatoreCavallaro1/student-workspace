@@ -4,11 +4,15 @@ import { Segment, Header, Input, Icon } from 'semantic-ui-react';
 const MessageHeader = (props) =>{
     //HEADER 1 CHANNEL TITLE E NUMERO UTENTI
     //HEADER 2 PER CERCARE MESSAGGI NELLA CHAT
-    
+    if(props.channelName && props.isPrivateChat && props.uniqueUsers)
+    {
     return <Segment clearing>
         <Header floated='left' fluid="true" as="h2">
             <span>
-            {(props.isPrivateChat ? "@ " : "# ") + props.channelName}     
+            {(props.isPrivateChat ? "@ " : "# ") + props.channelName}
+               
+        
+                
             </span>
             <Header.Subheader> {props.uniqueUsers} {props.uniqueUsers === 1 ? "Utente" :"Utenti"}</Header.Subheader>
         </Header>
@@ -23,7 +27,7 @@ const MessageHeader = (props) =>{
             />
         </Header> 
     </Segment>
-    
+    }
 }
 
 export default MessageHeader;

@@ -760,8 +760,13 @@ useEffect ( () => {
 
         }
         else 
-        {  
-            newArraylenght(); 
+        {
+
+          
+            
+            newArraylenght();
+            if(newArray.length>0)
+            {
             return <><Menu.Menu>    
                 <Menu.Item style={{fontSize: '17px'}}>
                     <span>
@@ -772,6 +777,20 @@ useEffect ( () => {
                 {displayChannels()}   
                 </Menu.Menu>
                 </>
+            }
+            else
+            {
+                return <><Menu.Menu>    
+                <Menu.Item style={{fontSize: '17px'}}>
+                    <span>
+                        <Icon name="exchange"/> Canali              
+                    </span>
+                    ({newArray.length})
+                </Menu.Item>    
+                  
+                </Menu.Menu>
+                </>
+            }
 
         }
     }
@@ -837,18 +856,10 @@ useEffect ( () => {
 
 // prendo da redux store le inforazioni dell'utente loggato per inserire le informazioni di chi ha creato il canale
 const mapStateToProps = (state) => {
-
-   
-
     return {
         user: state.user.currentUser,
-    
         channel: state.channel.currentChannel
-        
     }
-
-      
-
 }
 
 const mapDispatchToProps = (dispatch) => {
